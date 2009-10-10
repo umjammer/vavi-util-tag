@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+
+<!-- ////////////////////////////////////////////////////////////////////// -->
+<!-- Copyright (c) 2002 by Naohide Sano, All rights reserved.               -->
+<!--                                                                        -->
+<!-- Written by Naohide Sano                                                -->
+<!--                                                                        -->
+<!-- MelodyFormat                                                           -->
+<!--                                                                        -->
+<!-- @author	Naohide Sano                                                -->
+<!-- @version	0.00	021208	nsano	initial version                     -->
+<!--                                                                        -->
+<!-- ////////////////////////////////////////////////////////////////////// -->
+
+<project name="test.153" default="run" basedir=".">
+
+  <property name="dir.build" value="build" />
+
+  <!-- クラスパスの定義 -->
+  <path id="project.class.path">
+    <pathelement location="../.." />
+    <pathelement location="${dir.build}" />
+  </path>
+
+  <!-- ターゲットの定義 -->
+
+  <!-- clean -->
+  <target name="clean" description="ビルド環境のクリア">
+    <delete dir="${dir.build}" />
+  </target>
+
+  <!-- prepare -->
+  <target name="prepare" description="準備">
+    <mkdir dir="${dir.build}" />
+  </target>
+
+  <!-- javac -->
+  <target name="compile" depends="prepare" description="コンパイル">
+    <javac debug="on" destdir="${dir.build}" encoding="MS932">
+      <classpath refid="project.class.path" />
+      <include name="**/*.java" />
+      <src path="src" />
+    </javac>
+  </target>
+
+  <!-- run -->
+  <target name="run" depends="compile" description="unknown でコンバート">
+    <java classname="unknown.sound.MTMMain" fork="yes">
+      <classpath refid="project.class.path" />
+    </java>
+  </target>
+
+  <!-- backup -->
+  <target name="backup" description="backup">
+    <tstamp>
+      <format property="today.jp" pattern="yyMMdd"/>
+    </tstamp>
+    <zip zipfile="mld${today.jp}.zip">
+      <fileset dir=".">
+        <include name="src/**/*.java" />
+        <include name="etc/*.MF" />
+        <include name="*.xml" />
+      </fileset>
+    </zip>
+  </target>
+
+</project>
+
+<!-- -->
