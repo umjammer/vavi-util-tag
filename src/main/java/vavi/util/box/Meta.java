@@ -31,6 +31,18 @@ public interface Meta {
             return subBoxes;
         }
     
+        /**
+         * @return nullable 
+         */
+        public Box getSubBox(String id) {
+            for (Box box : subBoxes) {
+                if (box.isIdOf(id)) {
+                    return box;
+                }
+            }
+            return null;
+        }
+
         /** */
         public void addSubBox(Box box) {
             subBoxes.add(box);

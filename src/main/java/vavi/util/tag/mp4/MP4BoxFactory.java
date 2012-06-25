@@ -48,7 +48,7 @@ Debug.println("64 bit length: " + offset);
         }
 
         Box box = null;
-        String idString = new String(id);
+        String idString = new String(id, "ISO-8859-1");
         if ("ftyp".equals(idString)) {          // L1
             box = new ftyp();
         } else if ("moov".equals(idString)) {   // L1
@@ -87,6 +87,14 @@ Debug.println("64 bit length: " + offset);
             box = new MetaBox();
         } else if ("uuid".equals(idString)) {   // au 3gpp2
             box = new uuid();
+        } else if ("----".equals(idString)) {
+            box = new ____();
+        } else if ("covr".equals(idString)) {
+            box = new covr();
+        } else if (((char) 0xa9 + "nam").equals(idString)) {
+            box = new _nam();
+        } else if (((char) 0xa9 + "ART").equals(idString)) {
+            box = new _ART();
         } else {
             box = new Box();
         }

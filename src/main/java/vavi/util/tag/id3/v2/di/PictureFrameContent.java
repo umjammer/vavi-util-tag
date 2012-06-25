@@ -6,9 +6,13 @@
 
 package vavi.util.tag.id3.v2.di;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.logging.Logger;
 
-import vavi.util.StringUtil;
+import javax.imageio.ImageIO;
+
 import vavi.util.tag.id3.v2.ID3v2Exception;
 
 
@@ -83,7 +87,9 @@ public class PictureFrameContent extends BinaryFrameContent {
 
     /** */
     public PictureFrameContent(byte[] content) {
+//System.err.println(StringUtil.getDump(content, 64));
         this.encoding = toJavaEncoding(content[0]);
+//System.err.println("encoding: " + encoding);
         int i = 1;
         while (i < content.length) {
             if (content[i] == 0) {
@@ -92,7 +98,9 @@ public class PictureFrameContent extends BinaryFrameContent {
             i++;
         }
         this.mimeType = new String(content, 1, i - 1);
+//System.err.println("miteType: " + mimeType);
         this.pictureType = Type.values()[content[i + 1]];
+//System.err.println("pictureType: " + pictureType);
         int j = i + 2;
         while (j < content.length) {
             if (content[j] == 0) {
@@ -100,11 +108,12 @@ public class PictureFrameContent extends BinaryFrameContent {
             }
             j++;
         }
-        this.description = new String(content, i + 2, j - 1);
-        byte[] binary = new byte[content.length - ( + j)];
-        System.arraycopy(content, i + 2, binary, 0, j - 1 - (i + 2));
+        this.description = new String(content, i + 2, j - i - 2);
+//System.err.println("description: " + description);
+        byte[] binary = new byte[content.length - j - 1];
+        System.arraycopy(content, j + 1, binary, 0, binary.length);
         this.content = binary;
-logger.info("encoding: " + encoding + ", mimeType: " + mimeType + ", description: " + description + ", pictureType: " + this.pictureType + "\n" + StringUtil.getDump(content, 128));
+//logger.info("encoding: " + encoding + ", mimeType: " + mimeType + ", description: " + description + ", pictureType: " + this.pictureType + "\n" + StringUtil.getDump(binary, 128));
     }
 
     /** */
@@ -121,15 +130,20 @@ logger.info("encoding: " + encoding + ", mimeType: " + mimeType + ", description
         build.put((byte) pictureType.ordinal());
         build.put(description);
         build.put((byte) 0);
-        build.put((byte) 0);
         build.put((byte[]) content);
 
         return build.getBytes();
     }
 
     /** */
-    public void getContent(Object content) {
-        // TODO implement!
+    public Object getContent() {
+        try {
+            ByteArrayInputStream is = new ByteArrayInputStream((byte[]) content);
+            BufferedImage image = ImageIO.read(is);
+            return image;
+        } catch (IOException e) {
+            return null;
+        }
     }
 }
 

@@ -36,7 +36,7 @@ public class TextFrameContent extends FrameContent {
      */
     public TextFrameContent(byte[] content) {
         // Japanese Special!!!
-        this.content = CharConverter.createString(content, 0, content.length);
+        this.content = CharConverter.createString2(content, 0, content.length);
     }
 
     /** */
@@ -55,7 +55,7 @@ public class TextFrameContent extends FrameContent {
 
     /** */
     public String toString() {
-        return (String) content;
+        return String.valueOf(content);
     }
 
     /**

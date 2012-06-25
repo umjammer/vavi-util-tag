@@ -14,6 +14,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 import vavi.util.tag.id3.v2.impl.ID3v2FrameV220;
 import vavi.util.tag.id3.v2.impl.ID3v2FrameV230;
@@ -31,6 +32,8 @@ import vavi.util.tag.id3.v2.impl.ID3v2HeaderV240;
  */
 @SuppressWarnings("unchecked")
 public class ID3v2Factory {
+
+    private static Logger logger = Logger.getLogger(ID3v2Factory.class.getName());
 
     /** */
     private ID3v2Factory() {
@@ -94,7 +97,13 @@ public class ID3v2Factory {
             FrameContent frameContent = constructor.newInstance(content);
             return frameContent;
         } catch (Exception e) {
-            throw (RuntimeException) new IllegalStateException().initCause(e);
+if (key.matches("[A-Z0-9]{4}")) {
+ return new vavi.util.tag.id3.v2.di.RawFrameContent(content);
+} else {
+ logger.warning(key);
+ e.printStackTrace();
+            throw new IllegalStateException(e);
+}
         }
     }
 
@@ -106,7 +115,8 @@ public class ID3v2Factory {
             frameContent.setContent(content);
             return frameContent;
         } catch (Exception e) {
-            throw (RuntimeException) new IllegalStateException().initCause(e);
+logger.warning(key);
+            throw new IllegalStateException(e);
         }
     }
 
@@ -121,12 +131,12 @@ public class ID3v2Factory {
         try {
             Properties props = new Properties();
             props.load(ID3v2Factory.class.getResourceAsStream("/vavi/util/tag/id3/v2/di.properties"));
-            Enumeration e = props.propertyNames();
+            Enumeration<?> e = props.propertyNames();
             while (e.hasMoreElements()) {
                 String key = (String) e.nextElement();
                 String className = props.getProperty(key);
-                Class clazz = Class.forName(className);
-                Constructor constructor = clazz.getConstructor(byte[].class);
+                Class<FrameContent> clazz = (Class<FrameContent>) Class.forName(className);
+                Constructor<FrameContent> constructor = clazz.getConstructor(byte[].class);
                 constructorsWithArgs.put(key, constructor);
                 constructor = clazz.getConstructor();
                 constructors.put(key, constructor);

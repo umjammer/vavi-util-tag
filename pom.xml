@@ -43,10 +43,37 @@
   		<optional>false</optional>
   	</dependency>
   	<dependency>
+  		<groupId>org.mozilla</groupId>
+  		<artifactId>universalchardet</artifactId>
+  		<version>1.0.3</version>
+  		<optional>false</optional>
+  	</dependency>
+  	<dependency>
   		<groupId>vavi</groupId>
   		<artifactId>vavi-commons-sandbox</artifactId>
-  		<version>0.3.0</version>
+  		<version>0.3.1</version>
   		<optional>false</optional>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.nothome</groupId>
+  		<artifactId>javaxdelta</artifactId>
+  		<version>1.1</version>
+  		<optional>false</optional>
+  	</dependency>
+  	<dependency>
+  	  <groupId>vavi</groupId>
+  	  <artifactId>vavi-util-screenscraping</artifactId>
+  	  <version>1.0.1</version>
+  	</dependency>
+  	<dependency>
+  	  <groupId>org.kafsemo</groupId>
+  	  <artifactId>titl-core</artifactId>
+  	  <version>0.3-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  	  <groupId>hsqldb</groupId>
+  	  <artifactId>hsqldb</artifactId>
+  	  <version>1.8.0.10</version>
   	</dependency>
   </dependencies>
 </project>

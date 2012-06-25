@@ -23,6 +23,7 @@ package vavi.util.tag.id3.v2.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -116,28 +117,31 @@ public class ID3v2FrameV240 implements ID3v2Frame, Serializable {
     public ID3v2FrameV240(InputStream in) throws IOException, ID3v2Exception {
         // decode id
         byte[] head = new byte[10];
-        in.read(head, 0, 4);
+        DataInputStream dis = new DataInputStream(in);
+        dis.readFully(head, 0, 4);
         this.id = new String(head, 0, 4);
 
+        if (head[0] == 0) { // 0 is padding
+            this.id = ID_INVALID;
+            return;
+        }
+
         // decode size (needed to read content)
-        in.mark(4);
-        in.read(head, 4, 4);
+        dis.readFully(head, 4, 4);
         int length = (int) (new Bytes(head, 4, 4)).getValue();
+//logger.info("id: " + id + ": " + StringUtil.getDump(head, 4) + ", length: " + length);
         if (!ids.containsValue(id)) {
             if (id.matches("[A-Z0-9]{4}")) {
 logger.warning("unknown id: " + id + ", " + length);
-                in.skip(2 + length);
             } else {
-                if (head[0] != 0) { // 0 is padding
-logger.warning("maybe crush: " + id + ", " + length);
-                }
-                in.reset();
+logger.warning("maybe crush: " + StringUtil.getDump(head, 4) + ", " + length);
             }
+            dis.skipBytes(2 + length);
             return;
         }
 
         // deocde flags
-        in.read(head, 8, 2);
+        dis.readFully(head, 8, 2);
         if (((head[8] & 0xff) & FLAG_TAG_ALTER_PRESERVATION) > 0) {
             tag_alter_preservation = true;
         }
@@ -158,15 +162,15 @@ logger.warning("maybe crush: " + id + ", " + length);
         if (((head[9] & 0xff) & FLAG_GROUPING) > 0) {
             grouping = true;
         }
-//logger.info("compression: " + compression);
-//logger.info("encryption: " + encryption);
-//logger.info("grouping: " + grouping);
+logger.info("compression: " + compression);
+logger.info("encryption: " + encryption);
+logger.info("grouping: " + grouping);
 
         // additional bytes if present
         if (compression == true) {
             // read decompressed size
             byte[] decomp_byte = new byte[4];
-            in.read(decomp_byte);
+            dis.readFully(decomp_byte);
             decompressed_length = (int) (new vavi.util.tag.id3.Bytes(decomp_byte)).getValue();
 
             // substract 4 bytes from length to get actual content length
@@ -175,13 +179,13 @@ logger.warning("maybe crush: " + id + ", " + length);
 
         if (encryption == true) {
             // read encryption type
-            encryption_id = (byte) in.read();
+            encryption_id = dis.readByte();
             length--;
         }
 
         if (grouping == true) {
             // read group id
-            group = (byte) in.read();
+            group = dis.readByte();
 
             // substract 1 byte from length to get actual content length
             length--;
@@ -192,7 +196,7 @@ logger.warning("maybe crush: " + id + ", " + length);
         // FIXME axel.wernicke@gmx.de end
         // read content
         content = new byte[length];
-        in.read(content);
+        dis.readFully(content);
 
         // decompress if necessary
         if (compression == true) {

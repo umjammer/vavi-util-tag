@@ -21,6 +21,8 @@
 
 package vavi.util.tag.id3.v2.di;
 
+import vavi.util.StringUtil;
+import vavi.util.tag.id3.CharConverter;
 import vavi.util.tag.id3.v2.FrameContent;
 import vavi.util.tag.id3.v2.ID3v2Exception;
 
@@ -60,12 +62,16 @@ public class BinaryFrameContent extends FrameContent {
 
     /** */
     public String toString() {
-        return "binary: " + (((byte[]) content).length) + " bytes";
-    }
-
-    /** */
-    public void getContent(Object content) {
-        // TODO implement!
+//        return "binary: " + (((byte[]) content).length) + " bytes";
+        if (content == null) {
+            return null;
+        } else {
+            if (((byte[]) content).length < 3 || ((byte[]) content).length > 1024) {
+                return "binary: " + (((byte[]) content).length) + " bytes" + "\n" + StringUtil.getDump((byte[]) content, 64);
+            } else {
+                return "binary: " + (((byte[]) content).length) + " bytes" + "\n" + StringUtil.getDump((byte[]) content, 64) + CharConverter.createString2((byte[]) content, 0, ((byte[]) content).length);
+            }
+        }
     }
 }
 

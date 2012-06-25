@@ -23,6 +23,7 @@ package vavi.util.tag.id3.v2.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -99,23 +100,25 @@ public class ID3v2FrameV220 implements ID3v2Frame, Serializable {
     public ID3v2FrameV220(InputStream in, ID3v2Header header) throws IOException, ID3v2Exception {
         // decode id
         byte[] head = new byte[6];
-        in.read(head, 0, 3);
+        DataInputStream dis = new DataInputStream(in);
+        dis.readFully(head, 0, 3);
         this.id = new String(head, 0, 3);
 
+        if (head[0] == 0) { // 0 is padding
+            this.id = ID_INVALID;
+            return;
+        }
+
         // decode size (needed to read content)
-        in.mark(3);
-        in.read(head, 3, 3);
+        dis.readFully(head, 3, 3);
         int length = (int) (new Bytes(head, 3, 3)).getValue();
         if (!ids.containsValue(id)) {
             if (id.matches("[A-Z0-9]{3}")) {
-logger.warning("unknown id: " + id + ", " + length);
-                in.skip(length);
+logger.info("unknown id: " + id + ", " + length);
             } else {
-                if (head[0] != 0) { // 0 is padding
-logger.warning("maybe crush: " + id + ", " + length);
-                }
-                in.reset();
+logger.warning("maybe crush: " + StringUtil.getDump(head, 4) + ", " + length);
             }
+            dis.skipBytes(length);
             return;
         }
 
@@ -125,7 +128,7 @@ logger.warning("maybe crush: " + id + ", " + length);
         // FIXME axel.wernicke@gmx.de end
         //// read content
         content = new byte[length];
-        in.read(content);
+        dis.readFully(content);
 
         // decompress if necessary
         if (compression == true) {

@@ -49,13 +49,13 @@ public abstract class FrameContent {
     protected Object content;
 
     /** */
-    protected static String encoding;
+    protected static String defaultEncoding;
 
     static {
         try {
             Properties props = new Properties();
             props.load(FrameContent.class.getResourceAsStream("/vavi/util/tag/id3/id3.properties"));
-            encoding = props.getProperty("id3.encoding");
+            defaultEncoding = props.getProperty("id3.encoding");
         } catch (IOException e) {
             logger.severe(e.toString());
         }
@@ -93,7 +93,7 @@ public abstract class FrameContent {
         default:
             return "ISO-8859-1";
         case 1:
-            return "UNICODE";
+            return "UTF-16";
         case 2:
             return "UTF-16BE";
         case 3:

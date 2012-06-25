@@ -37,7 +37,7 @@ import vavi.util.tag.id3.v2.ID3v2Exception;
 public class EncodedTextFrameContent extends TextFrameContent {
 
     /** */
-//  private static Logger logger = Logger.getLogger(EncodedTextFrameContent.class.getName());
+//    private static Logger logger = Logger.getLogger(EncodedTextFrameContent.class.getName());
 
     /** */
     protected String encoding;

@@ -7,7 +7,16 @@
 package vavi.util.tag.mp4;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import vavi.util.box.Box;
+import vavi.util.box.BoxFactory;
+import vavi.util.box.BoxFactory.BoxFactoryFactory;
+import vavi.util.tag.Tag;
 
 
 /**
@@ -21,6 +30,8 @@ public class MP4File extends File {
     /** */
 //  private static Logger logger = Logger.getLogger(MP4File.class.getName());
 
+    private MP4Tag mp4Tag; 
+
     /**
      * @param filename File name
      * @throws IOException If I/O error occurs
@@ -33,6 +44,14 @@ public class MP4File extends File {
 
     /** */
     private void readTags() throws IOException {
+        BoxFactory factory = BoxFactoryFactory.getFactory(MP4BoxFactory.class.getName());
+        InputStream is = new FileInputStream(getPath());
+        List<Box> boxes = new ArrayList<Box>();
+        while (is.available() > 0) {
+            Box box = factory.getInstance(is);
+            boxes.add(box);
+        }
+        this.mp4Tag = new MP4Tag(boxes);
     }
 
     /**
@@ -55,11 +74,9 @@ public class MP4File extends File {
         readTags();
     }
 
-    //----
-
     /** */
-    public static void main(String[] args) {
-        
+    public Tag getTag() {
+        return mp4Tag;
     }
 }
 

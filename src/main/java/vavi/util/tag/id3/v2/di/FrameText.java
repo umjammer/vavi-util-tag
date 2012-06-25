@@ -74,12 +74,12 @@ public interface FrameText {
             try {
                 Properties props = new Properties();
                 props.load(EncodedTextWithLanguageAndDescriptionFrameContent.class.getResourceAsStream("/vavi/util/tag/id3/v2/di/description.properties"));
-                Enumeration e = props.propertyNames();
+                Enumeration<?> e = props.propertyNames();
                 while (e.hasMoreElements()) {
                     String key = (String) e.nextElement();
                     String className = props.getProperty(key);
-                    Class clazz = Class.forName(className);
-                    Constructor constructor = clazz.getConstructor();
+                    Class<FrameText> clazz = (Class<FrameText>) Class.forName(className);
+                    Constructor<FrameText> constructor = clazz.getConstructor();
                     constructor = clazz.getConstructor();
                     constructors.put(key, constructor);
                 }

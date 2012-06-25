@@ -27,9 +27,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import vavi.util.tag.TagException;
 import vavi.util.tag.id3.CharConverter;
 import vavi.util.tag.id3.GenreUtil;
 import vavi.util.tag.id3.ID3Tag;
@@ -234,16 +238,16 @@ public class ID3v1 implements ID3Tag, Serializable {
 //          String tag = new String(buffer, 0, 125, encoding);
 
             // cut tag;
-            title = CharConverter.createString(buffer, 0, 30).trim();
-            artist = CharConverter.createString(buffer, 30, 30).trim();
-            album = CharConverter.createString(buffer, 60, 30).trim();
+            title = CharConverter.createString2(buffer, 0, 30).trim();
+            artist = CharConverter.createString2(buffer, 30, 30).trim();
+            album = CharConverter.createString2(buffer, 60, 30).trim();
             try {
                 year = Integer.parseInt(new String(buffer, 90, 4).trim());
             } catch (NumberFormatException e) {
-                logger.warning(e.toString());
+//                logger.warning(e.toString());
                 year = 0;
             }
-            comment = CharConverter.createString(buffer, 94, 29).trim();
+            comment = CharConverter.createString2(buffer, 94, 29).trim();
             track = buffer[123] & 0xff;
             genre = buffer[124] & 0xff;
         }
@@ -441,6 +445,19 @@ logger.warning("mp3 length < 129: " + raf.length());
             tmp.append('\0');
         }
         return tmp.toString();
+    }
+
+    /* */
+    public Iterator<?> tags() throws TagException {
+        List<Object> results = new ArrayList<Object>();
+        results.add(getTitle());
+        results.add(getArtist());
+        results.add(getAlbum());
+        results.add(getYear());
+        results.add(GenreUtil.getGenreString(getGenre()));
+        results.add(getComment());
+        results.add(getTrack());
+        return results.iterator();
     }
 }
 

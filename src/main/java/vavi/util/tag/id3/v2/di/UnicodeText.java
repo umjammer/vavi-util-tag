@@ -20,7 +20,8 @@ public class UnicodeText implements FrameText {
     /** */
     public String getText(byte[] content, int start, String encoding) {
         try {
-            int length = Math.max(content.length - start - Util.getLastZeros(content, 2), 0);
+            int lastZeros = encoding.equalsIgnoreCase("UTF-16") ? 0 : Util.getLastZeros(content, 2);
+            int length = Math.max(content.length - start - lastZeros, 0);
             return new String(content, start, length, encoding);
         } catch (UnsupportedEncodingException e) {
             assert false;

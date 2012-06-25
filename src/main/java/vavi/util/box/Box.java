@@ -8,6 +8,7 @@ package vavi.util.box;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -19,6 +20,7 @@ import vavi.util.StringUtil;
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070608 nsano initial version <br>
+ * @see "https://developer.apple.com/mac/library/documentation/QuickTime/QTFF/"
  */
 public class Box {
     /** */
@@ -41,6 +43,29 @@ public class Box {
     }
 
     /** */
+    public byte[] getId() {
+        return id;
+    }
+
+    /** */
+    public boolean isIdOf(String idString) {
+        byte[] idBytes;
+        try {
+            idBytes = idString.getBytes("ISO-8859-1");
+        } catch (UnsupportedEncodingException e) {
+System.err.println(e);
+            idBytes = idString.getBytes();
+        }
+//System.err.println("cmp: " + StringUtil.getDump(id) + ", " + StringUtil.getDump(idBytes));
+        for (int i = 0; i < 4; i++) {
+            if (id[i] != idBytes[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /** */
     public void setData(byte[] data) {
         this.data = data;
     }
@@ -50,7 +75,9 @@ public class Box {
         return data;
     }
 
-    /** */
+    /**
+     * Reads after offset, id. 
+     */
     public void inject(DataInputStream dis) throws IOException {
         int length = (int) offset - 8; // TODO 64 bit
         byte[] data = new byte[length];

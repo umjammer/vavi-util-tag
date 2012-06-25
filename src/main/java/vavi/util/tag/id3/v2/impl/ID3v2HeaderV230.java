@@ -26,7 +26,6 @@ package vavi.util.tag.id3.v2.impl;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.logging.Logger;
 
 import vavi.util.tag.id3.v2.ID3v2Exception;
 import vavi.util.tag.id3.v2.ID3v2Header;
@@ -38,7 +37,7 @@ import vavi.util.tag.id3.v2.ID3v2Header;
 public class ID3v2HeaderV230 extends ID3v2Header implements Serializable {
 
     /** jdk1.4 logger */
-    private static Logger logger = Logger.getLogger(ID3v2HeaderV230.class.getName());
+//    private static Logger logger = Logger.getLogger(ID3v2HeaderV230.class.getName());
 
     /**
      * ID3v2 version

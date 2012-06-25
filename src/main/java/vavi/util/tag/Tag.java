@@ -7,6 +7,7 @@
 package vavi.util.tag;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 
 /**
@@ -24,6 +25,9 @@ public interface Tag {
 
     /** */
     public void update() throws IOException;
+
+    /** */
+    public Iterator<?> tags() throws TagException;
 }
 
 /* */

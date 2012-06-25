@@ -32,10 +32,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.zip.CRC32;
 
 import vavi.util.FileUtil;
+import vavi.util.tag.TagException;
 import vavi.util.tag.id3.ID3Tag;
 import vavi.util.tag.id3.v2.impl.ID3v2HeaderV230;
 
@@ -87,12 +90,9 @@ public class ID3v2 implements ID3Tag, Serializable {
         this.file = null;
 
         // open file and read tag (if present)
-        try {
-            header = ID3v2Factory.readHeaderFrom(in);
-        } catch (ID3v2Exception e) {
-logger.warning(e.toString());
-            return;
-        }
+        header = ID3v2Factory.readHeaderFrom(in);
+        
+        use_unsynchronization = header.unsynch;
 
         // tag present
         if (header.getVersion() > 2) {
@@ -319,7 +319,7 @@ logger.warning(e.toString());
      *
      * @param frame Frame to add
      */
-    private void addFrame(ID3v2Frame frame) {
+    public void addFrame(ID3v2Frame frame) {
         if (frames == null) {
             frames = new ArrayList<ID3v2Frame>();
         }
@@ -335,8 +335,7 @@ logger.warning(e.toString());
      * @throws ID3v2MissingTagException If file does not contain ID3v2Tag
      * @throws ID3v2NoSuchFrameException If file does not contain requested ID3v2 frame
      */
-    @SuppressWarnings("unused")
-    private void removeFrame(ID3v2Frame frame) throws ID3v2Exception {
+    public void removeFrame(ID3v2Frame frame) throws ID3v2Exception {
         if (frames == null) {
             throw new ID3v2Exception("there is no frame");
         }
@@ -354,8 +353,7 @@ logger.warning(e.toString());
      * @throws ID3v2MissingTagException If file does not contain ID3v2Tag
      * @throws ID3v2NoSuchFrameException If file does not contain requested ID3v2 frame
      */
-    @SuppressWarnings("unused")
-    private void removeFrame(String key) throws ID3v2Exception {
+    public void removeFrame(String key) throws ID3v2Exception {
         if (frames == null) {
             throw new ID3v2Exception("there is no frame");
         }
@@ -383,8 +381,7 @@ logger.warning(e.toString());
      * @throws ID3v2MissingTagException If file does not contain ID3v2Tag
      * @throws ID3v2NoSuchFrameException If file does not contain requested ID3v2 frame
      */
-    @SuppressWarnings("unused")
-    private void removeFrame(String key, int number) throws ID3v2Exception {
+    public void removeFrame(String key, int number) throws ID3v2Exception {
         if (frames == null) {
             throw new ID3v2Exception("there is no frame");
         }
@@ -416,6 +413,7 @@ logger.warning(e.toString());
     public void update() throws IOException {
         // don't write changes if not necessary
         if (!is_changed) {
+logger.info("not changed");
             return;
         }
 
@@ -449,7 +447,7 @@ logger.warning(e.toString());
         // prepare crc checksum if crc is used...
         int crc = 0;
         if (use_crc) {
-            java.util.zip.CRC32 crc_calculator = new java.util.zip.CRC32();
+            CRC32 crc_calculator = new CRC32();
             crc_calculator.update(bframes);
             crc = (int) crc_calculator.getValue();
         }
@@ -496,6 +494,7 @@ logger.warning(e.toString());
         java.io.RandomAccessFile out = new java.io.RandomAccessFile(write_to, "rw");
         out.write(bheader);
         out.write(bext_header);
+//logger.info("\n" + StringUtil.getDump(bframes, 512));
         out.write(bframes);
 
         // write padding
@@ -556,6 +555,10 @@ logger.warning(e.toString());
         is_changed = false;
     }
 
+    public int getVersion() {
+        return 200 + header.getVersion() * 10 + header.getRevision();
+    }
+
     /** */
     private File file;
     /** */
@@ -571,7 +574,7 @@ logger.warning(e.toString());
     /** */
     private boolean use_crc = true;
     /** */
-    private boolean use_unsynchronization = true;
+    private boolean use_unsynchronization = false;
 
     /**
      * Read extended ID3v2 header from input stream <tt>in</tt>
@@ -658,20 +661,24 @@ logger.warning(e.toString());
         frames = new ArrayList<ID3v2Frame>();
 
         ByteArrayInputStream bis = new ByteArrayInputStream(frames_as_byte);
+//logger.info("frames\n" + StringUtil.getDump(frames_as_byte));
 
         // read frames as long as there are bytes and we are not reading from padding
         // (indicated by invalid frame id)
-        boolean cont = true;
-        while (bis.available() > 0 && cont == true) {
+        while (bis.available() > 8) {
             ID3v2Frame frame = ID3v2Factory.readFrameFrom(bis, header);
+//logger.info(frame.getID() + "\n" + frame);
 
             if (frame.getID() == ID3v2Frame.ID_INVALID) {
                 // reached end of frames
-                cont = false;
+logger.info("invalid id found");
+                break;
             } else {
                 frames.add(frame);
             }
         }
+logger.info("skip: " + bis.available());
+        bis.skip(bis.available());
     }
 
     /**
@@ -719,6 +726,15 @@ if ("Comments".equals(key) && frames.size() > 1) {
         } catch (ID3v2Exception e) {
             addFrame(ID3v2Factory.createFrame(key, ID3v2Factory.createFrameContent(key, content)));
         }
+    }
+
+    /* */
+    public Iterator<?> tags() throws TagException {
+        List<ID3v2Frame> results = new ArrayList<ID3v2Frame>();
+        for (ID3v2Frame frame : frames) {
+            results.add(frame);
+        }
+        return results.iterator();
     }
 }
 

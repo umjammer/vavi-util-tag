@@ -4,35 +4,35 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.util.itunes.artwork;
+package vavi.util.itunes.library;
 
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import vavi.util.Debug;
+import vavi.util.StringUtil;
 import vavi.util.box.Box;
 import vavi.util.box.BoxFactory;
 
 
 /**
- * iTunes Artwork
+ * iTunes Library
  *
  * <pre>
- *  itch
- *  item
  * </pre>
  * 
- * @see "http://www.waldoland.com/dev/Articles/ITCFileFormat.aspx"
+ * @see ""
  */
-public class ITCBoxFactory implements BoxFactory {
+public class ITLBoxFactory implements BoxFactory {
+    boolean first = true;
     /** */
     public Box getInstance(InputStream is) throws IOException {
         DataInputStream dis = new DataInputStream(is);
 
-        long offset = dis.readInt();
         byte[] id = new byte[4];
         dis.readFully(id);
+        long offset = dis.readInt();
         if (offset == 1) {
             offset = dis.readLong();
 Debug.println("64 bit length: " + offset);
@@ -40,11 +40,10 @@ Debug.println("64 bit length: " + offset);
 
         Box box = null;
         String idString = new String(id);
-//Debug.println("id: " + new String(id) + ", length: " + offset + " (" + StringUtil.toHex16(offset) + ")");
-        if ("itch".equals(idString)) {
-            box = new itch();
-        } else if ("item".equals(idString)) {
-            box = new item();
+Debug.println("id: " + new String(id) + ", length: " + offset + " (" + StringUtil.toHex16(offset) + ")");
+        if ("hdfm".equals(idString) && first) {
+            box = new hdfm();
+            first = false;
         } else {
             box = new Box();
         }

@@ -6,6 +6,8 @@
 
 package vavi.util.tag.id3.v2.di;
 
+import vavi.util.StringUtil;
+import vavi.util.tag.id3.CharConverter;
 import vavi.util.tag.id3.v2.FrameContent;
 import vavi.util.tag.id3.v2.ID3v2Exception;
 
@@ -51,7 +53,21 @@ public class RawFrameContent extends FrameContent {
 
     /** */
     public String toString() {
-        return content == null ? null : "raw: " + (((byte[]) content).length) + " bytes";
+//        return content == null ? null : "raw: " + (((byte[]) content).length) + " bytes";
+        if (content == null) {
+            return null;
+        } else {
+            if (((byte[]) content).length < 3 || ((byte[]) content).length > 1024) {
+                return "raw: " + (((byte[]) content).length) + " bytes" + "\n" + StringUtil.getDump((byte[]) content, 64);
+            } else {
+                return "raw: " + (((byte[]) content).length) + " bytes" + "\n" + StringUtil.getDump((byte[]) content, 64) + CharConverter.createString2((byte[]) content, 0, ((byte[]) content).length);
+            }
+        }
+    }
+
+    /** */
+    public Object getContent() {
+        return toString(); // TODO implement!
     }
 
     // EncapsulatedObject

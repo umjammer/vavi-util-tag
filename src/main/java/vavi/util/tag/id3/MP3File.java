@@ -85,7 +85,7 @@ public class MP3File extends File {
         try {
             tags.put(ID3Tag.Type.ID3v1, new ID3v1(this));
         } catch (ID3v1Exception e) {
-logger.info("no ID3v1: " + this);
+//logger.info("no ID3v1: " + this);
         }
         try {
             tags.put(ID3Tag.Type.ID3v2, new ID3v2(this));

@@ -4,13 +4,13 @@
  * Programmed by Naohide Sano
  */
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.util.Iterator;
-import java.util.Properties;
-import java.util.Scanner;
 
+import vavi.util.FileUtil;
 import vavi.util.tag.Tag;
 import vavi.util.tag.id3.ID3Tag;
+import vavi.util.tag.id3.ID3Tag.Type;
 import vavi.util.tag.id3.MP3File;
 import vavi.util.tag.id3.v2.ID3v2;
 import vavi.util.tag.id3.v2.ID3v2Frame;
@@ -18,44 +18,56 @@ import vavi.util.tag.id3.v2.impl.ID3v2FrameV230;
 
 
 /**
- * Test2. (read from a file)
+ * Test4. (modify test)
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
-public class Test2 {
+public class Test4 {
 
     /**
-     * @param args file_list_file 
+     * @param args top_directory regex_pattern 
      */
     public static void main(String[] args) throws Exception {
-        exec2(args);
+        File orig = new File(args[0]);
+        File mod = new File(args[1]);
+        FileUtil.copy(orig, mod);
+        exec4_1(mod.getPath());
+        exec4_2(orig.getPath());
+        exec4_2(mod.getPath());
     }
 
-    /** */
-    private static void exec2(String[] args) throws Exception {
-        Scanner scanner = new Scanner(new FileInputStream(args[0]));
-        while (scanner.hasNextLine()) {
-            try {
-                String line = scanner.nextLine();
-                exec2_1(line);
-//break;
-            } catch (Exception e) {
-                e.printStackTrace(System.err);
+    /**
+     * @param file 
+     */
+    private static void exec4_1(String mod) throws Exception {
+        MP3File mp3File = new MP3File(mod);
+
+        if (mp3File.hasTag(Type.ID3v2)) {
+            ID3v2 tag = (ID3v2) mp3File.getTag(Type.ID3v2);
+            Iterator<?> i = tag.tags();
+            while (i.hasNext()) {
+                ID3v2Frame frame = (ID3v2Frame) i.next();
+                String key = frame.getID();
+                if (key.equals("LINK") ||
+                    key.equals("PRIV")
+                        ) {
+System.out.println("remove " + key);
+                    tag.removeFrame(frame);
+                }
             }
+            tag.update();
         }
     }
 
     /**
      * @param file 
      */
-    private static void exec2_1(String file) throws Exception {
-        Properties props = new Properties();
-        props.load(MP3File.class.getResourceAsStream("v2/impl/v230.properties"));
-
-        MP3File mp3File = new MP3File(file);
+    private static void exec4_2(String file) throws Exception {
 
         System.out.println("-------- " + file + " --------");
+
+        MP3File mp3File = new MP3File(file);
 
         System.out.println("Bitrate:\t" + mp3File.getProperty("Bitrate"));
         System.out.println("Copyright:\t" + mp3File.getProperty("Copyright"));
@@ -81,7 +93,8 @@ public class Test2 {
                 System.out.println("---- " + type + " ----");
                 Tag tag = mp3File.getTag(type);
 
-                if (type.equals(ID3Tag.Type.ID3v2)) {
+                switch (type) {
+                case ID3v2:
                     System.out.println("Ver:\t" + ((ID3v2) tag).getVersion());
                     Iterator<?> i = tag.tags();
                     while (i.hasNext()) {
@@ -93,19 +106,14 @@ System.out.println(key + "=" + ((ID3v2FrameV230) frame).getContent());
 //                  System.out.println("UseCompression:\t" + ((ID3v2) tag).getUseCompression());
                     System.out.println("UsePadding:\t" + ((ID3v2) tag).getUsePadding());
                     System.out.println("UseUnsynchronization:\t" + ((ID3v2) tag).getUseUnsynchronization());
-                }
+                    break;
 
-                if (type.equals(ID3Tag.Type.ID3v1)) {
+                case ID3v1:
                     for (String key : new String[] { "Title", "Artist", "Album", "Year", "Genre", "Comment", "Track" }) {
                         String value = String.valueOf(tag.getTag(key));
-                        if (("Artist".equals(key) ||
-                             "Title".equals(key) ||
-                             "Album".equals(key)) && value.length() == 0 && !mp3File.hasTag(ID3Tag.Type.ID3v2)) {
-System.err.println(key + "=" + "ÅöÅöÅö MISSING IMPORTANT ÅöÅöÅö: " + mp3File.getPath());
-                        } else {
 System.out.println(key + "=" + value);
-                        }
                     }
+                    break;
                 }
             }
         }

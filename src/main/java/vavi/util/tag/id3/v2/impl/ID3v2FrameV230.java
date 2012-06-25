@@ -23,9 +23,11 @@ package vavi.util.tag.id3.v2.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.Enumeration;
 import java.util.Properties;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
@@ -114,30 +116,33 @@ public class ID3v2FrameV230 implements ID3v2Frame, Serializable {
     public ID3v2FrameV230(InputStream in) throws IOException, ID3v2Exception {
         // decode id
         byte[] head = new byte[10];
-        in.read(head, 0, 4);
+        DataInputStream dis = new DataInputStream(in);
+        dis.readFully(head, 0, 4);
         this.id = new String(head, 0, 4);
-//logger.info("id: " + id);
+
+        if (head[0] == 0) { // 0 is padding
+            this.id = ID_INVALID;
+            return;
+        }
 
         // decode size (needed to read content)
-        in.mark(4);
-        in.read(head, 4, 4);
+        dis.readFully(head, 4, 4);
         int length = (int) (new Bytes(head, 4, 4)).getValue();
-//logger.info("length: " + length);
+//logger.info("id: " + id + ": " + StringUtil.getDump(head, 4) + ", length: " + length);
         if (!ids.containsValue(id)) {
             if (id.matches("[A-Z0-9]{4}")) {
-logger.warning("unknown id: " + id + ", " + length);
-                in.skip(2 + length);
+logger.info("unknown id: " + id + ", " + length);
+                content = new byte[2 + length]; // TODO more smart
+                dis.readFully(content);
             } else {
-                if (head[0] != 0) { // 0 is padding
-logger.warning("maybe crush: " + id + ", " + length);
-                }
-                in.reset();
+logger.warning("maybe crush: " + StringUtil.getDump(head, 4) + "[" + id + "], " + length);
+                dis.skipBytes(2 + length);
             }
             return;
         }
 
-        // deocde flags
-        in.read(head, 8, 2);
+        // decode flags
+        dis.readFully(head, 8, 2);
         if (((head[8] & 0xff) & FLAG_TAG_ALTER_PRESERVATION) > 0) {
             tag_alter_preservation = true;
         }
@@ -166,7 +171,7 @@ logger.warning("maybe crush: " + id + ", " + length);
         if (compression == true) {
             // read decompressed size
             byte[] decomp_byte = new byte[4];
-            in.read(decomp_byte);
+            dis.readFully(decomp_byte);
             decompressed_length = (int) (new Bytes(decomp_byte)).getValue();
 
             // substract 4 bytes from length to get actual content length
@@ -175,13 +180,13 @@ logger.warning("maybe crush: " + id + ", " + length);
 
         if (encryption == true) {
             // read encryption type
-            encryption_id = (byte) in.read();
+            encryption_id = dis.readByte();
             length--;
         }
 
         if (grouping == true) {
             // read group id
-            group = (byte) in.read();
+            group = dis.readByte();
 
             // substract 1 byte from length to get actual content length
             length--;
@@ -192,7 +197,7 @@ logger.warning("maybe crush: " + id + ", " + length);
         // FIXME axel.wernicke@gmx.de end
         // read content
         content = new byte[length];
-        in.read(content);
+        dis.readFully(content);
 
         // decompress if necessary
         if (compression == true) {
@@ -328,6 +333,23 @@ logger.warning("maybe crush: " + id + ", " + length);
     }
 
     /**
+     * Returns content (decompressed)
+     */
+    public FrameContent getContent() {
+        Enumeration<?> e = ids.keys();
+        while (e.hasMoreElements()) {
+            String key = (String) e.nextElement();
+            String value = ids.getProperty(key);
+//logger.info(getID() + ": " + key + ", " + value);
+            if (value.equals(getID())) {
+                return ID3v2Factory.createFrameContent(key, content);
+            }
+        }
+logger.warning("no key for: " + getID());
+        return ID3v2Factory.createFrameContent("Unknown", content);
+    }
+
+    /**
      * Returns an array of bytes representing this frame
      */
     public byte[] getBytes() {
@@ -347,7 +369,7 @@ logger.warning("maybe crush: " + id + ", " + length);
         }
 
         // write size
-        byte[] size_byte = (new Bytes(length - 10, 4)).getBytes();
+        byte[] size_byte = new Bytes(length - 10, 4).getBytes();
         System.arraycopy(size_byte, 0, ret, 4, 4);
 
         // write flags
@@ -402,7 +424,9 @@ logger.warning("maybe crush: " + id + ", " + length);
             compressContent();
             System.arraycopy(compressed_content, 0, ret, content_offset, compressed_content.length);
         } else {
+//logger.info(getID() + ": " + content_offset + "\n" + StringUtil.getDump(content, 128));
             System.arraycopy(content, 0, ret, content_offset, content.length);
+//logger.info("\n" + StringUtil.getDump(ret, 128));
         }
 
         return ret;
