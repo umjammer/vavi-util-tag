@@ -47,9 +47,9 @@ public class GenreFrameContent extends EncodedTextFrameContent {
      */
     public void setContent(Object content) {
         if (content instanceof String) {
-            // TODO ÇªÇÃÇ‹Ç‹
+            // TODO „Åù„ÅÆ„Åæ„Åæ
         } if (content instanceof Integer) {
-            // TODO ID3v1 å`éÆ
+            // TODO ID3v1 ÂΩ¢Âºè
         } else {
             throw new IllegalArgumentException("unhandled class: " + content.getClass());
         }

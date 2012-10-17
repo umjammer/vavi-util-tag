@@ -20,7 +20,7 @@ import vavix.util.screenscrape.annotation.WebScraper;
  */
 public class Test12 {
 
-    /** iTunes ƒ‰ƒCƒuƒ‰ƒŠˆê */
+    /** iTunes ãƒ©ã‚¤ãƒ–ãƒ©ãƒªä¸€ */
     @WebScraper(url = "file:///Users/nsano/Music/iTunes/iTunes%20Music%20Library.xml",
                 isCollection = false)
     public static class Meta {
@@ -31,7 +31,7 @@ public class Test12 {
         }
     }
 
-    /** iTunes ƒ‰ƒCƒuƒ‰ƒŠˆê‹È */
+    /** iTunes ãƒ©ã‚¤ãƒ–ãƒ©ãƒªä¸€æ›² */
     @WebScraper(url = "file:///Users/nsano/Music/iTunes/iTunes%20Music%20Library.xml",
                 parser = SaxonXPathParser.class,
                 value = "/plist/dict/dict/dict")

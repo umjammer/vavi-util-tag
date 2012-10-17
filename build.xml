@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Shift_JIS"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- ////////////////////////////////////////////////////////////////////// -->
 <!-- Copyright (c) 2002 by Naohide Sano, All rights reserved.               -->
@@ -18,7 +18,7 @@
   <property file="local.properties" />
   <property name="dir.build" value="target/classes" />
 
-  <!-- ƒNƒ‰ƒXƒpƒX‚Ì’è‹` -->
+  <!-- ã‚¯ãƒ©ã‚¹ãƒ‘ã‚¹ã®å®šç¾© -->
   <path id="project.class.path">
     <fileset dir="lib">
       <include name="*.jar" />
@@ -26,10 +26,10 @@
     <pathelement location="${dir.build}" />
   </path>
 
-  <!-- ƒ^[ƒQƒbƒg‚Ì’è‹` -->
+  <!-- ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®å®šç¾© -->
 
   <!-- clean -->
-  <target name="clean" description="ƒrƒ‹ƒhŠÂ‹«‚ÌƒNƒŠƒA">
+  <target name="clean" description="ãƒ“ãƒ«ãƒ‰ç’°å¢ƒã®ã‚¯ãƒªã‚¢">
     <delete>
       <fileset dir="${dir.build}">
         <include name="**/*" />
@@ -41,7 +41,7 @@
   </target>
 
   <!-- prepare -->
-  <target name="prepare" description="€”õ">
+  <target name="prepare" description="æº–å‚™">
     <mkdir dir="${dir.build}" />
     <ivy:settings file="ivy-settings.xml" />
     <ivy:convertpom pomFile="pom.xml" ivyFile="ivy.xml" />
@@ -49,8 +49,8 @@
   </target>
 
   <!-- javac -->
-  <target name="compile" depends="prepare" description="ƒRƒ“ƒpƒCƒ‹">
-    <javac debug="on" destdir="${dir.build}" encoding="MS932">
+  <target name="compile" depends="prepare" description="ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«">
+    <javac debug="on" destdir="${dir.build}" encoding="${encoding}">
       <classpath refid="project.class.path" />
       <include name="**/*.java" />
       <src path="src/main/java" />
@@ -62,7 +62,7 @@
       </fileset>
     </copy>
 
-    <javac debug="on" encoding="MS932" destdir="target/test-classes">
+    <javac debug="on" encoding="${encoding}" destdir="target/test-classes">
       <classpath>
         <path refid="project.class.path" />
         <pathelement location="${dir.build}" />
@@ -87,7 +87,7 @@
         <path refid="project.class.path" />
         <pathelement location="target/test-classes" />
       </classpath>
-      <arg value="${user.home}/Music/iTunes/iTunes Music/‰‰¹ ƒ~ƒN/Shibayan" />
+      <arg value="${user.home}/Music/iTunes/iTunes Music/åˆéŸ³ ãƒŸã‚¯/Shibayan" />
       <arg value=".+\.mp3" />
     </java>
   </target>
@@ -192,6 +192,7 @@
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <jvmarg value="-Djdbc.drivers=org.hsqldb.jdbcDriver" />
       <jvmarg value="-Xmx768m" />    
+      <jvmarg value="-Djava.awt.headless=true" />
       <classpath>
         <path refid="project.class.path" />
         <pathelement location="target/test-classes" />
@@ -207,6 +208,7 @@
       <jvmarg value="-Dfile.encoding=${encoding}" />
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
+      <jvmarg value="-Djava.awt.headless=true" />
       <classpath>
         <path refid="project.class.path" />
         <pathelement location="target/test-classes" />
@@ -225,6 +227,22 @@
         <path refid="project.class.path" />
         <pathelement location="target/test-classes" />
       </classpath>
+    </java>
+  </target>
+
+  <!-- t13 -->
+  <target name="t13" depends="compile" description="apple artwork lib">
+    <java classname="Test13" fork="yes" output="tmp/appleart.txt" error="tmp/appleart.err">
+      <jvmarg value="-Dfile.encoding=${encoding}" />
+      <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
+      <jvmarg value="-Djdbc.drivers=org.hsqldb.jdbcDriver" />
+      <jvmarg value="-Xmx768m" />    
+      <classpath>
+        <path refid="project.class.path" />
+        <pathelement location="target/test-classes" />
+      </classpath>
+      <arg value="${user.home}/Music/iTunes/iTunes Music/" />
+      <arg value=".*\.(([Mm]4[AaPp])|([Mm][Pp]3))" />
     </java>
   </target>
 

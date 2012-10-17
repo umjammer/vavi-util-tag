@@ -110,7 +110,7 @@ System.err.println("remove " + key + ":\n" + StringUtil.getDump(frame.getBytes()
                     break;
 
                 case ID3v1:
-                    System.out.println("ššššš " + type + " exists!!!");
+                    System.out.println("â˜…â˜…â˜…â˜…â˜… " + type + " exists!!!");
                     break;
                 }
             }

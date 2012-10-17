@@ -42,7 +42,7 @@ public class IntFrameContent extends EncodedTextFrameContent {
      */
     public void setContent(Object content) {
         if (content instanceof String) {
-            // TODO ÇªÇÃÇ‹Ç‹
+            // TODO „Åù„ÅÆ„Åæ„Åæ
         } if (content instanceof Integer) {
             // TODO 
         } else {

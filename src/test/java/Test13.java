@@ -4,24 +4,16 @@
  * Programmed by Naohide Sano
  */
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import javax.imageio.ImageIO;
 
 import org.kafsemo.titl.Library;
 import org.kafsemo.titl.ParseLibrary;
@@ -32,26 +24,23 @@ import vavi.util.box.Box;
 import vavi.util.box.BoxFactory;
 import vavi.util.box.BoxFactory.BoxFactoryFactory;
 import vavi.util.itunes.artwork.ITCBoxFactory;
-import vavi.util.itunes.artwork.item;
 import vavi.util.tag.id3.ID3Tag.Type;
 import vavi.util.tag.id3.MP3File;
-import vavi.util.tag.id3.v2.FrameContent;
 import vavi.util.tag.id3.v2.ID3v2;
-import vavi.util.tag.id3.v2.ID3v2Frame;
-import vavi.util.tag.id3.v2.impl.ID3v2FrameV230;
 import vavi.util.tag.mp4.MP4File;
 import vavi.util.tag.mp4.MP4Tag;
 import vavix.util.grep.FileDigger;
 import vavix.util.grep.RegexFileDigger;
+import vavix.util.screenscrape.annotation.WebScraper;
 
 
 /**
- * Test9. (album art size by directory)
+ * Test13. (album art size by directory)
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 120613 nsano initial version <br>
  */
-public class Test9 {
+public class Test13 {
 
     static class ApidDao {
         Connection connection;
@@ -121,6 +110,7 @@ public class Test9 {
                 try {
                     if (!file.getParent().equals(dir)) {
                         boolean found = exec9_2(file);
+                        Thread.sleep(1000);
                         if (found) {
                             dir = file.getParent();
                         }
@@ -132,26 +122,25 @@ public class Test9 {
         }, Pattern.compile(args[1])).dig(new File(args[0]));
     }
 
-    static List<String> queue = new ArrayList<String>();
+    static Test10.Artwork queue;
 
     /** */
     private static boolean exec9_2(File file) throws Exception {
         boolean found;
-        queue.clear();
+        queue = null;
         if (file.getName().toLowerCase().endsWith(".mp3")) {
             found = exec9_3(file);
         } else {
             found = exec9_4(file);
         }
-        if (found) {
+        if (queue != null) {
+            System.err.println(queue);
             System.out.print(file.getParent() + "\t");
             System.out.print(file.getName().substring(file.getName().lastIndexOf('.') + 1).toLowerCase() + "\t");
-            for (String s : queue) {
-                System.out.print(s);
-            }
+            System.out.print(queue.coverArtUrl);
             System.out.println();
         }
-        return found;
+        return found || queue != null;
     }
 
     /**
@@ -165,23 +154,12 @@ public class Test9 {
         MP4File mp4File = new MP4File(file.getAbsolutePath());
 
         MP4Tag tag = (MP4Tag) mp4File.getTag();
-        Iterator<?> i = tag.tags();
-        while (i.hasNext()) {
-            Box box = (Box) i.next();
-            String key = new String(box.getId());
-            if (key.equals("covr")) {
-                ByteArrayInputStream is = new ByteArrayInputStream(box.getData());
-                BufferedImage image = ImageIO.read(is);
-                queue.add(image.getWidth() + "x" + image.getHeight() + " ");
-                found = true;
-            }
-        }
-
+        String name = new String(Box.class.cast(List.class.cast(tag.getTag((char) 0xa9 + "nam")).get(0)).getData()).substring(8);
+        String artist = new String(Box.class.cast(List.class.cast(tag.getTag((char) 0xa9 + "ART")).get(0)).getData()).substring(8);
+        found = itcImage(file, name, artist);
         if (!found) {
-//            System.err.println(List.class.cast(tag.getTag((char) 0xa9 + "nam")).get(0).getClass().getName() + ", " + List.class.cast(tag.getTag((char) 0xa9 + "ART")).get(0).getClass().getName());
-            String name = new String(Box.class.cast(List.class.cast(tag.getTag((char) 0xa9 + "nam")).get(0)).getData()).substring(8);
-            String artist = new String(Box.class.cast(List.class.cast(tag.getTag((char) 0xa9 + "ART")).get(0)).getData()).substring(8);
-            found = itcImage(file, name, artist);
+            List<Test10.Artwork> artworks = WebScraper.Util.scrape(Test10.Artwork.class, name, artist);
+            queue = artworks.get(0);
         }
 
         return found;
@@ -201,22 +179,12 @@ public class Test9 {
 
         if (mp3File.hasTag(Type.ID3v2)) {
             ID3v2 tag = (ID3v2) mp3File.getTag(Type.ID3v2);
-            Iterator<?> i = tag.tags();
-            while (i.hasNext()) {
-                ID3v2Frame frame = (ID3v2Frame) i.next();
-                String key = frame.getID();
-                if (key.equals("APIC")) {
-                    FrameContent frameContent = ID3v2FrameV230.class.cast(frame).getContent();
-                    BufferedImage image = (BufferedImage) frameContent.getContent();
-                    queue.add(image.getWidth() + "x" + image.getHeight() + " ");
-                    found = true;
-                }
-            }
-
+            String name = String.class.cast(tag.getTag("Title"));
+            String artist = String.class.cast(tag.getTag("Artist"));
+            found = itcImage(file, name, artist);
             if (!found) {
-                String name = String.class.cast(tag.getTag("Title"));
-                String artist = String.class.cast(tag.getTag("Artist"));
-                found = itcImage(file, name, artist);
+                List<Test10.Artwork> artworks = WebScraper.Util.scrape(Test10.Artwork.class, name, artist);
+                queue = artworks.get(0);
             }
         } else {
             Debug.println("no id3v2 tag");
@@ -242,20 +210,9 @@ public class Test9 {
             if (itc.exists()) {
 
 System.err.println("ITC: " + name + ", " + artist + ", " + itc);
-                InputStream is = new FileInputStream(itc);
-                while (is.available() > 0) {
-                    Box box = itcFactory.getInstance(is);
-                    if (box instanceof item) {
-                        BufferedImage image = ImageIO.read(new ByteArrayInputStream(box.getData()));
-                        queue.add(image.getWidth() + "x" + image.getHeight() + " ");
-                        found = true;
-                    }
-                }
+                found = true;
             } else {
                 System.err.println(itc + " not exists: " + name + ", " + artist);
-            }
-            if (found) {
-                queue.add("\t*");
             }
         } else {
             System.err.println("apid not found: " + name + ", " + artist);

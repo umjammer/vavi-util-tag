@@ -97,7 +97,7 @@ public class Test1 {
                         if (("Artist".equals(key) ||
                              "Title".equals(key) ||
                              "Album".equals(key)) && value.length() == 0) {
-System.err.println(key + "=" + "ššš MISSING IMPORTANT ššš: " + mp3File.getPath());
+System.err.println(key + "=" + "â˜…â˜…â˜… MISSING IMPORTANT â˜…â˜…â˜…: " + mp3File.getPath());
                         } else {
 System.out.println(key + "=" + ((ID3v2FrameV230) frame).getContent());
                         }
@@ -114,7 +114,7 @@ System.out.println(key + "=" + ((ID3v2FrameV230) frame).getContent());
                         if (("Artist".equals(key) ||
                              "Title".equals(key) ||
                              "Album".equals(key)) && value.length() == 0 && !mp3File.hasTag(ID3Tag.Type.ID3v2)) {
-System.err.println(key + "=" + "ššš MISSING IMPORTANT ššš: " + mp3File.getPath());
+System.err.println(key + "=" + "â˜…â˜…â˜… MISSING IMPORTANT â˜…â˜…â˜…: " + mp3File.getPath());
                         } else {
 System.out.println(key + "=" + value);
                         }

@@ -92,7 +92,7 @@ System.err.println(e);
     }
 
     /**
-     * DATE (int) ‚©‚ç java long (msec since 1970/1/1) ‚ğæ“¾‚µ‚Ü‚·D
+     * DATE (int) ã‹ã‚‰ java long (msec since 1970/1/1) ã‚’å–å¾—ã—ã¾ã™ï¼
      */
     protected static final long qtTimeToLong(int qtTime) {
 //Debug.println("date: " + qtTime);
