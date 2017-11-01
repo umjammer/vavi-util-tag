@@ -14,7 +14,10 @@ import org.mozilla.universalchardet.UniversalDetector;
 
 
 /**
- * CharConverter. 
+ * CharConverter.
+ * 
+ * @see "/vavi/util/tag/id3/id3.properties"
+ * "id3.encoding"
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 051208 nsano initial version <br>
@@ -42,11 +45,13 @@ public final class CharConverter {
 logger.fine("VAVI: ENCODING: " + encoding);
             } else {
                 value = new String(buffer, start, length, CharConverter.encoding);
-logger.info("VAVI: ENCODING: unknown, use " + CharConverter.encoding);
+//throw new IllegalStateException(value);
+//new Exception("***DUMMY***").printStackTrace(System.err);
+logger.info("VAVI: ENCODING: unknown, use " + CharConverter.encoding + ": " + value);
             }
 
             detector.reset();
-        } catch (Exception e) {
+        } catch (IOException e) {
             value = new String(buffer, start, length);
 logger.severe("VAVI: ENCODING: unknown, use " + System.getProperty("file.encoding") + ": " + e);
         }

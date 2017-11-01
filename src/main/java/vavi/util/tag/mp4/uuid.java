@@ -14,7 +14,9 @@ import vavi.util.box.Box;
 
 
 /**
- * uuid. 
+ * <pre>
+ * /uuid
+ * </pre>
  *
  * @see "http://www.nurs.or.jp/~calcium/wiki/index.php?3GPP2%20File%20Format"
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)

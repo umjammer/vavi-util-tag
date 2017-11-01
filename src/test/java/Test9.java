@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -58,29 +59,29 @@ public class Test9 {
         ApidDao() {
             try {
                 connection = DriverManager.getConnection("jdbc:hsqldb:file:tmp/apiddb", "SA", "");
-    
+
                 Statement statement = connection.createStatement();
                 statement.execute("DROP TABLE apid IF EXISTS;");
                 statement.execute("CREATE TABLE apid(name VARCHAR, artist VARCHAR, apid VARCHAR);");
                 statement.close();
-    
+
                 PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO apid VALUES (?, ?, ?);");
-    
+
                 Library lib = ParseLibrary.parse(new File("/Users/nsano/Music/iTunes/iTunes Library.itl"));
                 for (Track t : lib.getTracks()) {
                     preparedStatement.setString(1, t.getName());
                     preparedStatement.setString(2, t.getArtist());
-                    String apid = t.getAlbumPersistentIdAsString();
-                    if (apid == null) {
-                        apid = t.getPersistentIdAsString();
-                        if (apid == null) {
+                    String apid = new String(t.getAlbumPersistentId(), Charset.forName("ascii"));
+                    if (apid == "") {
+                        apid = new String(t.getPersistentId(), Charset.forName("ascii"));
+                        if (apid == "") {
                             System.err.println("apid not found: " + t.getName() + ", " + t.getArtist());
                         }
                     }
                     preparedStatement.setString(3, apid);
                     preparedStatement.execute();
                 }
-                
+
                 preparedStatement.close();
             } catch (Exception e) {
                 throw new IllegalStateException(e);
@@ -109,7 +110,7 @@ public class Test9 {
      */
     public static void main(String[] args) throws Exception {
         dao = new ApidDao();
-        
+
         exec9_1(args);
     }
 
@@ -132,7 +133,7 @@ public class Test9 {
         }, Pattern.compile(args[1])).dig(new File(args[0]));
     }
 
-    static List<String> queue = new ArrayList<String>();
+    static List<String> queue = new ArrayList<>();
 
     /** */
     private static boolean exec9_2(File file) throws Exception {
@@ -188,7 +189,7 @@ public class Test9 {
     }
 
     static BoxFactory itcFactory = BoxFactoryFactory.getFactory(ITCBoxFactory.class.getName());
-    
+
     /**
      * mp3
      * @param file 
@@ -274,11 +275,11 @@ System.err.println("ITC: " + name + ", " + artist + ", " + itc);
         sb.append(String.format("%02d", Integer.parseInt(apid.substring(14, 15), 16) & 0x0F));
         sb.append('/');
         sb.append(String.format("%02d", Integer.parseInt(apid.substring(13, 14), 16) & 0x0F));
-        
+
         sb.append('/' + pid + "-" + apid);
 
         sb.append(".itc");
-        
+
         return sb.toString();
     }
 

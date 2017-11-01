@@ -17,7 +17,7 @@ import vavix.util.grep.RegexFileDigger;
 
 
 /**
- * Test8. (directory)
+ * Test8. (mp4 by once a directory)
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 120608 nsano initial version <br>
@@ -56,7 +56,6 @@ public class Test8 {
     private static void exec8_2(String mod) throws Exception {
         MP4File mp4File = new MP4File(mod);
         MP4Tag mp4Tag = MP4Tag.class.cast(mp4File.getTag());
-        @SuppressWarnings("unchecked")
         List<MP4Tag> results = List.class.cast(mp4Tag.getTag("----"));
 //System.err.println("results: " + results.size());
         for (Object o : results) {

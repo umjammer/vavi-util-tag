@@ -46,7 +46,7 @@ public class MP4File extends File {
     private void readTags() throws IOException {
         BoxFactory factory = BoxFactoryFactory.getFactory(MP4BoxFactory.class.getName());
         InputStream is = new FileInputStream(getPath());
-        List<Box> boxes = new ArrayList<Box>();
+        List<Box> boxes = new ArrayList<>();
         while (is.available() > 0) {
             Box box = factory.getInstance(is);
             boxes.add(box);

@@ -292,7 +292,7 @@ public class ID3v2 implements ID3Tag, Serializable {
             throw new ID3v2Exception("there is no frame");
         }
 
-        List<ID3v2Frame> results = new ArrayList<ID3v2Frame>();
+        List<ID3v2Frame> results = new ArrayList<>();
         for (ID3v2Frame frame : frames) {
             if (frame.isFrameOf(key)) {
                 results.add(frame);
@@ -321,7 +321,7 @@ public class ID3v2 implements ID3Tag, Serializable {
      */
     public void addFrame(ID3v2Frame frame) {
         if (frames == null) {
-            frames = new ArrayList<ID3v2Frame>();
+            frames = new ArrayList<>();
         }
 
         frames.add(frame);
@@ -413,7 +413,7 @@ public class ID3v2 implements ID3Tag, Serializable {
     public void update() throws IOException {
         // don't write changes if not necessary
         if (!is_changed) {
-logger.info("not changed");
+logger.fine("not changed");
             return;
         }
 
@@ -658,7 +658,7 @@ logger.info("not changed");
         }
 
         // Convert bytes to ID3v2Frames
-        frames = new ArrayList<ID3v2Frame>();
+        frames = new ArrayList<>();
 
         ByteArrayInputStream bis = new ByteArrayInputStream(frames_as_byte);
 //logger.info("frames\n" + StringUtil.getDump(frames_as_byte));
@@ -671,13 +671,13 @@ logger.info("not changed");
 
             if (frame.getID() == ID3v2Frame.ID_INVALID) {
                 // reached end of frames
-logger.info("invalid id found");
+logger.fine("invalid id found");
                 break;
             } else {
                 frames.add(frame);
             }
         }
-logger.info("skip: " + bis.available());
+logger.fine("skip: " + bis.available());
         bis.skip(bis.available());
     }
 
@@ -724,13 +724,14 @@ if ("Comments".equals(key) && frames.size() > 1) {
             FrameContent frameContent = getFrame(key).get(0).getContent(key);
             frameContent.setContent(content); // TODO override each content!
         } catch (ID3v2Exception e) {
+            e.printStackTrace(System.err);
             addFrame(ID3v2Factory.createFrame(key, ID3v2Factory.createFrameContent(key, content)));
         }
     }
 
     /* */
     public Iterator<?> tags() throws TagException {
-        List<ID3v2Frame> results = new ArrayList<ID3v2Frame>();
+        List<ID3v2Frame> results = new ArrayList<>();
         for (ID3v2Frame frame : frames) {
             results.add(frame);
         }

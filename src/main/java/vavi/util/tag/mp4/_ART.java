@@ -12,8 +12,12 @@ import vavi.util.box.MetaBox;
 
 
 /**
- * /udta/meta/ilst/_ART
- *                     /data 
+ * Name of the artist.
+ * 
+ * <pre>
+ * /moov/udta/meta/ilst/©ART
+ *                          /data 
+ * </pre>
  *
  * TODO make super class
  *
@@ -33,7 +37,7 @@ public class _ART extends MetaBox {
 
     /* */
     public String toString() {
-        return "id = _ART, data:\n" + StringUtil.getDump(getData());
+        return "id = ©ART, data:\n" + StringUtil.getDump(getData());
     }
 }
 

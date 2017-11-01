@@ -12,8 +12,12 @@ import vavi.util.box.MetaBox;
 
 
 /**
- * /udata/meta/ilst/covr
- *                     /data 
+ * Cover (or other) artwork binary data.
+ * 
+ * <pre>
+ * /moov/udta/meta/ilst/covr
+ *                          /data 
+ * </pre>
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2012/06/13 umjammer initial version <br>
@@ -36,7 +40,7 @@ System.err.println(StringUtil.getDump(data, 64));
 
     /* */
     public String toString() {
-        return "id = covr, data:\n" + StringUtil.getDump(getData());
+        return "id = covr, data:\n" + StringUtil.getDump(getData(), 128);
     }
 }
 

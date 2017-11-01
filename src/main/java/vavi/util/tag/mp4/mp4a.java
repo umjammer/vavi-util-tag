@@ -9,12 +9,13 @@ package vavi.util.tag.mp4;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-import vavi.util.Debug;
 import vavi.util.box.MetaFullBox;
 
 
 /**
- * mp4a. 
+ * <pre>
+ * /moov/trak/mdia/minf/stbl/stsd/mp4a. 
+ * </pre>
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070611 nsano initial version <br>
@@ -28,6 +29,7 @@ public class mp4a extends MetaFullBox {
     int sampleRate;
 
     /**
+     * <pre>
  amc
 00 00 00 00 00 00  00 01  00 00 00 00  00 00 00 00   ...... .. .... ....
 00 02  00 10  00 00  00 00  1F 40 00 00  00 00 00 CA .. .. .. .. .@.. ...?
@@ -52,6 +54,7 @@ public class mp4a extends MetaFullBox {
 65 73 64 73 00 00 00 00 03 19 00 02 00 04 11 40      esds...........@
 15 00 00 00 00 01 38 80 00 01 38 80 05 02 14 10      ......8タ..8タ....
 06 01 02                                             ...
+     * </pre>
      */
     @Override
     public void inject(DataInputStream dis) throws IOException {
@@ -65,7 +68,7 @@ public class mp4a extends MetaFullBox {
         int dataReferenceIndex = dis.readUnsignedShort();
 
         int version = dis.readInt(); // version, revision ??? 0: amc, 3gp, 1: mov
-Debug.println("dataReferenceIndex: " + dataReferenceIndex + ", version: " + version);
+//Debug.println("dataReferenceIndex: " + dataReferenceIndex + ", version: " + version);
         dis.readInt();
         this.channelCount = dis.readUnsignedShort();
         this.sampleSize = dis.readUnsignedShort();

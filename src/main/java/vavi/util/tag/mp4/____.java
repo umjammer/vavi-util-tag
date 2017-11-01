@@ -12,10 +12,12 @@ import vavi.util.box.MetaBox;
 
 
 /**
- * /udta/meta/ilst/----
- *                     /mean 
- *                     /name 
- *                     /data 
+ * <pre>
+ * /moov/udta/meta/ilst/----
+ *                          /mean 
+ *                          /name 
+ *                          /data 
+ * </pre>
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2012/06/04 umjammer initial version <br>

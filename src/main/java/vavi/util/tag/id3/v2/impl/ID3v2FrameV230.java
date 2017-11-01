@@ -131,7 +131,7 @@ public class ID3v2FrameV230 implements ID3v2Frame, Serializable {
 //logger.info("id: " + id + ": " + StringUtil.getDump(head, 4) + ", length: " + length);
         if (!ids.containsValue(id)) {
             if (id.matches("[A-Z0-9]{4}")) {
-logger.info("unknown id: " + id + ", " + length);
+logger.fine("unknown id: " + id + ", " + length);
                 content = new byte[2 + length]; // TODO more smart
                 dis.readFully(content);
             } else {
@@ -327,9 +327,22 @@ logger.warning("maybe crush: " + StringUtil.getDump(head, 4) + "[" + id + "], " 
 
     /**
      * Returns content (decompressed)
+     * 
+     * @param atom four letters name
      */
-    public FrameContent getContent(String key) {
-        return ID3v2Factory.createFrameContent(key, content);
+    public FrameContent getContent(String atom) {
+        Enumeration<?> e = ids.propertyNames();
+        while (e.hasMoreElements()) {
+            String key = (String) e.nextElement();
+            String value = ids.getProperty(key);
+
+            if (value.equals(atom)) {
+                return ID3v2Factory.createFrameContent(key, content);
+            }
+        }
+
+logger.warning("no key for: " + atom);
+        return ID3v2Factory.createFrameContent("Unknown", content);
     }
 
     /**
@@ -524,7 +537,7 @@ e.printStackTrace(System.err);
         return id.equals(ids.getProperty(key));
     }
 
-    /** */
+    /** common name, four letters id */
     private static final Properties ids = new Properties(); 
 
     /** */

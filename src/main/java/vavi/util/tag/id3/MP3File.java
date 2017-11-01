@@ -62,7 +62,7 @@ public class MP3File extends File {
     private static Logger logger = Logger.getLogger(MP3File.class.getName());
 
     /** */
-    private Map<ID3Tag.Type, Tag> tags = new HashMap<ID3Tag.Type, Tag>();
+    private Map<ID3Tag.Type, Tag> tags = new HashMap<>();
 
     /**
      * Creates a new instance.

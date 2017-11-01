@@ -6,6 +6,7 @@
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -47,29 +48,29 @@ public class Test13 {
         ApidDao() {
             try {
                 connection = DriverManager.getConnection("jdbc:hsqldb:file:tmp/apiddb", "SA", "");
-    
+
                 Statement statement = connection.createStatement();
                 statement.execute("DROP TABLE apid IF EXISTS;");
                 statement.execute("CREATE TABLE apid(name VARCHAR, artist VARCHAR, apid VARCHAR);");
                 statement.close();
-    
+
                 PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO apid VALUES (?, ?, ?);");
-    
+
                 Library lib = ParseLibrary.parse(new File("/Users/nsano/Music/iTunes/iTunes Library.itl"));
                 for (Track t : lib.getTracks()) {
                     preparedStatement.setString(1, t.getName());
                     preparedStatement.setString(2, t.getArtist());
-                    String apid = t.getAlbumPersistentIdAsString();
-                    if (apid == null) {
-                        apid = t.getPersistentIdAsString();
-                        if (apid == null) {
+                    String apid = new String(t.getAlbumPersistentId(), Charset.forName("ascii"));
+                    if (apid == "") {
+                        apid = new String(t.getPersistentId(), Charset.forName("ascii"));
+                        if (apid == "") {
                             System.err.println("apid not found: " + t.getName() + ", " + t.getArtist());
                         }
                     }
                     preparedStatement.setString(3, apid);
                     preparedStatement.execute();
                 }
-                
+
                 preparedStatement.close();
             } catch (Exception e) {
                 throw new IllegalStateException(e);

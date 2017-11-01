@@ -21,7 +21,7 @@ import vavix.util.grep.RegexFileDigger;
 
 
 /**
- * Test5. (modify directory)
+ * Test5. (mp3 remove unnecessary tags by directory)
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>

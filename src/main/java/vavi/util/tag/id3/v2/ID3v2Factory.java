@@ -90,24 +90,30 @@ public class ID3v2Factory {
         return null;
     }
 
-    /** read from file */
+    /**
+     * read from file
+     * 
+     * @param key common name
+     */
     public static FrameContent createFrameContent(String key, byte[] content) {
         try {
+//logger.info("key: " + key);
             Constructor<FrameContent> constructor = constructorsWithArgs.get(key);
             FrameContent frameContent = constructor.newInstance(content);
             return frameContent;
         } catch (Exception e) {
-if (key.matches("[A-Z0-9]{4}")) {
- return new vavi.util.tag.id3.v2.di.RawFrameContent(content);
-} else {
- logger.warning(key);
- e.printStackTrace();
-            throw new IllegalStateException(e);
-}
+//e.printStackTrace(System.err);
+logger.warning("unhandled: " + key);
+            return new vavi.util.tag.id3.v2.di.RawFrameContent(content);
+            //throw new IllegalStateException(e);
         }
     }
 
-    /** from java */
+    /**
+     * from java
+     * 
+     * @param key common name 
+     */
     public static FrameContent createFrameContent(String key, Object content) {
         try {
             Constructor<FrameContent> constructor = constructors.get(key);
@@ -120,11 +126,11 @@ logger.warning(key);
         }
     }
 
-    /** */
-    private static final Map<String, Constructor<FrameContent>> constructorsWithArgs = new HashMap<String, Constructor<FrameContent>>();
+    /** common name, constructor with args */
+    private static final Map<String, Constructor<FrameContent>> constructorsWithArgs = new HashMap<>();
 
-    /** */
-    private static final Map<String, Constructor<FrameContent>> constructors = new HashMap<String, Constructor<FrameContent>>();
+    /** common name, constructor */
+    private static final Map<String, Constructor<FrameContent>> constructors = new HashMap<>();
 
     /** */
     static {
@@ -133,6 +139,7 @@ logger.warning(key);
             props.load(ID3v2Factory.class.getResourceAsStream("/vavi/util/tag/id3/v2/di.properties"));
             Enumeration<?> e = props.propertyNames();
             while (e.hasMoreElements()) {
+                // common name
                 String key = (String) e.nextElement();
                 String className = props.getProperty(key);
                 Class<FrameContent> clazz = (Class<FrameContent>) Class.forName(className);
@@ -142,7 +149,7 @@ logger.warning(key);
                 constructors.put(key, constructor);
             }
         } catch (Exception e) {
-            throw (RuntimeException) new IllegalStateException().initCause(e);
+            throw new IllegalStateException(e);
         }
     }
 }

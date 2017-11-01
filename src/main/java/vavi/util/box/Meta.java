@@ -24,7 +24,7 @@ public interface Meta {
 
     class Support {
         /** */
-        private List<Box> subBoxes = new ArrayList<Box>();
+        private List<Box> subBoxes = new ArrayList<>();
     
         /** */
         public List<Box> getSubBoxes() {
@@ -53,6 +53,7 @@ public interface Meta {
             int l = 0;
             while (l < length) {
                 Box subBox = factory.getInstance(dis);
+//System.err.println(subBox);
                 subBoxes.add(subBox);
                 l += subBox.offset;
 //Debug.println(l + "/" + (offset - 8));

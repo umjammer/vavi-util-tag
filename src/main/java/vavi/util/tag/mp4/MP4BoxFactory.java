@@ -1,7 +1,6 @@
 package vavi.util.tag.mp4;
 
 import java.io.DataInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -87,13 +86,17 @@ Debug.println("64 bit length: " + offset);
             box = new MetaBox();
         } else if ("uuid".equals(idString)) {   // au 3gpp2
             box = new uuid();
-        } else if ("----".equals(idString)) {
+        } else if ("----".equals(idString)) {   // iTunes
             box = new ____();
-        } else if ("covr".equals(idString)) {
+        } else if ("covr".equals(idString)) {   // iTunes
             box = new covr();
-        } else if (((char) 0xa9 + "nam").equals(idString)) {
+        } else if ("pinf".equals(idString)) {   // iTunes
+            box = new MetaBox();
+        } else if ("schi".equals(idString)) {   // iTunes
+            box = new MetaBox();
+        } else if (((char) 0xa9 + "nam").equals(idString)) { // iTunes
             box = new _nam();
-        } else if (((char) 0xa9 + "ART").equals(idString)) {
+        } else if (((char) 0xa9 + "ART").equals(idString)) { // iTunes
             box = new _ART();
         } else {
             box = new Box();
@@ -104,16 +107,6 @@ Debug.println("64 bit length: " + offset);
 //Debug.println("id: " + new String(id) + ", length: " + StringUtil.toHex16(offset));
         box.inject(dis);
         return box;
-    }
-
-    /** */
-    public static void main(String[] args) throws Exception {
-        BoxFactory factory = BoxFactoryFactory.getFactory(MP4BoxFactory.class.getName());
-        InputStream is = new FileInputStream(args[0]);
-        while (is.available() > 0) {
-            Box box = factory.getInstance(is);
-Debug.println(box);
-        }
     }
 }
 

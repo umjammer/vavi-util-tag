@@ -14,7 +14,9 @@ import vavi.util.box.MetaFullBox;
 
 
 /**
- * stsd. 
+ * <pre>
+ * /moov/trak/mdia/minf/stbl/stsd
+ * </pre>
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070608 nsano initial version <br>

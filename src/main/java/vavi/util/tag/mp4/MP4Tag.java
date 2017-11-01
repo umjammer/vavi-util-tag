@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import vavi.util.StringUtil;
 import vavi.util.box.Box;
 import vavi.util.box.Meta;
 import vavi.util.tag.Tag;
@@ -36,7 +35,7 @@ public class MP4Tag implements Tag {
 
     List<Object> search(List<Box> boxes, String key, List<Object> results, int depth) {
         for (Box box : boxes) {
-System.err.print("BOX" + depth + ": " + StringUtil.getDump(box.getId()));
+//System.err.print("BOX" + depth + ": " + StringUtil.getDump(box.getId()));
             if (box.isIdOf(key)) {
                 results.add(box);
             } else {
@@ -49,7 +48,7 @@ System.err.print("BOX" + depth + ": " + StringUtil.getDump(box.getId()));
     }
 
     public Object getTag(String key) throws TagException {
-        List<Object> results = new ArrayList<Object>(); 
+        List<Object> results = new ArrayList<>(); 
         return search(this.boxes, key, results, 0);
     }
 
@@ -64,7 +63,7 @@ System.err.print("BOX" + depth + ": " + StringUtil.getDump(box.getId()));
     }
 
     public Iterator<?> tags() throws TagException {
-        List<Object> results = new ArrayList<Object>(); 
+        List<Object> results = new ArrayList<>(); 
         return search(this.boxes, results).iterator();
     }
 

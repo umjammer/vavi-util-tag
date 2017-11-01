@@ -18,7 +18,7 @@ import vavi.util.tag.id3.v2.impl.ID3v2FrameV230;
 
 
 /**
- * Test2. (read from a file)
+ * Test2. (mp3 read from a file)
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
@@ -44,6 +44,7 @@ public class Test2 {
                 e.printStackTrace(System.err);
             }
         }
+        scanner.close();
     }
 
     /**

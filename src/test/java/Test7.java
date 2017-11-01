@@ -7,6 +7,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import vavi.util.StringUtil;
@@ -19,12 +20,16 @@ import vavix.util.grep.RegexFileDigger;
 
 
 /**
- * Test7. (modify directory)
+ * Test7. (mp3 remove unnecessary tags by directory)
+ * 
+ * WORKS FINE
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
 public class Test7 {
+
+    static Logger logger = Logger.getLogger(Test7.class.getName());
 
     /**
      * @param args top_directory regex_pattern 
@@ -68,11 +73,10 @@ public class Test7 {
                         key.equals("TMED") ||
                         key.equals("MCDI") ||
                         key.equals("TXXX") ||
-                        key.equals("TXXX") ||
                         key.equals("WXXX") ||
                         key.equals("PRIV")
                         ) {
-System.err.println("remove " + key + ":\n" + StringUtil.getDump(frame.getBytes(), 64));
+logger.info("remove " + key + ":\n" + StringUtil.getDump(frame.getBytes(), 64));
                     tag.removeFrame(frame);
                 }
             }

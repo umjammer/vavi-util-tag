@@ -28,7 +28,7 @@ public interface BoxFactory {
             try {
                 return (BoxFactory) Class.forName(className).newInstance();
             } catch (Exception e) {
-                throw (RuntimeException) new IllegalStateException().initCause(e);
+                throw new IllegalStateException(e);
             }
         }
     }

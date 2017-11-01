@@ -13,7 +13,9 @@ import vavi.util.box.FullBox;
 
 
 /**
- * hdlr. 
+ * <pre>
+ * /moov/trak/mdia/hdlr
+ * </pre>
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070608 nsano initial version <br>

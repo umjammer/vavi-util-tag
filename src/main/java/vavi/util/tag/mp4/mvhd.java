@@ -13,7 +13,9 @@ import vavi.util.box.Box;
 
 
 /**
- * mvhd. 
+ * <pre>
+ * /moov/mvhd 
+ * </pre>
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070904 nsano initial version <br>

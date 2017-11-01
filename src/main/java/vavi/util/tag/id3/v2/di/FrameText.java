@@ -62,12 +62,12 @@ public interface FrameText {
                 }
                 return constructor.newInstance();
             } catch (Exception e) {
-                throw (RuntimeException) new IllegalStateException().initCause(e);
+                throw new IllegalStateException(e);
             }
         }
 
         /** */
-        private static final Map<String, Constructor<FrameText>> constructors = new HashMap<String, Constructor<FrameText>>();
+        private static final Map<String, Constructor<FrameText>> constructors = new HashMap<>();
     
         /** */
         static {
@@ -84,7 +84,7 @@ public interface FrameText {
                     constructors.put(key, constructor);
                 }
             } catch (Exception e) {
-                throw (RuntimeException) new IllegalStateException().initCause(e);
+                throw new IllegalStateException(e);
             }
         }
     }

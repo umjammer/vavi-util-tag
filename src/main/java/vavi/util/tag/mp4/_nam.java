@@ -12,8 +12,12 @@ import vavi.util.box.MetaBox;
 
 
 /**
- * /udta/meta/ilst/_nam
- *                     /data 
+ * Name of the track.
+ * 
+ * <pre>
+ * /moov/udta/meta/ilst/©nam
+ *                          /data 
+ * </pre>
  *
  * TODO make super class
  * 
@@ -33,7 +37,7 @@ public class _nam extends MetaBox {
 
     /* */
     public String toString() {
-        return "id = -nam, data:\n" + StringUtil.getDump(getData());
+        return "id = ©nam, data:\n" + StringUtil.getDump(getData());
     }
 }
 

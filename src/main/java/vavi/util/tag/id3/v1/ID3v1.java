@@ -449,7 +449,7 @@ logger.warning("mp3 length < 129: " + raf.length());
 
     /* */
     public Iterator<?> tags() throws TagException {
-        List<Object> results = new ArrayList<Object>();
+        List<Object> results = new ArrayList<>();
         results.add(getTitle());
         results.add(getArtist());
         results.add(getAlbum());

@@ -15,7 +15,7 @@ import vavi.util.tag.id3.v2.ID3v2Frame;
 
 
 /**
- * Test6. (modify one)
+ * Test6. (mp3 remove unnecessary tags by one)
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
@@ -48,7 +48,6 @@ public class Test6 {
                     key.equals("TSIZ") ||
                     key.equals("TLEN") ||
                     key.equals("MCDI") ||
-                    key.equals("TXXX") ||
                     key.equals("TXXX") ||
                     key.equals("WXXX") ||
                     key.equals("PRIV")

@@ -65,7 +65,11 @@ Debug.println(file);
                     Box box = factory.getInstance(is);
 Debug.println(box);
                     if (box instanceof item) {
-                        image = ImageIO.read(new ByteArrayInputStream(box.getData()));
+                        try {
+                            image = ImageIO.read(new ByteArrayInputStream(box.getData()));
+                        } catch (Exception e) {
+                            e.printStackTrace(System.err);
+                        }
 //if (c < 100) {
 // if (((item) box).imageHeight == 128) {
 //  System.err.println(String.format("tmp/it_%02d.jpg", c));
