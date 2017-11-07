@@ -11,11 +11,15 @@
   <organization>
     <name></name>
   </organization>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <url>https://github.com/umjammer/vavi-util-tag</url>
-  <description>1.0.0
+  <description>1.0.1
 
-    </description>
+    maintenace version
+
+1.0.0
+
+    initial version</description>
   <build>
     <plugins>
       <plugin>
@@ -42,9 +46,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>vavi</groupId>
+      <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-commons</artifactId>
-      <version>1.0.4</version>
+      <version>1.0.6</version>
     </dependency>
     <dependency>
       <groupId>com.googlecode.juniversalchardet</groupId>
@@ -52,9 +56,9 @@
       <version>1.0.3</version>
     </dependency>
     <dependency>
-      <groupId>vavi</groupId>
+      <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-commons-sandbox</artifactId>
-      <version>0.3.1</version>
+      <version>0.3.3</version>
     </dependency>
     <dependency>
       <groupId>com.nothome</groupId>
@@ -63,9 +67,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>vavi</groupId>
+      <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-util-screenscraping</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.5</version>
       <scope>test</scope>
     </dependency>
     <dependency>
