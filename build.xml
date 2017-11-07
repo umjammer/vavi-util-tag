@@ -7,12 +7,12 @@
 <!--                                                                        -->
 <!-- vavi-util-tag                                                          -->
 <!--                                                                        -->
-<!-- @author	Naohide Sano                                                -->
-<!-- @version	0.00	021208	nsano	initial version                     -->
+<!-- @author Naohide Sano                                                   -->
+<!-- @version 0.00 021208 nsano initial version                             -->
 <!--                                                                        -->
 <!-- ////////////////////////////////////////////////////////////////////// -->
 
-<project name="vavi-util-tag" default="compile" basedir="."
+<project name="vavi-util-tag" default="prepare" basedir="."
          xmlns:artifact="urn:maven-artifact-ant">
 
   <path id="maven-ant-tasks.classpath">
@@ -30,20 +30,10 @@
 
   <!-- Path Definitions -->
   <path id="project.class.path">
+    <pathelement location="${javac.dest.test}" />
+    <pathelement location="${javac.dest}" />
     <fileset refid="maven-ant-tasks.dependency.fileset"/>
   </path>
-
-  <!-- clean -->
-  <target name="clean" description="Cleaning">
-    <delete>
-      <fileset dir="${javac.dest}">
-        <include name="**/*" />
-      </fileset>
-      <fileset dir="${javac.dest.test}">
-        <include name="**/*" />
-      </fileset>
-    </delete>
-  </target>
 
   <!-- prepare -->
   <target name="prepare" description="Preparing">
@@ -51,52 +41,19 @@
     <artifact:dependencies fileSetId="maven-ant-tasks.dependency.fileset">
       <pom refid="maven.project"/>
     </artifact:dependencies>
-  </target>
-
-  <!-- javac -->
-  <target name="compile" depends="prepare" description="Compiling">
-    <javac debug="on" destdir="${javac.dest}"
-           source="${project.build.plugins.plugin.configuration.source}"
-           target="${project.build.plugins.plugin.configuration.target}"
-           encoding="${project.build.plugins.plugin.configuration.encoding}">
-      <classpath refid="project.class.path" />
-      <include name="**/*.java" />
-      <src path="${javac.source}" />
-    </javac>
-
-    <copy todir="${javac.dest}">
-      <fileset dir="${javac.resource}">
-        <include name="**/*" />
-      </fileset>
-    </copy>
-
-    <javac debug="on" destdir="${javac.dest.test}"
-           source="${project.build.plugins.plugin.configuration.source}"
-           target="${project.build.plugins.plugin.configuration.target}"
-           encoding="${project.build.plugins.plugin.configuration.encoding}">
-      <classpath>
-        <path refid="project.class.path" />
-        <pathelement location="${javac.dest}" />
-      </classpath>
-      <include name="**/*.java" />
-      <src path="${javac.source.test}" />
-    </javac>
-
-    <copy todir="${javac.dest.test}">
-      <fileset dir="${javac.resource.test}">
-        <include name="**/*" />
-      </fileset>
-    </copy>
+    <artifact:mvn pom="pom.xml">
+      <arg value="clean"/>
+      <arg value="package"/>
+      <arg value="-Dmaven.test.skip=true"/>
+    </artifact:mvn>
   </target>
 
   <!-- run -->
-  <target name="run" depends="compile" description="all mp3">
+  <target name="run" depends="prepare" description="all mp3">
     <java classname="Test1" fork="yes" output="tmp/output.txt" error="tmp/error.txt">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <classpath>
-        <pathelement location="${javac.dest.test}" />
-        <pathelement location="${javac.dest}" />
         <path refid="project.class.path" />
       </classpath>
       <arg value="${user.home}/Music/iTunes/iTunes Music/初音 ミク/Shibayan" />
@@ -105,14 +62,12 @@
   </target>
 
   <!-- t1 -->
-  <target name="t1" depends="compile" description="show a mp3">
+  <target name="t1" depends="prepare" description="show a mp3">
     <java classname="Test11" fork="yes">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=ALL" />
       <classpath>
-        <pathelement location="${javac.dest.test}" />
-        <pathelement location="${javac.dest}" />
         <path refid="project.class.path" />
       </classpath>
       <arg value="${user.home}/Music/iTunes/iTunes Music/${t1.mp3}" />
@@ -120,14 +75,12 @@
   </target>
 
   <!-- itc -->
-  <target name="itc" depends="compile" description="itunes artwork">
+  <target name="itc" depends="prepare" description="itunes artwork">
     <java classname="vavi.util.itunes.artwork.ITCBoxFactoryTest" fork="yes">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <classpath>
-        <pathelement location="${javac.dest.test}" />
-        <pathelement location="${javac.dest}" />
         <path refid="project.class.path" />
       </classpath>
       <arg value="${user.home}/Music/iTunes/Album Artwork/Download/0C01A45070E6DBEE" />
@@ -141,8 +94,6 @@
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <classpath>
-        <pathelement location="${javac.dest.test}" />
-        <pathelement location="${javac.dest}" />
         <path refid="project.class.path" />
       </classpath>
       <arg value="${user.home}/Music/iTunes/iTunes Music" />
@@ -157,8 +108,6 @@
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <classpath>
-        <pathelement location="${javac.dest.test}" />
-        <pathelement location="${javac.dest}" />
         <path refid="project.class.path" />
       </classpath>
       <arg value="${mp3}" />
@@ -172,8 +121,6 @@
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <classpath>
-        <pathelement location="${javac.dest.test}" />
-        <pathelement location="${javac.dest}" />
         <path refid="project.class.path" />
       </classpath>
       <!-- arg value="${user.home}/Music/iTunes/iTunes Music" / -->
@@ -189,8 +136,6 @@
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <classpath>
-        <pathelement location="${javac.dest.test}" />
-        <pathelement location="${javac.dest}" />
         <path refid="project.class.path" />
       </classpath>
       <arg value="${user.home}/Music/iTunes/iTunes Music" />
@@ -199,14 +144,12 @@
   </target>
 
   <!-- t8 -->
-  <target name="t8" depends="compile" description="box">
+  <target name="t8" depends="prepare" description="box">
     <java classname="Test8" fork="yes">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <classpath>
-        <pathelement location="${javac.dest.test}" />
-        <pathelement location="${javac.dest}" />
         <path refid="project.class.path" />
       </classpath>
 <!--
@@ -218,7 +161,7 @@
   </target>
 
   <!-- t9 -->
-  <target name="t9" depends="compile" description="show pics size in audio file by directory">
+  <target name="t9" depends="prepare" description="show pics size in audio file by directory">
     <java classname="Test9" fork="yes" output="tmp/pictsize.txt" error="tmp/pictsize.err">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
 <!--
@@ -226,11 +169,9 @@
 -->
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <jvmarg value="-Djdbc.drivers=org.hsqldb.jdbcDriver" />
-      <jvmarg value="-Xmx768m" />    
+      <jvmarg value="-Xmx768m" />
       <jvmarg value="-Djava.awt.headless=true" />
       <classpath>
-        <pathelement location="${javac.dest.test}" />
-        <pathelement location="${javac.dest}" />
         <path refid="project.class.path" />
       </classpath>
       <arg value="${user.home}/Music/iTunes/iTunes Music/" />
@@ -239,22 +180,20 @@
   </target>
 
   <!-- t10 -->
-  <target name="t10" depends="compile" description="apple artwork api">
+  <target name="t10" depends="prepare" description="apple artwork api">
     <java classname="Test10" fork="yes">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <jvmarg value="-Djava.awt.headless=true" />
       <classpath>
-        <pathelement location="${javac.dest.test}" />
-        <pathelement location="${javac.dest}" />
         <path refid="project.class.path" />
       </classpath>
     </java>
   </target>
 
   <!-- t12 -->
-  <target name="t12" depends="compile" description="itunes music library">
+  <target name="t12" depends="prepare" description="itunes music library">
     <java classname="Test12" fork="yes">
       <jvmarg value="-Xmx768m" />    
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
@@ -262,21 +201,18 @@
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <classpath>
         <path refid="project.class.path" />
-        <pathelement location="target/test-classes" />
       </classpath>
     </java>
   </target>
 
   <!-- t13 -->
-  <target name="t13" depends="compile" description="apple artwork lib">
+  <target name="t13" depends="prepare" description="apple artwork lib">
     <java classname="Test13" fork="yes" output="tmp/appleart.txt" error="tmp/appleart.err">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <jvmarg value="-Djdbc.drivers=org.hsqldb.jdbcDriver" />
       <jvmarg value="-Xmx768m" />
       <classpath>
-        <pathelement location="${javac.dest.test}" />
-        <pathelement location="${javac.dest}" />
         <path refid="project.class.path" />
       </classpath>
       <arg value="${user.home}/Music/iTunes/iTunes Music/" />
@@ -285,13 +221,12 @@
   </target>
 
   <!-- t7_2 -->
-  <target name="mp3tag_d_i" depends="compile" description="mp3 find unnecessary tags by directory">
+  <target name="mp3tag_d_i" depends="prepare" description="mp3 find unnecessary tags by directory">
     <java classname="Test7_2" jvm="${jvm}" fork="yes" output="tmp/t7_2.txt" error="${stderr}">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <classpath>
         <path refid="project.class.path" />
-        <pathelement location="target/test-classes" />
       </classpath>
       <arg value="${user.home}/Music/iTunes/iTunes Music/" />
       <arg value=".*\.([Mm][Pp]3)" />
@@ -299,13 +234,11 @@
   </target>
 
   <!-- mp3 tag -->
-  <target name="mp3tag_d" depends="compile" description="mp3 find unnecessary tags by directory">
+  <target name="mp3tag_d" depends="prepare" description="mp3 find unnecessary tags by directory">
     <java classname="Test7_2" jvm="${jvm}" fork="yes">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <classpath>
-        <pathelement location="${javac.dest.test}" />
-        <pathelement location="${javac.dest}" />
         <path refid="project.class.path" />
       </classpath>
       <arg value="${user.home}/Music/1/waiting" />
@@ -314,13 +247,11 @@
   </target>
 
   <!-- t16 -->
-  <target name="t16" depends="compile" description="mp3 find unnecessary text in image by directory">
+  <target name="t16" depends="prepare" description="mp3 find unnecessary text in image by directory">
     <java classname="Test16" jvm="${jvm}" fork="yes" output="tmp/t16.txt" error="${stderr}">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <classpath>
-        <pathelement location="${javac.dest.test}" />
-        <pathelement location="${javac.dest}" />
         <path refid="project.class.path" />
       </classpath>
       <arg value="${user.home}/Music/iTunes/iTunes Music/" />
@@ -329,15 +260,13 @@
   </target>
 
   <!-- t14 -->
-  <target name="m4a" depends="compile" description="list pairated m4a">
+  <target name="m4a" depends="prepare" description="list pairated m4a">
     <java classname="Test14" fork="yes">
-      <jvmarg value="-Xmx768m" />    
+      <jvmarg value="-Xmx768m" />
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <classpath>
-        <pathelement location="${javac.dest.test}" />
-        <pathelement location="${javac.dest}" />
         <path refid="project.class.path" />
       </classpath>
       <arg value="${user.home}/Music/iTunes/iTunes Music/" />
@@ -352,15 +281,13 @@
                       TOAL TOPE TOLY TIT3 WOAR WOAF WOAS WORS TIT1 \
                       TDRL TSOA TSOP TSOT TSO2 TSOC"
    -->
-  <target name="t15" depends="compile" description="remove specified tags by one">
+  <target name="t15" depends="prepare" description="remove specified tags by one">
     <java classname="Test15" fork="yes">
       <jvmarg value="-Xmx768m" />    
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <classpath>
-        <pathelement location="${javac.dest.test}" />
-        <pathelement location="${javac.dest}" />
         <path refid="project.class.path" />
       </classpath>
       <arg value="${mp3}" />
@@ -369,15 +296,13 @@
   </target>
 
   <!-- itl -->
-  <target name="itl" depends="compile" description="itunes library">
+  <target name="itl" depends="prepare" description="itunes library">
     <java classname="vavi.util.itunes.library.ITLBoxFactoryTest" fork="yes">
       <jvmarg value="-Xmx768m" />    
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <classpath>
-        <pathelement location="${javac.dest.test}" />
-        <pathelement location="${javac.dest}" />
         <path refid="project.class.path" />
       </classpath>
       <arg value="${user.home}/Music/iTunes/iTunes Library.itl" />

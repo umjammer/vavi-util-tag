@@ -39,7 +39,7 @@ public class ITCBoxFactoryTest {
     public static void main(String[] args) throws Exception {
         new ITCBoxFactoryTest(args[0]);
     }
-    
+
     BufferedImage image;
 
     ITCBoxFactoryTest(String dir) throws IOException {

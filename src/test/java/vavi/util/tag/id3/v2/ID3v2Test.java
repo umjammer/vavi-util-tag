@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 
 
 /**
- * ID3v2Test. 
+ * ID3v2Test.
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2014/03/20 umjammer initial version <br>
@@ -23,7 +23,7 @@ public class ID3v2Test {
 
     @Test
     public void test() {
-        
+
         assertTrue(true);
     }
 }
