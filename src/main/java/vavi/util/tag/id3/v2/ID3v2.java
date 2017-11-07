@@ -702,7 +702,7 @@ logger.fine("skip: " + bis.available());
     }
 
     /**
-     * @param key key for frame id 
+     * @param key key for frame id
      */
     public Object getTag(String key) throws ID3v2Exception {
         List<ID3v2Frame> frames = getFrame(key);

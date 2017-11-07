@@ -327,7 +327,7 @@ logger.warning("maybe crush: " + StringUtil.getDump(head, 4) + "[" + id + "], " 
 
     /**
      * Returns content (decompressed)
-     * 
+     *
      * @param atom four letters name
      */
     public FrameContent getContent(String atom) {
@@ -538,7 +538,7 @@ e.printStackTrace(System.err);
     }
 
     /** common name, four letters id */
-    private static final Properties ids = new Properties(); 
+    private static final Properties ids = new Properties();
 
     /** */
     static {

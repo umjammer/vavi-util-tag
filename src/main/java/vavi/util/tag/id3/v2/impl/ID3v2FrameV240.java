@@ -511,7 +511,7 @@ e.printStackTrace(System.err);
     }
 
     /** */
-    private static final Properties ids = new Properties(); 
+    private static final Properties ids = new Properties();
 
     /** */
     static {

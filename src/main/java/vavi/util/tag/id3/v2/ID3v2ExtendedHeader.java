@@ -185,7 +185,7 @@ public class ID3v2ExtendedHeader {
 
             // axel.wernicke@gmx.de fix begin
             // shouldn't this be
-            // ret[3] = 6; ?? 
+            // ret[3] = 6; ??
             ret[3] = 10;
             // axel.wernicke@gmx.de fix end
             // write flags

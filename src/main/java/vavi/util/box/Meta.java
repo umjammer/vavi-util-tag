@@ -13,7 +13,7 @@ import java.util.List;
 
 
 /**
- * Meta. 
+ * Meta.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070608 nsano initial version <br>
@@ -25,14 +25,14 @@ public interface Meta {
     class Support {
         /** */
         private List<Box> subBoxes = new ArrayList<>();
-    
+
         /** */
         public List<Box> getSubBoxes() {
             return subBoxes;
         }
-    
+
         /**
-         * @return nullable 
+         * @return nullable
          */
         public Box getSubBox(String id) {
             for (Box box : subBoxes) {
@@ -59,7 +59,7 @@ public interface Meta {
 //Debug.println(l + "/" + (offset - 8));
             }
         }
-    
+
         /** */
         public String toString(String id) {
             StringBuilder sb = new StringBuilder();

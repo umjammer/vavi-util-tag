@@ -50,11 +50,11 @@ public class Test14 {
 
         public void dig(File file) throws IOException {
             Scanner scanner = new Scanner(file);
-            
+
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String fileName = line.split("\t")[0];
-                
+
 System.err.println(fileName);
                 dredger.dredge(new File(fileName));
 //break;
@@ -62,9 +62,9 @@ System.err.println(fileName);
             scanner.close();
         }
     }
-    
+
     /**
-     * @param args top_directory regex_pattern 
+     * @param args top_directory regex_pattern
      */
     public static void main(String[] args) throws Exception {
         exec14_1(args);
@@ -86,7 +86,7 @@ System.err.println(fileName);
     }
 
     /**
-     * @param mod 
+     * @param mod
      */
     private static void exec14_2(String mod) throws Exception {
         MP4File mp4File = new MP4File(mod);
@@ -109,7 +109,7 @@ System.err.println(fileName);
 
     /**
      * print
-     * @param file 
+     * @param file
      */
 //    private static void exec8_3(String file) throws Exception {
 //

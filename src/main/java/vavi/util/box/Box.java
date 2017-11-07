@@ -16,7 +16,7 @@ import vavi.util.StringUtil;
 
 
 /**
- * Box. 
+ * Box.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070608 nsano initial version <br>
@@ -76,7 +76,7 @@ System.err.println(e);
     }
 
     /**
-     * Reads after offset, id. 
+     * Reads after offset, id.
      */
     public void inject(DataInputStream dis) throws IOException {
         int length = (int) offset - 8; // TODO 64 bit

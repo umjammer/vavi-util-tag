@@ -22,7 +22,7 @@ import vavi.util.box.BoxFactory;
  *  itch
  *  item
  * </pre>
- * 
+ *
  * @see "http://www.waldoland.com/dev/Articles/ITCFileFormat.aspx"
  */
 public class ITCBoxFactory implements BoxFactory {

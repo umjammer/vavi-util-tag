@@ -23,7 +23,7 @@ import vavi.util.tag.id3.v2.ID3v2Frame;
 public class Test6 {
 
     /**
-     * @param args top_directory regex_pattern 
+     * @param args top_directory regex_pattern
      */
     public static void main(String[] args) throws Exception {
         exec6_1(args[0]);
@@ -31,7 +31,7 @@ public class Test6 {
     }
 
     /**
-     * @param file 
+     * @param file
      */
     private static void exec6_1(String mod) throws Exception {
         MP3File mp3File = new MP3File(mod);
@@ -61,7 +61,7 @@ System.err.println("remove " + key + ":\n" + StringUtil.getDump(frame.getBytes()
     }
 
     /**
-     * @param file 
+     * @param file
      */
     private static void exec6_2(String file) throws Exception {
 

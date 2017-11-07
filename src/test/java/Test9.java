@@ -106,7 +106,7 @@ public class Test9 {
     static ApidDao dao;
 
     /**
-     * @param args top_directory regex_pattern 
+     * @param args top_directory regex_pattern
      */
     public static void main(String[] args) throws Exception {
         dao = new ApidDao();
@@ -157,7 +157,7 @@ public class Test9 {
 
     /**
      * m4a
-     * @param file 
+     * @param file
      */
     private static boolean exec9_4(File file) throws Exception {
 
@@ -192,7 +192,7 @@ public class Test9 {
 
     /**
      * mp3
-     * @param file 
+     * @param file
      */
     private static boolean exec9_3(File file) throws Exception {
 

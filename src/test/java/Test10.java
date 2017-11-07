@@ -20,7 +20,7 @@ import vavix.util.screenscrape.annotation.WebScraper;
 
 
 /**
- * Test10. Apple Artwork API 
+ * Test10. Apple Artwork API
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2012/06/15 umjammer initial version <br>
@@ -51,7 +51,7 @@ public class Test10 {
             uc.connect();
 System.err.println("url: " + url);
 System.err.println("result: " + uc.getResponseCode());
-            
+
             InputStream is = uc.getInputStream();
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             byte[] buf = new byte[8192];
@@ -126,9 +126,9 @@ System.err.println("result: " + uc.getResponseCode());
             return sb.toString();
         }
     }
-    
+
     /**
-     * 
+     *
      * @param argv
      */
     public static void main(String[] args) throws Exception {

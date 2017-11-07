@@ -34,7 +34,7 @@ public class Test7_2 {
     static Logger logger = Logger.getLogger(Test7_2.class.getName());
 
     /**
-     * @param args top_directory regex_pattern 
+     * @param args top_directory regex_pattern
      */
     public static void main(String[] args) throws Exception {
         exec7_2(args);
@@ -60,7 +60,7 @@ public class Test7_2 {
     }
 
     /**
-     * @param file 
+     * @param file
      */
     private static void exec7_2(String mod) throws Exception {
         MP3File mp3File = new MP3File(mod);
@@ -86,7 +86,7 @@ boolean first = true;
                         key.equals("TXXX") ||
                         key.equals("WXXX") ||
                         key.equals("PRIV")
-                        
+
                                            ||
                         key.equals("TPE3") ||
                         key.equals("TOWN") ||
@@ -141,14 +141,14 @@ first = printFrame(mod, key, first, frame);
 System.err.println(mod + " has ID3v1");
         }
     }
-    
+
     static final Pattern p_tpbm = Pattern.compile("\\d+");
     static final Pattern p_tsrc = Pattern.compile("[\\w-]+[\\d-]+");
     static final Pattern p_tkey = Pattern.compile("[ABCDEFGo][b# ]?m?");
     static final List<String> s_woar = new ArrayList<String>() {{
-        add("www.nin.com");  
+        add("www.nin.com");
     }};
-    
+
     static boolean printFrame(String mod, String key, boolean first, ID3v2Frame frame) {
         if (first) {
             System.out.println(mod + " ------------");

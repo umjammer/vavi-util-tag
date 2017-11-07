@@ -21,7 +21,7 @@ import vavi.util.box.BoxFactory;
  *
  * <pre>
  * </pre>
- * 
+ *
  * @see ""
  */
 public class ITLBoxFactory implements BoxFactory {

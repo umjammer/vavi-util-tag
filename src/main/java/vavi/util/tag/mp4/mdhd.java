@@ -24,7 +24,7 @@ public class mdhd extends Box {
 
     /** */
     int version;
-    
+
     byte[] flags = new byte[3];
 
     int creationTime;

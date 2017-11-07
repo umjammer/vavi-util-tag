@@ -34,7 +34,7 @@ public class GenreFrameContent extends EncodedTextFrameContent {
         genre = genre.trim();
         if (genre.startsWith("(") && genre.endsWith(")")) {
             int genreCode = Integer.parseInt(genre.substring(1, genre.length() - 1));
-            // The following genres are defined in ID3v1 
+            // The following genres are defined in ID3v1
             genre = GenreUtil.getGenreString(genreCode);
             if (!"".equals(genre)) {
                 this.content = genre;

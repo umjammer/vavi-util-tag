@@ -14,9 +14,9 @@ import vavi.util.box.MetaBox;
 /**
  * <pre>
  * /moov/udta/meta/ilst/----
- *                          /mean 
- *                          /name 
- *                          /data 
+ *                          /mean
+ *                          /name
+ *                          /data
  * </pre>
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)

@@ -44,7 +44,7 @@ public class IntFrameContent extends EncodedTextFrameContent {
         if (content instanceof String) {
             // TODO そのまま
         } if (content instanceof Integer) {
-            // TODO 
+            // TODO
         } else {
             throw new IllegalArgumentException("unhandled class: " + content.getClass());
         }

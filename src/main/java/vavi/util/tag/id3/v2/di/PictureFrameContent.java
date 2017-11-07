@@ -27,17 +27,17 @@ public class PictureFrameContent extends BinaryFrameContent {
     private static Logger logger = Logger.getLogger(PictureFrameContent.class.getName());
 
     enum Type {
-        /** 32x32 pixels 'file icon' (PNG only) */ 
+        /** 32x32 pixels 'file icon' (PNG only) */
         $01,
-        /** Other file icon */ 
+        /** Other file icon */
         $02,
-        /** Cover (front) */ 
+        /** Cover (front) */
         $03,
-        /** Cover (back) */ 
+        /** Cover (back) */
         $04,
-        /** Leaflet page */ 
+        /** Leaflet page */
         $05,
-        /** Media (e.g. label side of CD) */ 
+        /** Media (e.g. label side of CD) */
         $06,
         /** Lead artist/lead performer/soloist */
         $07,
@@ -45,11 +45,11 @@ public class PictureFrameContent extends BinaryFrameContent {
         $08,
         /** Conductor */
         $09,
-        /** Band/Orchestra */ 
+        /** Band/Orchestra */
         $0A,
         /** Composer */
         $0B,
-        /** Lyricist/text writer */ 
+        /** Lyricist/text writer */
         $0C,
         /** Recording Location */
         $0D,
@@ -57,7 +57,7 @@ public class PictureFrameContent extends BinaryFrameContent {
         $0E,
         /** During performance */
         $0F,
-        /** Movie/video screen capture */ 
+        /** Movie/video screen capture */
         $10,
         /** A bright coloured fish */
         $11,
@@ -66,9 +66,9 @@ public class PictureFrameContent extends BinaryFrameContent {
         /** Band/artist logotype */
         $13,
         /** Publisher/Studio logotype */
-        $14 
+        $14
     }
-    
+
     /** */
     private String encoding;
 

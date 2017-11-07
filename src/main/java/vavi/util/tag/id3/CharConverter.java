@@ -15,7 +15,7 @@ import org.mozilla.universalchardet.UniversalDetector;
 
 /**
  * CharConverter.
- * 
+ *
  * @see "/vavi/util/tag/id3/id3.properties"
  * "id3.encoding"
  *

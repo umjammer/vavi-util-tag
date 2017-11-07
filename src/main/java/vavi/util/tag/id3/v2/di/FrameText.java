@@ -14,7 +14,7 @@ import java.util.Properties;
 
 
 /**
- * FrameText. 
+ * FrameText.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 051227 nsano initial version <br>
@@ -68,7 +68,7 @@ public interface FrameText {
 
         /** */
         private static final Map<String, Constructor<FrameText>> constructors = new HashMap<>();
-    
+
         /** */
         static {
             try {

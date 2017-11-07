@@ -13,10 +13,10 @@ import vavi.util.box.MetaBox;
 
 /**
  * Name of the artist.
- * 
+ *
  * <pre>
  * /moov/udta/meta/ilst/©ART
- *                          /data 
+ *                          /data
  * </pre>
  *
  * TODO make super class

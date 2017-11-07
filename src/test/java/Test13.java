@@ -95,11 +95,11 @@ public class Test13 {
     static ApidDao dao;
 
     /**
-     * @param args top_directory regex_pattern 
+     * @param args top_directory regex_pattern
      */
     public static void main(String[] args) throws Exception {
         dao = new ApidDao();
-        
+
         exec9_1(args);
     }
 
@@ -146,7 +146,7 @@ public class Test13 {
 
     /**
      * m4a
-     * @param file 
+     * @param file
      */
     private static boolean exec9_4(File file) throws Exception {
 
@@ -167,10 +167,10 @@ public class Test13 {
     }
 
     static BoxFactory itcFactory = BoxFactoryFactory.getFactory(ITCBoxFactory.class.getName());
-    
+
     /**
      * mp3
-     * @param file 
+     * @param file
      */
     private static boolean exec9_3(File file) throws Exception {
 
@@ -232,11 +232,11 @@ System.err.println("ITC: " + name + ", " + artist + ", " + itc);
         sb.append(String.format("%02d", Integer.parseInt(apid.substring(14, 15), 16) & 0x0F));
         sb.append('/');
         sb.append(String.format("%02d", Integer.parseInt(apid.substring(13, 14), 16) & 0x0F));
-        
+
         sb.append('/' + pid + "-" + apid);
 
         sb.append(".itc");
-        
+
         return sb.toString();
     }
 

@@ -13,14 +13,14 @@ import vavi.util.box.MetaBox;
 
 /**
  * Name of the track.
- * 
+ *
  * <pre>
  * /moov/udta/meta/ilst/©nam
- *                          /data 
+ *                          /data
  * </pre>
  *
  * TODO make super class
- * 
+ *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2012/06/04 umjammer initial version <br>
  */

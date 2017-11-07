@@ -27,7 +27,7 @@ import vavi.util.box.BoxFactory.BoxFactoryFactory;
 
 
 /**
- * hdfm. 
+ * hdfm.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070904 nsano initial version <br>
@@ -79,7 +79,7 @@ public class hdfm extends Box {
         byte[] decrypted = crypt(this.versionString, baos.toByteArray(), Cipher.DECRYPT_MODE);
         byte[] inflated = inflate(decrypted);
 
-        this.data = !Arrays.equals(decrypted, inflated) ? inflated : decrypted; 
+        this.data = !Arrays.equals(decrypted, inflated) ? inflated : decrypted;
 //Debug.println(this + "\n" + StringUtil.getDump(this.data, 128));
 
         //
@@ -110,9 +110,9 @@ Debug.println(box);
             }
 
             encryptedLength -= encryptedLength % 16;
-            
+
             int padding = src.length - encryptedLength;
-            
+
             byte[] result = cipher.doFinal(src, 0, encryptedLength);
             System.arraycopy(result, 0, dst, 0, result.length);
             System.arraycopy(src, result.length, dst, result.length, padding);
@@ -130,7 +130,7 @@ Debug.println(box);
         if (endOfFirstNumber < 0) {
             endOfFirstNumber = fullVersion.length();
         }
-        
+
         try {
             return Integer.parseInt(fullVersion.substring(0, endOfFirstNumber)) >= majorVersion;
         } catch (NumberFormatException nfe) {
@@ -143,7 +143,7 @@ Debug.println(box);
 
         // Check for a zlib flag byte; 0x78 => 32k window, deflate
         boolean probablyCompressed = src.length >= 1 && src[0] == 0x78;
-        
+
         try {
             InflaterInputStream in = new InflaterInputStream(new ByteArrayInputStream(src), new Inflater());
             ByteArrayOutputStream out = new ByteArrayOutputStream(src.length);

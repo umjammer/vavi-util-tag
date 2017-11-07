@@ -13,10 +13,10 @@ import vavi.util.box.MetaBox;
 
 /**
  * Cover (or other) artwork binary data.
- * 
+ *
  * <pre>
  * /moov/udta/meta/ilst/covr
- *                          /data 
+ *                          /data
  * </pre>
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
@@ -33,7 +33,7 @@ public class covr extends MetaBox {
         byte[] data = box.getData();
 System.err.println(StringUtil.getDump(data, 64));
         final int O = 8;
-        byte[] result = new byte[data.length - O]; 
+        byte[] result = new byte[data.length - O];
         System.arraycopy(data, O, result, 0, data.length - O);
         return result;
     }

@@ -29,7 +29,7 @@ public class Test7_1 {
     static Logger logger = Logger.getLogger(Test7_1.class.getName());
 
     /**
-     * @param args top_directory regex_pattern 
+     * @param args top_directory regex_pattern
      */
     public static void main(String[] args) throws Exception {
         exec7_1(args);
@@ -50,7 +50,7 @@ public class Test7_1 {
     }
 
     /**
-     * @param file 
+     * @param file
      */
     private static void exec7_2(String mod) throws Exception {
         MP3File mp3File = new MP3File(mod);

@@ -57,19 +57,19 @@ public class uuid extends Box {
     class cpgd implements SubBox {
         /** */
         byte[] uuid = new byte[12];
-    
+
         /** */
         int type;           // times: 4, days: 2, date: 1, off: 0
         /** */
         int transportFlag;  // times: 1, days: 1, date: 1, off: 0
-        
+
         /** */
         int dateLimit;
         /** */
         int daysLimit;
         /** */
         int timesLimit;
-    
+
         /** */
         public void inject(DataInputStream dis) throws IOException {
             dis.readFully(this.uuid);
@@ -79,7 +79,7 @@ public class uuid extends Box {
             this.daysLimit = dis.readInt();
             this.timesLimit = dis.readInt();
         }
-    
+
         /* */
         public String toString() {
             return String.format("cpgd: type: %1$d, transportFlag: %2$d, dateLimit: %3$tF %3$tT, daysLimit: %4$d, timesLimit: %5$d",

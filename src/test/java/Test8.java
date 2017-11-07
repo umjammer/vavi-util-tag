@@ -25,7 +25,7 @@ import vavix.util.grep.RegexFileDigger;
 public class Test8 {
 
     /**
-     * @param args top_directory regex_pattern 
+     * @param args top_directory regex_pattern
      */
     public static void main(String[] args) throws Exception {
         exec8_1(args);
@@ -51,7 +51,7 @@ public class Test8 {
     }
 
     /**
-     * @param mod 
+     * @param mod
      */
     private static void exec8_2(String mod) throws Exception {
         MP4File mp4File = new MP4File(mod);
@@ -72,7 +72,7 @@ public class Test8 {
 
     /**
      * print
-     * @param file 
+     * @param file
      */
 //    private static void exec8_3(String file) throws Exception {
 //

@@ -11,7 +11,7 @@ import java.io.InputStream;
 
 
 /**
- * BoxFactory. 
+ * BoxFactory.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070920 nsano initial version <br>

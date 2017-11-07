@@ -10,7 +10,7 @@ import java.io.IOException;
 
 
 /**
- * ID3v2HeaderV230. 
+ * ID3v2HeaderV230.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 051205 nsano initial version <br>
@@ -42,20 +42,20 @@ public abstract class ID3v2Header {
      * @throws IOException If an I/O error occurs
      */
     protected void inject(byte[] head) throws ID3v2Exception, IOException {
-    
+
         // check if header
         if (!isHeader(head)) {
             throw new ID3v2Exception("missing header");
         }
-    
+
         // so we have a valid header
         // check version
         version = head[3];
         revision = head[4];
-    
+
         // read & parse flags
         this.flag = head[5];
-    
+
         // Last, read size. Size is stored in 4 bits, which all have their highest
         // bit set to 0 (unsynchronization)
         size = (head[9] & 0xff) + ((head[8] & 0xff) << 7) + ((head[7] & 0xff) << 14) + ((head[6] & 0xff) << 21);

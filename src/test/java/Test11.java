@@ -24,7 +24,7 @@ import vavi.util.tag.id3.v2.ID3v2;
 public class Test11 {
 
     /**
-     * @param args file 
+     * @param args file
      */
     public static void main(String[] args) throws Exception {
         exec1(args);
@@ -36,7 +36,7 @@ public class Test11 {
     }
 
     /**
-     * @param file 
+     * @param file
      */
     private static void exec1_1(String file) throws Exception {
         Properties props = new Properties();

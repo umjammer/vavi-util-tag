@@ -8,7 +8,7 @@ package vavi.util.tag.id3.v2;
 
 
 /**
- * ID3v2Frame. 
+ * ID3v2Frame.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 051205 nsano initial version <br>

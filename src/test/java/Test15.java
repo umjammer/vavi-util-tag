@@ -15,7 +15,7 @@ import vavi.util.tag.id3.v2.ID3v2Frame;
 
 /**
  * Test15. (mp3 remove specified tags by one)
- * 
+ *
  * WORKS FINE
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
@@ -24,14 +24,14 @@ import vavi.util.tag.id3.v2.ID3v2Frame;
 public class Test15 {
 
     /**
-     * @param args top_directory regex_pattern 
+     * @param args top_directory regex_pattern
      */
     public static void main(String[] args) throws Exception {
         exec15_1(args);
     }
 
     /**
-     * @param file 
+     * @param file
      */
     private static void exec15_1(String[] args) throws Exception {
 System.err.println("file: " + args[0]);

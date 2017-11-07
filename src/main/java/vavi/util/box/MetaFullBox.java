@@ -12,7 +12,7 @@ import java.util.List;
 
 
 /**
- * MetaFullBox. 
+ * MetaFullBox.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 070608 nsano initial version <br>

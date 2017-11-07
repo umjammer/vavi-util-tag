@@ -15,7 +15,7 @@ import vavi.util.box.FullBox;
 
 /**
  * <pre>
- * /moov/trak/mdia/minf/stbl/stsd/mp4a/esds 
+ * /moov/trak/mdia/minf/stbl/stsd/mp4a/esds
  * </pre>
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
@@ -66,7 +66,7 @@ public class esds extends FullBox {
         byte[] data;
 
         static final int[] sampleRateTable = {
-            96000, 88200, 64000, 48000, 44100, 32000, 
+            96000, 88200, 64000, 48000, 44100, 32000,
             24000, 22050, 16000, 12000, 11025, 8000,
             7350, 0, 0, 0
         };
@@ -97,7 +97,7 @@ public class esds extends FullBox {
             }
                 break;
             case DecConfigDescrTag: {
-                int dummy = dis.readUnsignedByte();     // object type id, 64: aac, 225: qcelp? 
+                int dummy = dis.readUnsignedByte();     // object type id, 64: aac, 225: qcelp?
 //Debug.println("object type id: " + dummy);
                 desc.totalLength += 1;
                 dummy = dis.readUnsignedByte();         // stream type

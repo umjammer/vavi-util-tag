@@ -18,13 +18,13 @@ import vavi.util.tag.TagException;
 
 
 /**
- * MP4Tag. 
+ * MP4Tag.
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2012/06/06 umjammer initial version <br>
  */
 public class MP4Tag implements Tag {
-    
+
     /** */
     private List<Box> boxes;
 
@@ -48,7 +48,7 @@ public class MP4Tag implements Tag {
     }
 
     public Object getTag(String key) throws TagException {
-        List<Object> results = new ArrayList<>(); 
+        List<Object> results = new ArrayList<>();
         return search(this.boxes, key, results, 0);
     }
 
@@ -63,7 +63,7 @@ public class MP4Tag implements Tag {
     }
 
     public Iterator<?> tags() throws TagException {
-        List<Object> results = new ArrayList<>(); 
+        List<Object> results = new ArrayList<>();
         return search(this.boxes, results).iterator();
     }
 

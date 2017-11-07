@@ -74,9 +74,9 @@ public class EncodedTextFrameContent extends TextFrameContent {
 
         try {
             ByteBuilder build = new ByteBuilder(ByteBuilder.NONE, ((String) content).getBytes(encoding).length);
-    
+
             build.put(((String) content).getBytes(encoding));
-    
+
             return build.getBytes();
         } catch (UnsupportedEncodingException e) {
             assert false : e.getMessage();

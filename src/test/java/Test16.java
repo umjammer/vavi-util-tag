@@ -31,7 +31,7 @@ public class Test16 {
     static Logger logger = Logger.getLogger(Test16.class.getName());
 
     /**
-     * @param args top_directory regex_pattern 
+     * @param args top_directory regex_pattern
      */
     public static void main(String[] args) throws Exception {
         exec16(args);
@@ -57,7 +57,7 @@ public class Test16 {
     }
 
     /**
-     * @param file 
+     * @param file
      */
     private static void exec16(String file) throws Exception {
         if (file.toLowerCase().endsWith(".mp3")) {
@@ -66,7 +66,7 @@ public class Test16 {
             exec16_m4a(file);
         }
     }
-    
+
     private static void exec16_mp3(String mod) throws Exception {
         MP3File mp3File = new MP3File(mod);
 
@@ -83,9 +83,9 @@ first = printFrame(mod, key, first, frame);
             }
         }
     }
-    
+
     private static void exec16_m4a(String mod) throws Exception {
-    
+
     }
 
     static boolean printFrame(String mod, String key, boolean first, ID3v2Frame frame) {

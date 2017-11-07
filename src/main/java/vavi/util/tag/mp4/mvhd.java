@@ -14,7 +14,7 @@ import vavi.util.box.Box;
 
 /**
  * <pre>
- * /moov/mvhd 
+ * /moov/mvhd
  * </pre>
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
@@ -24,7 +24,7 @@ public class mvhd extends Box {
 
     /** */
     int version;
-    
+
     byte[] flags = new byte[3];
 
     int creationTime;
