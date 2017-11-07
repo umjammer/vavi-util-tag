@@ -7,7 +7,6 @@
 import java.io.File;
 import java.util.Iterator;
 
-import vavi.util.FileUtil;
 import vavi.util.tag.Tag;
 import vavi.util.tag.id3.ID3Tag;
 import vavi.util.tag.id3.ID3Tag.Type;
@@ -15,6 +14,8 @@ import vavi.util.tag.id3.MP3File;
 import vavi.util.tag.id3.v2.ID3v2;
 import vavi.util.tag.id3.v2.ID3v2Frame;
 import vavi.util.tag.id3.v2.impl.ID3v2FrameV230;
+
+import vavix.util.FileUtil;
 
 
 /**

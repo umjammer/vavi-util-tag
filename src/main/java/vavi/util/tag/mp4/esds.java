@@ -141,7 +141,7 @@ public class esds extends FullBox {
 
             return desc;
         }
-    
+
         /** TODO too bad */
         static int[] readTagLength(DataInputStream dis) throws IOException {
             int length = 0;
@@ -164,7 +164,7 @@ public class esds extends FullBox {
 
     /* */
     public String toString() {
-        return StringUtil.paramStringDeep(this) + "\n"; // TODO
+        return StringUtil.paramString(this) + "\n"; // TODO
     }
 }
 

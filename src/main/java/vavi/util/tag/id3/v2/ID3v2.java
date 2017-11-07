@@ -37,10 +37,11 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.zip.CRC32;
 
-import vavi.util.FileUtil;
 import vavi.util.tag.TagException;
 import vavi.util.tag.id3.ID3Tag;
 import vavi.util.tag.id3.v2.impl.ID3v2HeaderV230;
+
+import vavix.util.FileUtil;
 
 
 /**
@@ -91,7 +92,7 @@ public class ID3v2 implements ID3Tag, Serializable {
 
         // open file and read tag (if present)
         header = ID3v2Factory.readHeaderFrom(in);
-        
+
         use_unsynchronization = header.unsynch;
 
         // tag present
