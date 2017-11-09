@@ -42,9 +42,9 @@
       <pom refid="maven.project"/>
     </artifact:dependencies>
     <artifact:mvn pom="pom.xml">
+      <arg value="-q"/>
       <arg value="clean"/>
       <arg value="package"/>
-      <arg value="-Dmaven.test.skip=true"/>
     </artifact:mvn>
   </target>
 
@@ -56,7 +56,7 @@
       <classpath>
         <path refid="project.class.path" />
       </classpath>
-      <arg value="${user.home}/Music/iTunes/iTunes Music/初音 ミク/Shibayan" />
+      <arg value="${user.home}/Music/iTunes/iTunes Music/${run.dir}" />
       <arg value=".+\.mp3" />
     </java>
   </target>
@@ -195,7 +195,7 @@
   <!-- t12 -->
   <target name="t12" depends="prepare" description="itunes music library">
     <java classname="Test12" fork="yes">
-      <jvmarg value="-Xmx768m" />    
+      <jvmarg value="-Xmx768m" />
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
@@ -241,7 +241,7 @@
       <classpath>
         <path refid="project.class.path" />
       </classpath>
-      <arg value="${user.home}/Music/1/waiting" />
+      <arg value="${user.home}/Music/1/dempa" />
       <arg value=".*\.([Mm][Pp]3)" />
     </java>
   </target>

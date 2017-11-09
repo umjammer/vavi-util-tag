@@ -8,6 +8,8 @@ import java.io.File;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import org.junit.Ignore;
+
 import vavi.util.tag.Tag;
 import vavi.util.tag.id3.ID3Tag;
 import vavi.util.tag.id3.ID3TagException;
@@ -21,6 +23,7 @@ import vavi.util.tag.id3.v2.ID3v2;
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 100803 nsano initial version <br>
  */
+@Ignore
 public class Test11 {
 
     /**

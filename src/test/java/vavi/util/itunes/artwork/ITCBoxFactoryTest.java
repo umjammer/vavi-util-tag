@@ -19,6 +19,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.junit.Ignore;
+
 import vavi.util.Debug;
 import vavi.util.box.Box;
 import vavi.util.box.BoxFactory;
@@ -33,6 +35,7 @@ import vavix.util.grep.RegexFileDigger;
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 2010/09/08 nsano initial version <br>
  */
+@Ignore
 public class ITCBoxFactoryTest {
 
     /** */

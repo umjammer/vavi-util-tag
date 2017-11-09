@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import org.junit.Ignore;
+
 import vavi.util.box.Box;
 import vavi.util.tag.mp4.MP4File;
 import vavi.util.tag.mp4.MP4Tag;
@@ -39,6 +41,7 @@ import vavix.util.grep.RegexFileDigger;
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 120608 nsano initial version <br>
  */
+@Ignore
 public class Test14 {
 
     static class MyFileDigger implements FileDigger {

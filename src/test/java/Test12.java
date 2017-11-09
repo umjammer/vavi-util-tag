@@ -6,6 +6,8 @@
 
 import java.util.List;
 
+import org.junit.Ignore;
+
 import vavix.util.screenscrape.annotation.EachHandler;
 import vavix.util.screenscrape.annotation.SaxonXPathParser;
 import vavix.util.screenscrape.annotation.Target;
@@ -18,6 +20,7 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 120614 nsano initial version <br>
  */
+@Ignore
 public class Test12 {
 
     /** iTunes ライブラリ一 */
@@ -73,11 +76,11 @@ public class Test12 {
             sb.append(String.format("%02d", Integer.parseInt(persistentID.substring(14, 15), 16) & 0x0F));
             sb.append('/');
             sb.append(String.format("%02d", Integer.parseInt(persistentID.substring(13, 14), 16) & 0x0F));
-            
+
             sb.append('/' + pid + "-" + persistentID);
 
             sb.append(".itc");
-            
+
             return sb.toString();
         }
     }

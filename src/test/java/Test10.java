@@ -14,6 +14,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 
+import org.junit.Ignore;
+
 import vavix.util.screenscrape.annotation.InputHandler;
 import vavix.util.screenscrape.annotation.Target;
 import vavix.util.screenscrape.annotation.WebScraper;
@@ -25,6 +27,7 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2012/06/15 umjammer initial version <br>
  */
+@Ignore
 public class Test10 {
 
     /** */

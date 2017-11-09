@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.junit.Ignore;
 import org.kafsemo.titl.Library;
 import org.kafsemo.titl.ParseLibrary;
 import org.kafsemo.titl.Track;
@@ -41,6 +42,7 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 120613 nsano initial version <br>
  */
+@Ignore
 public class Test13 {
 
     static class ApidDao {

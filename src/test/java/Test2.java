@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.Properties;
 import java.util.Scanner;
 
+import org.junit.Ignore;
+
 import vavi.util.tag.Tag;
 import vavi.util.tag.id3.ID3Tag;
 import vavi.util.tag.id3.MP3File;
@@ -23,6 +25,7 @@ import vavi.util.tag.id3.v2.impl.ID3v2FrameV230;
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
+@Ignore
 public class Test2 {
 
     /**

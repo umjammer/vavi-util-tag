@@ -9,6 +9,7 @@ package vavi.util.tag.mp4;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import vavi.util.Debug;
@@ -25,6 +26,7 @@ import static org.junit.Assert.*;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2014/08/06 umjammer initial version <br>
  */
+@Ignore
 public class MP4BoxFactoryTest {
 
     @Test

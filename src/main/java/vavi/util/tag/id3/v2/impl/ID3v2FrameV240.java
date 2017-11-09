@@ -133,10 +133,12 @@ public class ID3v2FrameV240 implements ID3v2Frame, Serializable {
         if (!ids.containsValue(id)) {
             if (id.matches("[A-Z0-9]{4}")) {
 logger.warning("unknown id: " + id + ", " + length);
+                content = new byte[2 + length]; // TODO more smart
+                dis.readFully(content);
             } else {
 logger.warning("maybe crush: " + StringUtil.getDump(head, 4) + ", " + length);
+                dis.skipBytes(2 + length);
             }
-            dis.skipBytes(2 + length);
             return;
         }
 
@@ -162,9 +164,9 @@ logger.warning("maybe crush: " + StringUtil.getDump(head, 4) + ", " + length);
         if (((head[9] & 0xff) & FLAG_GROUPING) > 0) {
             grouping = true;
         }
-logger.info("compression: " + compression);
-logger.info("encryption: " + encryption);
-logger.info("grouping: " + grouping);
+//logger.info("compression: " + compression);
+//logger.info("encryption: " + encryption);
+//logger.info("grouping: " + grouping);
 
         // additional bytes if present
         if (compression == true) {
@@ -195,6 +197,10 @@ logger.info("grouping: " + grouping);
 
         // FIXME axel.wernicke@gmx.de end
         // read content
+        if (length > dis.available()) {
+logger.warning("id: " + id + ": " + StringUtil.getDump(head, 4) + ", length is larger than rest: " + length + "/" + dis.available());
+            length = dis.available();
+        }
         content = new byte[length];
         dis.readFully(content);
 

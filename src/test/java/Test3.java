@@ -10,6 +10,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.junit.Ignore;
+
 import vavi.util.box.Box;
 
 
@@ -19,6 +21,7 @@ import vavi.util.box.Box;
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 080313 nsano initial version <br>
  */
+@Ignore
 public class Test3 {
 
     static class BoxTest extends Box {

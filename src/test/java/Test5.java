@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.regex.Pattern;
 
+import org.junit.Ignore;
+
 import vavi.util.StringUtil;
 import vavi.util.tag.Tag;
 import vavi.util.tag.id3.ID3Tag;
@@ -26,6 +28,7 @@ import vavix.util.grep.RegexFileDigger;
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
+@Ignore
 public class Test5 {
 
     /**

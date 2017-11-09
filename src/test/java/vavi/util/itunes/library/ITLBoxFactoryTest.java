@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.junit.Ignore;
+
 import vavi.util.Debug;
 import vavi.util.box.Box;
 import vavi.util.box.BoxFactory;
@@ -22,6 +24,7 @@ import vavi.util.box.BoxFactory.BoxFactoryFactory;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2012/06/18 umjammer initial version <br>
  */
+@Ignore
 public class ITLBoxFactoryTest {
 
     /** */
