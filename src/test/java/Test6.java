@@ -19,7 +19,7 @@ import vavi.util.tag.id3.v2.ID3v2Frame;
 /**
  * Test6. (mp3 remove unnecessary tags by one)
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
 @Ignore

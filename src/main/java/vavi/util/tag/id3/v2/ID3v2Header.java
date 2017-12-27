@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * ID3v2HeaderV230.
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051205 nsano initial version <br>
  */
 public abstract class ID3v2Header {

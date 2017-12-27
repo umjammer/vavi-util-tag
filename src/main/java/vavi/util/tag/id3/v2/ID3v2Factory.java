@@ -27,7 +27,7 @@ import vavi.util.tag.id3.v2.impl.ID3v2HeaderV240;
 /**
  * ID3v2Factory. 
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051207 nsano initial version <br>
  */
 @SuppressWarnings("unchecked")

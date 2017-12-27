@@ -31,7 +31,7 @@ import vavi.util.tag.id3.v2.ID3v2Exception;
 /**
  * EncodedTextFrameContent.
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051227 nsano initial version <br>
  */
 public class EncodedTextFrameContent extends TextFrameContent {

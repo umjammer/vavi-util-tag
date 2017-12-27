@@ -23,7 +23,7 @@ import vavix.util.FileUtil;
 /**
  * Test4. (mp3 remove unnecessary tags test)
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
 @Ignore

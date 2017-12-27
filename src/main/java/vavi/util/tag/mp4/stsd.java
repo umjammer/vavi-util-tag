@@ -18,7 +18,7 @@ import vavi.util.box.MetaFullBox;
  * /moov/trak/mdia/minf/stbl/stsd
  * </pre>
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070608 nsano initial version <br>
  */
 public class stsd extends MetaFullBox {

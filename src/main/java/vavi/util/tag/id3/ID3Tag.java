@@ -12,7 +12,7 @@ import vavi.util.tag.Tag;
 /**
  * ID3Tag. 
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051208 nsano initial version <br>
  */
 public interface ID3Tag extends Tag {

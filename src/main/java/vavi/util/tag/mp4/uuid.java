@@ -19,7 +19,7 @@ import vavi.util.box.Box;
  * </pre>
  *
  * @see "http://www.nurs.or.jp/~calcium/wiki/index.php?3GPP2%20File%20Format"
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 071121 nsano initial version <br>
  */
 public class uuid extends Box {

@@ -38,7 +38,7 @@ import vavix.util.grep.RegexFileDigger;
  * </pre>
  *
  * @see "https://gist.github.com/torque/4361328"
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 120608 nsano initial version <br>
  */
 @Ignore

@@ -17,7 +17,7 @@ import vavi.util.box.MetaFullBox;
  * /moov/trak/mdia/minf/stbl/stsd/mp4a. 
  * </pre>
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 070611 nsano initial version <br>
  */
 public class mp4a extends MetaFullBox {

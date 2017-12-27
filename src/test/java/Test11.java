@@ -20,7 +20,7 @@ import vavi.util.tag.id3.v2.ID3v2;
 /**
  * Test11. (mp3)
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 100803 nsano initial version <br>
  */
 @Ignore

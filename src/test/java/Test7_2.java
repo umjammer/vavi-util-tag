@@ -28,7 +28,7 @@ import vavix.util.grep.RegexFileDigger;
 /**
  * Test7_2. (mp3 find unnecessary tags by directory)
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
 @Ignore

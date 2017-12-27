@@ -50,7 +50,7 @@ import vavix.util.grep.RegexFileDigger;
 /**
  * Test9. (album art size by directory)
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 120613 nsano initial version <br>
  */
 @Ignore
