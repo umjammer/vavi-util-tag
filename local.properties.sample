@@ -5,3 +5,11 @@ javac.resource=src/main/resources
 javac.resource.test=src/test/resources
 javac.dest=target/classes
 javac.dest.test=target/test-classes
+
+#
+itunes.dir=${user.home}/Music/iTunes/iTunes Music
+
+run.dir=${itunes.dir}
+mp3tag.dir=${user.home}/Music/
+t1.mp3=${itunes.dir}/foo/bar/buz.mp3
+t8.idr=${itunes.dir}/foo/bar/

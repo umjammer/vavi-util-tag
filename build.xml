@@ -16,8 +16,8 @@
          xmlns:artifact="urn:maven-artifact-ant">
 
   <path id="maven-ant-tasks.classpath">
-    <fileset dir="${user.home}/lib/java/maven-ant-tasks">
-      <include name="*.jar" />
+    <fileset dir="${user.home}/lib/java">
+      <include name="maven-ant-tasks*.jar" />
     </fileset>
   </path>
   <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant"
@@ -25,7 +25,6 @@
 
   <property environment="env"/>
   <property file="local.properties" />
-
   <xmlproperty file="pom.xml" />
 
   <!-- Path Definitions -->
@@ -42,9 +41,10 @@
       <pom refid="maven.project"/>
     </artifact:dependencies>
     <artifact:mvn pom="pom.xml">
-      <arg value="-q"/>
-      <arg value="clean"/>
-      <arg value="package"/>
+      <arg value="-q" />
+      <arg value="clean" />
+      <arg value="package" />
+      <arg value="-DskipTests=true" />
     </artifact:mvn>
   </target>
 
@@ -56,7 +56,7 @@
       <classpath>
         <path refid="project.class.path" />
       </classpath>
-      <arg value="${user.home}/Music/iTunes/iTunes Music/${run.dir}" />
+      <arg value="${run.dir}" />
       <arg value=".+\.mp3" />
     </java>
   </target>
@@ -70,7 +70,7 @@
       <classpath>
         <path refid="project.class.path" />
       </classpath>
-      <arg value="${user.home}/Music/iTunes/iTunes Music/${t1.mp3}" />
+      <arg value="${t1.mp3}" />
     </java>
   </target>
 
@@ -88,7 +88,7 @@
   </target>
 
   <!-- t5 -->
-  <target name="t5" description="clean a mp3 by directory">
+  <target name="t5" depends="prepare" description="clean a mp3 by directory">
     <java classname="Test5" fork="yes" output="tmp/t5.txt">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
@@ -96,13 +96,13 @@
       <classpath>
         <path refid="project.class.path" />
       </classpath>
-      <arg value="${user.home}/Music/iTunes/iTunes Music" />
+      <arg value="${itunes.dir}" />
       <arg value=".*\.mp3" />
     </java>
   </target>
 
   <!-- t6 -->
-  <target name="t6" description="clean a mp3">
+  <target name="t6" depends="prepare" description="clean a mp3 ${mp3}">
     <java classname="Test6" fork="yes">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
@@ -115,7 +115,7 @@
   </target>
 
   <!-- clean mp3 tag by directory -->
-  <target name="mp3clean_d" description="mp3 remove unnecessary tags by directory">
+  <target name="mp3clean_d" depends="prepare" description="mp3 remove unnecessary tags by directory">
     <java classname="Test7" jvm="${jvm}" fork="yes">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
@@ -123,14 +123,14 @@
       <classpath>
         <path refid="project.class.path" />
       </classpath>
-      <!-- arg value="${user.home}/Music/iTunes/iTunes Music" / -->
-      <arg value="${user.home}/Music/1/waiting" />
+      <!-- arg value="" / -->
+      <arg value="${mp3tag.dir}" />
       <arg value=".*\.([Mm][Pp]3)" />
     </java>
   </target>
 
   <!-- t7_1 -->
-  <target name="t7_1" description="show dir mp3">
+  <target name="t7_1" depends="prepare" description="show dir mp3">
     <java classname="Test7_1" fork="yes" output="tmp/mp3s.txt" error="${stderr}">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
@@ -138,7 +138,7 @@
       <classpath>
         <path refid="project.class.path" />
       </classpath>
-      <arg value="${user.home}/Music/iTunes/iTunes Music" />
+      <arg value="${itunes.dir}" />
       <arg value=".*\.mp3" />
     </java>
   </target>
@@ -152,10 +152,7 @@
       <classpath>
         <path refid="project.class.path" />
       </classpath>
-<!--
-      <arg value="${user.home}/Music/iTunes/iTunes Music/Compilations/Reggae Compilation/" />
--->
-      <arg value="${user.home}/Music/iTunes/iTunes Music/ACO/material/" />
+      <arg value="${t8.idr}" />
       <arg value=".*\.m4a" />
     </java>
   </target>
@@ -164,9 +161,7 @@
   <target name="t9" depends="prepare" description="show pics size in audio file by directory">
     <java classname="Test9" fork="yes" output="tmp/pictsize.txt" error="tmp/pictsize.err">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
-<!--
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
--->
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <jvmarg value="-Djdbc.drivers=org.hsqldb.jdbcDriver" />
       <jvmarg value="-Xmx768m" />
@@ -174,7 +169,7 @@
       <classpath>
         <path refid="project.class.path" />
       </classpath>
-      <arg value="${user.home}/Music/iTunes/iTunes Music/" />
+      <arg value="${itunes.dir}" />
       <arg value=".*\.(([Mm]4[AaPp])|([Mm][Pp]3))" />
     </java>
   </target>
@@ -215,7 +210,7 @@
       <classpath>
         <path refid="project.class.path" />
       </classpath>
-      <arg value="${user.home}/Music/iTunes/iTunes Music/" />
+      <arg value="${itunes.dir}" />
       <arg value=".*\.(([Mm]4[AaPp])|([Mm][Pp]3))" />
     </java>
   </target>
@@ -224,11 +219,12 @@
   <target name="mp3tag_d_i" depends="prepare" description="mp3 find unnecessary tags by directory">
     <java classname="Test7_2" jvm="${jvm}" fork="yes" output="tmp/t7_2.txt" error="${stderr}">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
+      <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <classpath>
         <path refid="project.class.path" />
       </classpath>
-      <arg value="${user.home}/Music/iTunes/iTunes Music/" />
+      <arg value="${itunes.dir}" />
       <arg value=".*\.([Mm][Pp]3)" />
     </java>
   </target>
@@ -237,11 +233,12 @@
   <target name="mp3tag_d" depends="prepare" description="mp3 find unnecessary tags by directory">
     <java classname="Test7_2" jvm="${jvm}" fork="yes">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
+      <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <classpath>
         <path refid="project.class.path" />
       </classpath>
-      <arg value="${user.home}/Music/1/dempa" />
+      <arg value="${mp3tag.dir}" />
       <arg value=".*\.([Mm][Pp]3)" />
     </java>
   </target>
@@ -250,11 +247,12 @@
   <target name="t16" depends="prepare" description="mp3 find unnecessary text in image by directory">
     <java classname="Test16" jvm="${jvm}" fork="yes" output="tmp/t16.txt" error="${stderr}">
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
+      <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
       <classpath>
         <path refid="project.class.path" />
       </classpath>
-      <arg value="${user.home}/Music/iTunes/iTunes Music/" />
+      <arg value="${itunes.dir}" />
       <arg value=".*\.(([Mm]4[AaPp])|([Mm][Pp]3))" />
     </java>
   </target>
@@ -269,7 +267,7 @@
       <classpath>
         <path refid="project.class.path" />
       </classpath>
-      <arg value="${user.home}/Music/iTunes/iTunes Music/" />
+      <arg value="${itunes.dir}" />
       <arg value=".*\.([Mm]4[AaPp])" />
     </java>
   </target>
@@ -281,9 +279,9 @@
                       TOAL TOPE TOLY TIT3 WOAR WOAF WOAS WORS TIT1 \
                       TDRL TSOA TSOP TSOT TSO2 TSOC"
    -->
-  <target name="t15" depends="prepare" description="remove specified tags by one">
+  <target name="t15" depends="prepare" description="remove specified tags by one ${mp3}">
     <java classname="Test15" fork="yes">
-      <jvmarg value="-Xmx768m" />    
+      <jvmarg value="-Xmx768m" />
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
@@ -298,7 +296,7 @@
   <!-- itl -->
   <target name="itl" depends="prepare" description="itunes library">
     <java classname="vavi.util.itunes.library.ITLBoxFactoryTest" fork="yes">
-      <jvmarg value="-Xmx768m" />    
+      <jvmarg value="-Xmx768m" />
       <jvmarg value="-Dfile.encoding=${project.build.plugins.plugin.configuration.encoding}" />
       <jvmarg value="-Djava.util.logging.config.class=vavi.util.logging.VaviConfig" />
       <jvmarg value="-Djava.util.logging.ConsoleHandler.level=OFF" />
