@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 
 import vavi.util.Debug;
 import vavi.util.box.Box;
@@ -35,7 +35,7 @@ import vavix.util.grep.RegexFileDigger;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 2010/09/08 nsano initial version <br>
  */
-@Ignore
+@Disabled
 public class ITCBoxFactoryTest {
 
     /** */

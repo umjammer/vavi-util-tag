@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 
 import vavi.util.StringUtil;
 import vavi.util.tag.id3.ID3Tag.Type;
@@ -28,7 +28,7 @@ import vavix.util.grep.RegexFileDigger;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
-@Ignore
+@Disabled
 public class Test16 {
 
     static Logger logger = Logger.getLogger(Test16.class.getName());

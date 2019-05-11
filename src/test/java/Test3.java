@@ -10,7 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 
 import vavi.util.box.Box;
 
@@ -21,7 +21,7 @@ import vavi.util.box.Box;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 080313 nsano initial version <br>
  */
-@Ignore
+@Disabled
 public class Test3 {
 
     static class BoxTest extends Box {

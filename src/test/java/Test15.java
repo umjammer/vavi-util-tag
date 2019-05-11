@@ -6,7 +6,7 @@
 
 import java.util.Iterator;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 
 import vavi.util.StringUtil;
 import vavi.util.tag.id3.ID3Tag.Type;
@@ -23,7 +23,7 @@ import vavi.util.tag.id3.v2.ID3v2Frame;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
-@Ignore
+@Disabled
 public class Test15 {
 
     /**

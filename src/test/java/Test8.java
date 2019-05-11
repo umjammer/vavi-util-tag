@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 
 import vavi.util.tag.mp4.MP4File;
 import vavi.util.tag.mp4.MP4Tag;
@@ -24,7 +24,7 @@ import vavix.util.grep.RegexFileDigger;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 120608 nsano initial version <br>
  */
-@Ignore
+@Disabled
 public class Test8 {
 
     /**

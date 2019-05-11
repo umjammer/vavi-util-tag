@@ -14,7 +14,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 
 import vavix.util.screenscrape.annotation.InputHandler;
 import vavix.util.screenscrape.annotation.Target;
@@ -27,7 +27,7 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2012/06/15 umjammer initial version <br>
  */
-@Ignore
+@Disabled
 public class Test10 {
 
     /** */
@@ -68,7 +68,7 @@ System.err.println("result: " + uc.getResponseCode());
 
             cache = new String(os.toByteArray());
 //try {
-// InputSource in = new InputSource(new StringReader(cache));
+// InputSource in = new InputSource(new AsciizBinder(cache));
 // DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 // DocumentBuilder db = dbf.newDocumentBuilder();
 // new PrettyPrinter(System.err).print(db.parse(in));

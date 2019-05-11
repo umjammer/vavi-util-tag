@@ -6,7 +6,7 @@
 
 import java.util.List;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 
 import vavix.util.screenscrape.annotation.EachHandler;
 import vavix.util.screenscrape.annotation.SaxonXPathParser;
@@ -20,7 +20,7 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 120614 nsano initial version <br>
  */
-@Ignore
+@Disabled
 public class Test12 {
 
     /** iTunes ライブラリ一 */

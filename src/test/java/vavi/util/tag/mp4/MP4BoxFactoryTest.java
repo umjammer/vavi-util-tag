@@ -9,15 +9,15 @@ package vavi.util.tag.mp4;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import vavi.util.Debug;
 import vavi.util.box.Box;
 import vavi.util.box.BoxFactory;
 import vavi.util.box.BoxFactory.BoxFactoryFactory;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2014/08/06 umjammer initial version <br>
  */
-@Ignore
+@Disabled
 public class MP4BoxFactoryTest {
 
     @Test

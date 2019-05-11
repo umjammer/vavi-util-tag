@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.kafsemo.titl.Library;
 import org.kafsemo.titl.ParseLibrary;
 import org.kafsemo.titl.Track;
@@ -53,7 +53,7 @@ import vavix.util.grep.RegexFileDigger;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 120613 nsano initial version <br>
  */
-@Ignore
+@Disabled
 public class Test9 {
 
     static class ApidDao {
