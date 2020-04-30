@@ -1,0 +1,133 @@
+/*
+ * Copyright (c) 2020 by Naohide Sano, All rights reserved.
+ *
+ * Programmed by Naohide Sano
+ */
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import org.junit.jupiter.api.Disabled;
+
+import vavi.util.tag.id3.ID3Tag.Type;
+import vavi.util.tag.id3.MP3File;
+import vavi.util.tag.id3.v2.FrameContent;
+import vavi.util.tag.id3.v2.ID3v2;
+import vavi.util.tag.id3.v2.ID3v2Frame;
+
+import vavix.util.grep.FileDigger;
+import vavix.util.grep.RegexFileDigger;
+
+
+/**
+ * Test17. (mp3 extract image by directory)
+ *
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
+ * @version 0.00 200217 nsano initial version <br>
+ */
+@Disabled
+public class Test17 {
+
+    static Logger logger = Logger.getLogger(Test17.class.getName());
+
+    /**
+     * @param args top_directory regex_pattern
+     */
+    public static void main(String[] args) throws Exception {
+        Test17 app = new Test17();
+        app.exec(args);
+    }
+
+    JFrame frame;
+    JPanel panel;
+    BufferedImage image;
+
+    /** */
+    private void exec(String[] args) throws Exception {
+        frame = new JFrame();
+        frame.setSize(600, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        panel = new JPanel() {
+            public void paint(Graphics g) {
+                g.drawImage(image, 0, 0, this);
+            }
+        };
+        frame.getContentPane().add(panel);
+        frame.setVisible(true);
+
+        new RegexFileDigger(new FileDigger.FileDredger() {
+            public void dredge(File file) throws IOException {
+                try {
+                    exec(file.getAbsolutePath());
+                } catch (Exception e) {
+                    System.err.println(file + " ------------");
+                    e.printStackTrace();
+                }
+            }
+        }, Pattern.compile(args[1])).dig(new File(args[0]));
+    }
+
+    /**
+     * @param file
+     */
+    private void exec(String file) throws Exception {
+        if (file.toLowerCase().endsWith(".mp3")) {
+            exec_mp3(file);
+        } else {
+            exec_m4a(file);
+        }
+    }
+
+    private void exec_mp3(String mod) throws Exception {
+        MP3File mp3File = new MP3File(mod);
+
+        if (mp3File.hasTag(Type.ID3v2)) {
+            ID3v2 tag = (ID3v2) mp3File.getTag(Type.ID3v2);
+            Iterator<?> i = tag.tags();
+            int c = 0;
+            while (i.hasNext()) {
+                ID3v2Frame frame = (ID3v2Frame) i.next();
+                String key = frame.getID();
+                if (key.equals("APIC")) {
+                    FrameContent content = frame.getContent(key);
+                    BufferedImage image = (BufferedImage) content.getContent();
+                    if (image != null) {
+                        printFrame(mod, image, c);
+                    }
+                    c++;
+                }
+            }
+        }
+    }
+
+    private void exec_m4a(String mod) throws Exception {
+
+    }
+
+    void printFrame(String mod, BufferedImage data, int count) {
+        image = data;
+        String name = mod.substring(mod.lastIndexOf("/") + 1, mod.lastIndexOf("."));
+        if (count > 0) {
+            name += " (" + count + ")";
+        }
+System.err.println(name);
+try {
+    ImageIO.write(image, "PNG", new File(String.format("tmp/aw/%s.png", name)));
+} catch (IOException e) {
+    e.printStackTrace();
+}
+        frame.setTitle(mod);
+        panel.repaint();
+    }
+}
+
+/* */
