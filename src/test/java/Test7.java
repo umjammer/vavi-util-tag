@@ -23,7 +23,7 @@ import vavix.util.grep.RegexFileDigger;
 
 /**
  * Test7. (mp3 remove unnecessary tags by directory)
- * 
+ *
  * WORKS FINE
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
@@ -35,7 +35,7 @@ public class Test7 {
     static Logger logger = Logger.getLogger(Test7.class.getName());
 
     /**
-     * @param args top_directory regex_pattern 
+     * @param args top_directory regex_pattern
      */
     public static void main(String[] args) throws Exception {
         exec7_1(args);
@@ -55,7 +55,7 @@ public class Test7 {
     }
 
     /**
-     * @param file 
+     * @param mod a file those unnecessary tags will be removed
      */
     private static void exec7_2(String mod) throws Exception {
         MP3File mp3File = new MP3File(mod);

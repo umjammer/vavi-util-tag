@@ -34,7 +34,7 @@ public class Test15 {
     }
 
     /**
-     * @param file
+     * @param args file
      */
     private static void exec15_1(String[] args) throws Exception {
 System.err.println("file: " + args[0]);

@@ -30,7 +30,7 @@ import vavix.util.grep.RegexFileDigger;
 
 
 /**
- * ITCBoxFactoryTest. 
+ * ITCBoxFactoryTest.
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 2010/09/08 nsano initial version <br>
@@ -38,7 +38,9 @@ import vavix.util.grep.RegexFileDigger;
 @Disabled
 public class ITCBoxFactoryTest {
 
-    /** */
+    /**
+     * @param args iTunes artwork root directory
+     */
     public static void main(String[] args) throws Exception {
         new ITCBoxFactoryTest(args[0]);
     }
@@ -58,12 +60,12 @@ public class ITCBoxFactoryTest {
         frame.setVisible(true);
 
         new RegexFileDigger(new FileDigger.FileDredger() {
-//int c = 0;
+int c = 0;
             public void dredge(File file) throws IOException {
                 BoxFactory factory = BoxFactoryFactory.getFactory(ITCBoxFactory.class.getName());
 
                 InputStream is = new FileInputStream(file);
-Debug.println(file);
+Debug.println(c + ": " + file);
                 while (is.available() > 0) {
                     Box box = factory.getInstance(is);
 Debug.println(box);
@@ -75,9 +77,9 @@ Debug.println(box);
                         }
 //if (c < 100) {
 // if (((item) box).imageHeight == 128) {
-//  System.err.println(String.format("tmp/it_%02d.jpg", c));
-//  ImageIO.write(image, "JPG", new File(String.format("tmp/it_%02d.jpg", c)));
-//  c++;
+//  System.err.println(String.format("tmp/it/it_%02d.jpg", c));
+//  ImageIO.write(image, "JPG", new File(String.format("tmp/it/it_%02d.jpg", c)));
+  c++;
 // }
 //}
                         frame.setTitle(file.getPath());

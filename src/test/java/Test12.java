@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Disabled;
 
-import vavix.util.screenscrape.annotation.EachHandler;
 import vavix.util.screenscrape.annotation.SaxonXPathParser;
 import vavix.util.screenscrape.annotation.Target;
 import vavix.util.screenscrape.annotation.WebScraper;
@@ -93,13 +92,11 @@ public class Test12 {
         final String libraryPersistentID = metas.get(0).libraryPersistentID;
 System.err.println("Library Persistent ID: " + libraryPersistentID);
 //        final String libraryPersistentID = "0C01A45070E6DBEE";
-        WebScraper.Util.foreach(Song.class, new EachHandler<Song>() {
-            public void exec(Song each) {
-                String itc = each.itc(libraryPersistentID);
-//                if (new File(itc).exists()) {
-                    System.err.println("songs: " + itc);
-//                }
-            }
+        WebScraper.Util.foreach(Song.class, each -> {
+            String itc = each.itc(libraryPersistentID);
+//            if (new File(itc).exists()) {
+                System.err.println("songs: " + itc);
+//            }
         });
     }
 }

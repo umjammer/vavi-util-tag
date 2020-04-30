@@ -63,7 +63,7 @@ public class Test7_2 {
     }
 
     /**
-     * @param file
+     * @param mod a file those unnecessary tags will be shown
      */
     private static void exec7_2(String mod) throws Exception {
         MP3File mp3File = new MP3File(mod);

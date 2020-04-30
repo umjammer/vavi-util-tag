@@ -36,15 +36,16 @@ public class Test4 {
         File orig = new File(args[0]);
         File mod = new File(args[1]);
         FileUtil.copy(orig, mod);
-        exec4_1(mod.getPath());
-        exec4_2(orig.getPath());
-        exec4_2(mod.getPath());
+        Test4 app = new Test4();
+        app.exec4_1(mod.getPath());
+        app.exec4_2(orig.getPath());
+        app.exec4_2(mod.getPath());
     }
 
     /**
-     * @param file 
+     * @param mod a file those unnecessary tags will be removed
      */
-    private static void exec4_1(String mod) throws Exception {
+    private void exec4_1(String mod) throws Exception {
         MP3File mp3File = new MP3File(mod);
 
         if (mp3File.hasTag(Type.ID3v2)) {
@@ -67,7 +68,7 @@ System.out.println("remove " + key);
     /**
      * @param file 
      */
-    private static void exec4_2(String file) throws Exception {
+    private void exec4_2(String file) throws Exception {
 
         System.out.println("-------- " + file + " --------");
 
