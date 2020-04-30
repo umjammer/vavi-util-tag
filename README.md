@@ -2,19 +2,17 @@
 
 # vavi-util-tag
 
+## Status
+
 | **Type** | **Description** | **IN Status** | **OUT Status** |
 |:---------|:----------------|:--------------|:---------------|
-| mp3 v1 |  | o | ? |
-| mp3 v2 |  | o | o |
-| mp4 |  | o | ? |
-| ITCBox | iTunes Artwork | o | - |
+| mp3 v1 |  | ✅ | ? |
+| mp3 v2 |  | ✅ | ✅ |
+| mp4 |  | ✅ | ? |
+| ITCBox | iTunes Artwork | ✅ | - |
 
-### Legend ###
+## Usage
 
-|Mark|Meaning|
-|:--|:---|
-| o | ok |
-| ? | not tested |
-| c | under construction |
-| x | ng |
-| - | n/a |
+ * [List unnecessary mp3 v2 tags]()
+ * [Delete unnecessary mp3 v2 tags]()
+ * [List iTunes artwork]()

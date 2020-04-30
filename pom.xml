@@ -5,13 +5,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>vavi</groupId>
   <artifactId>vavi-util-tag</artifactId>
+  <version>1.0.4-SNAPSHOT</version>
+
   <name>Vavi Util Tag API</name>
   <organization>
     <name></name>
   </organization>
-  <version>1.0.3</version>
   <url>https://github.com/umjammer/vavi-util-tag</url>
   <description>1.0.3
 
@@ -28,6 +30,13 @@
 1.0.0
 
     initial version</description>
+  <scm>
+    <url>https://github.com/umjammer/vavi-util-tag</url>
+  </scm>
+  <issueManagement>
+    <url>https://github.com/umjammer/vavi-util-tag/issues</url>
+  </issueManagement>
+
   <build>
     <plugins>
       <plugin>
@@ -40,13 +49,31 @@
       </plugin>
     </plugins>
   </build>
+
   <repositories>
     <repository>
       <id>jitpack.io</id>
       <url>https://jitpack.io</url>
     </repository>
   </repositories>
+
   <dependencies>
+    <dependency>
+      <groupId>com.github.umjammer</groupId>
+      <artifactId>vavi-commons</artifactId>
+      <version>1.0.15</version>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.juniversalchardet</groupId>
+      <artifactId>juniversalchardet</artifactId>
+      <version>1.0.3</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.umjammer</groupId>
+      <artifactId>vavi-commons-sandbox</artifactId>
+      <version>0.3.5</version>
+    </dependency>
+
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -60,20 +87,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.github.umjammer</groupId>
-      <artifactId>vavi-commons</artifactId>
-      <version>1.0.6</version>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-commons</artifactId>
+      <version>1.5.2</version>
+      <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.googlecode.juniversalchardet</groupId>
-      <artifactId>juniversalchardet</artifactId>
-      <version>1.0.3</version>
-    </dependency>
-    <dependency>
-      <groupId>com.github.umjammer</groupId>
-      <artifactId>vavi-commons-sandbox</artifactId>
-      <version>0.3.3</version>
-    </dependency>
+
     <dependency>
       <groupId>com.nothome</groupId>
       <artifactId>javaxdelta</artifactId>
@@ -83,7 +102,7 @@
     <dependency>
       <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-util-screenscraping</artifactId>
-      <version>1.0.5</version>
+      <version>1.0.9</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -98,11 +117,12 @@
       <version>1.8.0.10</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.2</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
-  <scm>
-    <url>https://github.com/umjammer/vavi-util-tag</url>
-  </scm>
-  <issueManagement>
-    <url>https://github.com/umjammer/vavi-util-tag/issues</url>
-  </issueManagement>
+
 </project>
