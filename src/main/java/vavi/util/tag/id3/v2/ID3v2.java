@@ -668,7 +668,7 @@ logger.fine("not changed");
         // (indicated by invalid frame id)
         while (bis.available() > 8) {
             ID3v2Frame frame = ID3v2Factory.readFrameFrom(bis, header);
-logger.info(frame.getID() + "\n" + frame);
+logger.fine(frame.getID() + "\n" + frame);
 
             if (frame.getID() == ID3v2Frame.ID_INVALID) {
                 // reached end of frames

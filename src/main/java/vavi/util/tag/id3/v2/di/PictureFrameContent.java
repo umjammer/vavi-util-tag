@@ -142,6 +142,7 @@ public class PictureFrameContent extends BinaryFrameContent {
             BufferedImage image = ImageIO.read(is);
             return image;
         } catch (IOException e) {
+logger.info(e.toString());
             return null;
         }
     }
