@@ -719,7 +719,8 @@ if ("Comments".equals(key) && frames.size() > 1) {
  }
 }
         ID3v2Frame frame = frames.get(0);
-        FrameContent content = frame.getContent(key);
+        FrameContent content = frame.getContent(frame.getID());
+//logger.fine("content: " + content.getClass().getSimpleName());
         Object object = content.getContent();
         return object;
     }
