@@ -2,3 +2,4 @@ lib/
 tmp/
 target/
 etc/
+local.properties

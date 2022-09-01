@@ -12,24 +12,10 @@
 
   <name>Vavi Util Tag API</name>
   <organization>
-    <name></name>
+    <name>vavi</name>
   </organization>
   <url>https://github.com/umjammer/vavi-util-tag</url>
-  <description>1.0.3
-
-    maintenace version
-
-1.0.2
-
-    maintenace version
-
-1.0.1
-
-    maintenace version
-
-1.0.0
-
-    initial version</description>
+  <description>Audio File TAG API</description>
   <scm>
     <url>https://github.com/umjammer/vavi-util-tag</url>
   </scm>
@@ -40,11 +26,24 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
         <configuration>
           <source>8</source>
           <target>8</target>
           <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M7</version>
+        <configuration>
+          <argLine>
+            -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
+          </argLine>
+          <trimStackTrace>false</trimStackTrace>
         </configuration>
       </plugin>
     </plugins>
@@ -55,41 +54,54 @@
       <id>jitpack.io</id>
       <url>https://jitpack.io</url>
     </repository>
+    <repository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/umjammer/*</url>
+    </repository>
   </repositories>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>5.8.2</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
       <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-commons</artifactId>
-      <version>1.0.15</version>
+      <version>1.0.16</version>
     </dependency>
     <dependency>
-      <groupId>com.googlecode.juniversalchardet</groupId>
+      <groupId>com.github.albfernandez</groupId>
       <artifactId>juniversalchardet</artifactId>
-      <version>1.0.3</version>
+      <version>2.4.0</version>
     </dependency>
     <dependency>
       <groupId>com.github.umjammer</groupId>
       <artifactId>vavi-commons-sandbox</artifactId>
-      <version>0.3.5</version>
+      <version>0.4.1</version>
     </dependency>
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>5.3.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.3.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-commons</artifactId>
-      <version>1.5.2</version>
       <scope>test</scope>
     </dependency>
 
@@ -100,9 +112,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.github.umjammer</groupId>
+      <groupId>vavi</groupId>
       <artifactId>vavi-util-screenscraping</artifactId>
-      <version>1.0.9</version>
+      <version>1.0.10</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -119,10 +131,159 @@
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.7.2</version>
+      <artifactId>slf4j-jdk14</artifactId>
+      <version>1.7.9</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
 
+  <profiles>
+    <profile>
+      <id>mp3clean_d</id>
+      <activation>
+        <property>
+          <name>dir</name>
+          <value/>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <!-- mp3 remove unnecessary tags by directory -->
+            <!-- exec:java -->
+            <!-- $ mvn -P mp3clean_d exec:java -Ddir='"dir"' -->
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.6.0</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>java</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <mainClass>Test7</mainClass>
+              <classpathScope>test</classpathScope>
+              <arguments>
+                <argument>${dir}</argument>
+                <argument>.*\.([Mm][Pp]3)</argument>
+              </arguments>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>mp3tag_d_i</id>
+      <activation>
+        <property>
+          <name>itunes.dir</name>
+          <value/>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <!-- mp3 find unnecessary tags by directory -->
+            <!-- exec:java -->
+            <!-- $ mvn -P mp3tag_d_i exec:java -->
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.6.0</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>java</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <mainClass>Test7_2</mainClass>
+              <classpathScope>test</classpathScope>
+              <arguments>
+                <argument>${itunes.dir}</argument>
+                <argument>.*\.([Mm][Pp]3)</argument>
+              </arguments>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>mp3tag_d</id>
+      <activation>
+        <property>
+          <name>dir</name>
+          <value/>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <!-- mp3 find unnecessary tags by directory -->
+            <!-- exec:java -->
+            <!-- $ mvn -P mp3tag_d exec:java -Ddir='"dir"' -->
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.6.0</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>java</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <mainClass>Test7_2</mainClass>
+              <classpathScope>test</classpathScope>
+              <arguments>
+                <argument>${dir}</argument>
+                <argument>.*\.([Mm][Pp]3)</argument>
+              </arguments>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <!-- mvn -P mp3show antrun:run -Dinfile='file' -->
+      <id>mp3show</id>
+      <activation>
+        <property>
+          <name>infile</name>
+          <value/>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <!-- GOOD: fork: OK, test jars: OK, user args, default args: OK -->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>3.1.0</version>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <java classname="Test11" fork="true">
+                  <classpath>
+                    <path refid="maven.compile.classpath"/>
+                    <path refid="maven.test.classpath"/>
+                  </classpath>
+                  <jvmarg value="-Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties"/>
+                  <arg value="${infile}"/>
+                </java>
+              </target>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
 </project>
