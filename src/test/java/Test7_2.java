@@ -37,13 +37,15 @@ public class Test7_2 {
     static Logger logger = Logger.getLogger(Test7_2.class.getName());
 
     /**
-     * @param args top_directory regex_pattern
+     * @param args 0: top_directory, 1: regex_pattern
      */
     public static void main(String[] args) throws Exception {
         exec7_2(args);
     }
 
-    /** */
+    /**
+     * @param args 0: top_directory, 1: regex_pattern
+     */
     private static void exec7_2(String[] args) throws Exception {
         new RegexFileDigger(new FileDigger.FileDredger() {
             public void dredge(File file) throws IOException {

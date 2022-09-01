@@ -69,7 +69,7 @@ public interface FrameText {
         /** */
         private static final Map<String, Constructor<FrameText>> constructors = new HashMap<>();
 
-        /** */
+        /* */
         static {
             try {
                 Properties props = new Properties();

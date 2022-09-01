@@ -62,7 +62,7 @@ public class ID3v2FrameV220 implements ID3v2Frame, Serializable {
      *   <code>ID3v2Frame.IS_COMPRESSED</code>: <code>content</code> is already compressed
      *   <code>ID3v2Frame.DO_COMPRESS</code>: <code>content</code> is not compressed, but should be
      *   Compression can also be switched on/off with <code>setCompression</code>
-     * @throws ID3v2DecompressionException If content is compressed and decompresson fails
+     * @throws ID3v2Exception If content is compressed and decompression fails
      */
     public ID3v2FrameV220(String id, byte[] content, byte compression_type) throws ID3v2Exception {
         this.id = id;
@@ -94,7 +94,7 @@ public class ID3v2FrameV220 implements ID3v2Frame, Serializable {
      * Note^2: Compression/decompression supports only GZIP.
      *
      * @param in Stream to read from
-     * @throws ID3v2DecompressionException If input is compressed and decompression fails
+     * @throws ID3v2Exception If input is compressed and decompression fails
      * @throws IOException If I/O error occurs
      */
     public ID3v2FrameV220(InputStream in, ID3v2Header header) throws IOException, ID3v2Exception {
@@ -131,7 +131,7 @@ logger.warning("maybe crush: " + StringUtil.getDump(head, 4) + ", " + length);
         dis.readFully(content);
 
         // decompress if necessary
-        if (compression == true) {
+        if (compression) {
             compressed_content = new byte[content.length];
             System.arraycopy(content, 0, compressed_content, 0, content.length);
 
@@ -184,7 +184,7 @@ logger.warning("maybe crush: " + StringUtil.getDump(head, 4) + ", " + length);
         int length = 6;
 
         // content
-        if (compression == true) {
+        if (compression) {
             length += compressed_content.length;
         } else {
             // bugfix axel.wernicke@gmx.de begin
@@ -232,7 +232,7 @@ logger.warning("maybe crush: " + StringUtil.getDump(head, 4) + ", " + length);
         short content_offset = 6; // first byte used for content
 
         // content
-        if (compression == true) {
+        if (compression) {
             compressContent();
             System.arraycopy(compressed_content, 0, ret, content_offset, compressed_content.length);
         } else {
@@ -313,7 +313,7 @@ e.printStackTrace();
     /** */
     private static final Properties ids = new Properties(); 
 
-    /** */
+    /* */
     static {
         try {
             ids.load(ID3v2FrameV220.class.getResourceAsStream("/vavi/util/tag/id3/v2/impl/v220.properties"));

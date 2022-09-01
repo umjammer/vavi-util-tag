@@ -132,7 +132,7 @@ logger.warning(key);
     /** common name, constructor */
     private static final Map<String, Constructor<FrameContent>> constructors = new HashMap<>();
 
-    /** */
+    /* */
     static {
         try {
             Properties props = new Properties();

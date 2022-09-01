@@ -7,6 +7,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -42,7 +43,6 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 120613 nsano initial version <br>
  */
-@Disabled
 public class Test13 {
 
     static class ApidDao {
@@ -62,10 +62,10 @@ public class Test13 {
                 for (Track t : lib.getTracks()) {
                     preparedStatement.setString(1, t.getName());
                     preparedStatement.setString(2, t.getArtist());
-                    String apid = new String(t.getAlbumPersistentId(), Charset.forName("ascii"));
-                    if (apid == "") {
-                        apid = new String(t.getPersistentId(), Charset.forName("ascii"));
-                        if (apid == "") {
+                    String apid = new String(t.getAlbumPersistentId(), StandardCharsets.US_ASCII);
+                    if (apid.isEmpty()) {
+                        apid = new String(t.getPersistentId(), StandardCharsets.US_ASCII);
+                        if (apid.isEmpty()) {
                             System.err.println("apid not found: " + t.getName() + ", " + t.getArtist());
                         }
                     }
@@ -97,7 +97,7 @@ public class Test13 {
     static ApidDao dao;
 
     /**
-     * @param args top_directory regex_pattern
+     * @param args 0: top_directory, 1: regex_pattern
      */
     public static void main(String[] args) throws Exception {
         dao = new ApidDao();
@@ -147,8 +147,7 @@ public class Test13 {
     }
 
     /**
-     * m4a
-     * @param file
+     * @param file m4a
      */
     private static boolean exec9_4(File file) throws Exception {
 
@@ -157,8 +156,8 @@ public class Test13 {
         MP4File mp4File = new MP4File(file.getAbsolutePath());
 
         MP4Tag tag = (MP4Tag) mp4File.getTag();
-        String name = new String(Box.class.cast(List.class.cast(tag.getTag((char) 0xa9 + "nam")).get(0)).getData()).substring(8);
-        String artist = new String(Box.class.cast(List.class.cast(tag.getTag((char) 0xa9 + "ART")).get(0)).getData()).substring(8);
+        String name = new String(((Box) ((List) tag.getTag((char) 0xa9 + "nam")).get(0)).getData()).substring(8);
+        String artist = new String(((Box) ((List) tag.getTag((char) 0xa9 + "ART")).get(0)).getData()).substring(8);
         found = itcImage(file, name, artist);
         if (!found) {
             List<Test10.Artwork> artworks = WebScraper.Util.scrape(Test10.Artwork.class, name, artist);
@@ -171,8 +170,7 @@ public class Test13 {
     static BoxFactory itcFactory = BoxFactoryFactory.getFactory(ITCBoxFactory.class.getName());
 
     /**
-     * mp3
-     * @param file
+     * @param file mp3
      */
     private static boolean exec9_3(File file) throws Exception {
 
@@ -182,8 +180,8 @@ public class Test13 {
 
         if (mp3File.hasTag(Type.ID3v2)) {
             ID3v2 tag = (ID3v2) mp3File.getTag(Type.ID3v2);
-            String name = String.class.cast(tag.getTag("Title"));
-            String artist = String.class.cast(tag.getTag("Artist"));
+            String name = (String) tag.getTag("Title");
+            String artist = (String) tag.getTag("Artist");
             found = itcImage(file, name, artist);
             if (!found) {
                 List<Test10.Artwork> artworks = WebScraper.Util.scrape(Test10.Artwork.class, name, artist);
@@ -235,13 +233,12 @@ System.err.println("ITC: " + name + ", " + artist + ", " + itc);
         sb.append('/');
         sb.append(String.format("%02d", Integer.parseInt(apid.substring(13, 14), 16) & 0x0F));
 
-        sb.append('/' + pid + "-" + apid);
+        sb.append('/').append(pid).append("-").append(apid);
 
         sb.append(".itc");
 
         return sb.toString();
     }
-
 }
 
 /* */

@@ -24,17 +24,18 @@ import vavix.util.grep.RegexFileDigger;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 120608 nsano initial version <br>
  */
-@Disabled
 public class Test8 {
 
     /**
-     * @param args top_directory regex_pattern
+     * @param args 0: top_directory, 1: regex_pattern
      */
     public static void main(String[] args) throws Exception {
         exec8_1(args);
     }
 
-    /** */
+    /**
+     * @param args 0: top_directory, 1: regex_pattern
+     */
     private static void exec8_1(String[] args) throws Exception {
         new RegexFileDigger(new FileDigger.FileDredger() {
             String dir;
@@ -54,16 +55,16 @@ public class Test8 {
     }
 
     /**
-     * @param mod
+     * @param mod mp3
      */
     private static void exec8_2(String mod) throws Exception {
         MP4File mp4File = new MP4File(mod);
-        MP4Tag mp4Tag = MP4Tag.class.cast(mp4File.getTag());
-        List<MP4Tag> results = List.class.cast(mp4Tag.getTag("----"));
+        MP4Tag mp4Tag = (MP4Tag) mp4File.getTag();
+        List<MP4Tag> results = (List) mp4Tag.getTag("----");
 //System.err.println("results: " + results.size());
         for (Object o : results) {
-            if (____.class.isInstance(o)) {
-                ____ box = ____.class.cast(o);
+            if (o instanceof ____) {
+                ____ box = (____) o;
                 if (box.getName().equals("iTunes_CDDB_1")) {
                     System.err.println(mod);
                     byte[] data = box.getData();

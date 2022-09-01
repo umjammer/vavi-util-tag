@@ -31,16 +31,17 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 import java.util.zip.CRC32;
 
 import vavi.util.tag.TagException;
 import vavi.util.tag.id3.ID3Tag;
 import vavi.util.tag.id3.v2.impl.ID3v2HeaderV230;
-
 import vavix.util.FileUtil;
 
 
@@ -80,11 +81,11 @@ public class ID3v2 implements ID3Tag, Serializable {
      * @param in Input stream to read from. Stream position must be set to beginning of file
      *        (i.e. position of ID3v2 tag).
      * @throws IOException If I/O errors occur
-     * @throws ID3v2IllegalVersionException If file contains an IDv2 tag of higher version than
+     * @throws ID3v2Exception If file contains an IDv2 tag of higher version than
      *            <code>VERSION</code>.<code>REVISION</code>
-     * @throws ID3v2WrongCRCException If file contains CRC and this differs from CRC calculated
+     * @throws ID3v2Exception If file contains CRC and this differs from CRC calculated
      *            from the frames
-     * @throws ID3v2DecompressionException If a decompression error occured while decompressing
+     * @throws ID3v2Exception If a decompression error occurred while decompressing
      *            a compressed frame
      */
     public ID3v2(InputStream in) throws IOException, ID3v2Exception {
@@ -116,15 +117,15 @@ public class ID3v2 implements ID3Tag, Serializable {
      *
      * @param file File to access
      * @throws IOException If I/O errors occur
-     * @throws ID3v2IllegalVersionException If file contains an IDv2 tag of higher version than
+     * @throws ID3v2Exception If file contains an IDv2 tag of higher version than
      *            <code>VERSION</code>.<code>REVISION</code>
-     * @throws ID3v2WrongCRCException If file contains CRC and this differs from CRC calculated
+     * @throws ID3v2Exception If file contains CRC and this differs from CRC calculated
      *            from the frames
-     * @throws ID3v2DecompressionException If a decompression error occured while decompressing
+     * @throws ID3v2Exception If a decompression error occured while decompressing
      *            a compressed frame
      */
     public ID3v2(File file) throws IOException, ID3v2Exception {
-        this(new FileInputStream(file));
+        this(Files.newInputStream(file.toPath()));
         this.file = file;
     }
 
@@ -164,7 +165,7 @@ public class ID3v2 implements ID3Tag, Serializable {
             out = tmp;
         }
 
-        if (did_synch == true) {
+        if (did_synch) {
             return out;
         } else {
             return null;
@@ -216,7 +217,7 @@ public class ID3v2 implements ID3Tag, Serializable {
             }
         }
 
-        if (did_unsync == true) {
+        if (did_unsync) {
             // we did some unsynchronization
             return out;
         } else {
@@ -236,7 +237,8 @@ public class ID3v2 implements ID3Tag, Serializable {
         }
     }
 
-    /** Gets padding usage
+    /**
+     * Gets padding usage
      *
      * @return True if padding is used
      */
@@ -244,7 +246,8 @@ public class ID3v2 implements ID3Tag, Serializable {
         return use_padding;
     }
 
-    /** Enables / disables use of CRC
+    /**
+     * Enables / disables use of CRC
      *
      * @param use_crc True if CRC should be used
      */
@@ -262,9 +265,10 @@ public class ID3v2 implements ID3Tag, Serializable {
         return use_crc;
     }
 
-    /** Enables / disables use of unsynchronization
+    /**
+     * Enables / disables use of unsynchronization
      *
-     * @param use_crc True if unsynchronization should be used
+     * @param use_unsynch True if unsynchronization should be used
      */
     public void setUseUnsynchronization(boolean use_unsynch) {
         if (this.use_unsynchronization != use_unsynch) {
@@ -285,8 +289,8 @@ public class ID3v2 implements ID3Tag, Serializable {
      *
      * @param key key for Frame ID
      * @return Requested frames
-     * @throws ID3v2MissingTagException If file does not contain ID3v2Tag
-     * @throws ID3v2NoSuchFrameException If file does not contain requested ID3v2 frame
+     * @throws ID3v2Exception If file does not contain ID3v2Tag
+     * @throws ID3v2Exception If file does not contain requested ID3v2 frame
      */
     private List<ID3v2Frame> getFrame(String key) throws ID3v2Exception {
         if (frames == null) {
@@ -333,15 +337,15 @@ public class ID3v2 implements ID3Tag, Serializable {
      * Remove a frame.
      *
      * @param frame Frame to remove
-     * @throws ID3v2MissingTagException If file does not contain ID3v2Tag
-     * @throws ID3v2NoSuchFrameException If file does not contain requested ID3v2 frame
+     * @throws ID3v2Exception If file does not contain ID3v2Tag
+     * @throws ID3v2Exception If file does not contain requested ID3v2 frame
      */
     public void removeFrame(ID3v2Frame frame) throws ID3v2Exception {
         if (frames == null) {
             throw new ID3v2Exception("there is no frame");
         }
 
-        if (frames.remove(frame) == false) {
+        if (!frames.remove(frame)) {
             throw new ID3v2Exception("no such frame: " + frame.getID());
         }
         is_changed = true;
@@ -351,8 +355,8 @@ public class ID3v2 implements ID3Tag, Serializable {
      * Remove all frames with a given id.
      *
      * @param key key for ID of frames to remove
-     * @throws ID3v2MissingTagException If file does not contain ID3v2Tag
-     * @throws ID3v2NoSuchFrameException If file does not contain requested ID3v2 frame
+     * @throws ID3v2Exception If file does not contain ID3v2Tag
+     * @throws ID3v2Exception If file does not contain requested ID3v2 frame
      */
     public void removeFrame(String key) throws ID3v2Exception {
         if (frames == null) {
@@ -367,7 +371,7 @@ public class ID3v2 implements ID3Tag, Serializable {
             }
         }
 
-        if (found == false) {
+        if (!found) {
             throw new ID3v2Exception("no such frame: " + key);
         }
         is_changed = true;
@@ -379,8 +383,8 @@ public class ID3v2 implements ID3Tag, Serializable {
      *
      * @param key key for ID of frames to remove
      * @param number Number of frame to remove (the first frame gets number 0)
-     * @throws ID3v2MissingTagException If file does not contain ID3v2Tag
-     * @throws ID3v2NoSuchFrameException If file does not contain requested ID3v2 frame
+     * @throws ID3v2Exception If file does not contain ID3v2Tag
+     * @throws ID3v2Exception If file does not contain requested ID3v2 frame
      */
     public void removeFrame(String key, int number) throws ID3v2Exception {
         if (frames == null) {
@@ -400,7 +404,7 @@ public class ID3v2 implements ID3Tag, Serializable {
             }
         }
 
-        if (removed == false) {
+        if (!removed) {
             throw new ID3v2Exception("no such frame: " + key);
         }
         is_changed = true;
@@ -507,7 +511,7 @@ logger.fine("not changed");
 
         // write rest of file if we are using a temporary file
         if (!updateInplace) {
-            BufferedInputStream copy_out = new BufferedInputStream(new FileInputStream(file));
+            BufferedInputStream copy_out = new BufferedInputStream(Files.newInputStream(file.toPath()));
 
             // go to first byte after ID3v2 tag
             if (header != null) {
@@ -644,7 +648,7 @@ logger.fine("not changed");
         }
 
         // CRC check
-        if ((extended_header != null) && (extended_header.hasCRC() == true)) {
+        if ((extended_header != null) && extended_header.hasCRC()) {
             // make CRC check
             // calculate crc of read frames (because extended header exists,
             // they contain no padding)
@@ -668,9 +672,9 @@ logger.fine("not changed");
         // (indicated by invalid frame id)
         while (bis.available() > 8) {
             ID3v2Frame frame = ID3v2Factory.readFrameFrom(bis, header);
-logger.fine(frame.getID() + "\n" + frame);
+logger.fine(frame.getID() + "\n" + frame.getContent(frame.getID()));
 
-            if (frame.getID() == ID3v2Frame.ID_INVALID) {
+            if (Objects.equals(frame.getID(), ID3v2Frame.ID_INVALID)) {
                 // reached end of frames
 logger.fine("invalid id found");
                 break;
@@ -702,10 +706,11 @@ logger.fine("skip: " + bis.available());
     }
 
     /**
-     * @param key key for frame id
+     * @param key key for frame id, e.g "Comments", "Album"
      */
     public Object getTag(String key) throws ID3v2Exception {
         List<ID3v2Frame> frames = getFrame(key);
+// TODO multiple comment frames
 if ("Comments".equals(key) && frames.size() > 1) {
  logger.info("key: " + key + ", " + frames.size());
  int c = 0;
@@ -732,10 +737,7 @@ if ("Comments".equals(key) && frames.size() > 1) {
 
     /* */
     public Iterator<?> tags() throws TagException {
-        List<ID3v2Frame> results = new ArrayList<>();
-        for (ID3v2Frame frame : frames) {
-            results.add(frame);
-        }
+        List<ID3v2Frame> results = new ArrayList<>(frames);
         return results.iterator();
     }
 }

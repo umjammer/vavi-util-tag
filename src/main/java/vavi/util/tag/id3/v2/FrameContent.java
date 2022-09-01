@@ -83,7 +83,7 @@ public abstract class FrameContent {
     public abstract byte[] toByteArray() throws ID3v2Exception;
 
     /**
-     * @param code
+     * @param code first byte of text
      * @return java encoding string
      */
     protected static String toJavaEncoding(int code) {

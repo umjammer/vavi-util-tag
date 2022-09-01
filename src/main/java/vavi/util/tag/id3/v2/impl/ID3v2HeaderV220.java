@@ -56,7 +56,7 @@ public class ID3v2HeaderV220 extends ID3v2Header implements Serializable {
     /**
      * Build a ID3v2 header
      *
-     * @param experimental Is experimental?
+     * @param compress compress?
      * @param length ID3v2 tag length
      */
     public ID3v2HeaderV220(boolean compress, int length) {
@@ -68,9 +68,9 @@ public class ID3v2HeaderV220 extends ID3v2Header implements Serializable {
      * Creates an ID3v2 header from an input stream.
      *
      * @param in Stream to read from
-     * @throws ID3v2IllegalVersionException If tag has a revision higher than
+     * @throws ID3v2Exception If tag has a revision higher than
      *            <code>ID3v2.VERSION</code>.<code>ID3v2.REVISION</code>
-     * @throws ID3v2MissingHeaderException If file does not contain an ID3v2 header
+     * @throws ID3v2Exception If file does not contain an ID3v2 header
      * @throws IOException If an I/O error occurs
      */
     public ID3v2HeaderV220(byte[] head) throws ID3v2Exception, IOException {

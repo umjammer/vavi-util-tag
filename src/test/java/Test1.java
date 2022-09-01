@@ -30,17 +30,18 @@ import vavix.util.grep.RegexFileDigger;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
-@Disabled
 public class Test1 {
 
     /**
-     * @param args top_directory regex_pattern 
+     * @param args 0: top_directory, 1: regex_pattern
      */
     public static void main(String[] args) throws Exception {
         exec1(args);
     }
 
-    /** */
+    /**
+     * @param args 0: top_directory, 1: regex_pattern
+     */
     private static void exec1(String[] args) throws Exception {
         new RegexFileDigger(new FileDigger.FileDredger() {
             final long day = new SimpleDateFormat("yyyy-MM-dd").parse("2011-04-04").getTime();
@@ -57,7 +58,7 @@ public class Test1 {
     }
 
     /**
-     * @param file 
+     * @param file mp3
      */
     private static void exec1_1(String file) throws Exception {
 

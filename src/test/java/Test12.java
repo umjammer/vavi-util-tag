@@ -19,7 +19,6 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 120614 nsano initial version <br>
  */
-@Disabled
 public class Test12 {
 
     /** iTunes ライブラリ一 */
@@ -76,7 +75,7 @@ public class Test12 {
             sb.append('/');
             sb.append(String.format("%02d", Integer.parseInt(persistentID.substring(13, 14), 16) & 0x0F));
 
-            sb.append('/' + pid + "-" + persistentID);
+            sb.append('/').append(pid).append("-").append(persistentID);
 
             sb.append(".itc");
 
@@ -85,7 +84,7 @@ public class Test12 {
     }
 
     /**
-     * @param args top_directory regex_pattern 
+     * @param args 0: top_directory, 1: regex_pattern
      */
     public static void main(String[] args) throws Exception {
         List<Meta> metas = WebScraper.Util.scrape(Meta.class);

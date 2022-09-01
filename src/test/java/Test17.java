@@ -34,13 +34,12 @@ import vavix.util.grep.RegexFileDigger;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 200217 nsano initial version <br>
  */
-@Disabled
 public class Test17 {
 
     static Logger logger = Logger.getLogger(Test17.class.getName());
 
     /**
-     * @param args top_directory regex_pattern
+     * @param args 0: top_directory, 1: regex_pattern
      */
     public static void main(String[] args) throws Exception {
         Test17 app = new Test17();
@@ -77,7 +76,7 @@ public class Test17 {
     }
 
     /**
-     * @param file
+     * @param file mp3, m4a
      */
     private void exec(String file) throws Exception {
         if (file.toLowerCase().endsWith(".mp3")) {

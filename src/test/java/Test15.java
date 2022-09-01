@@ -17,24 +17,23 @@ import vavi.util.tag.id3.v2.ID3v2Frame;
 
 /**
  * Test15. (mp3 remove specified tags by one)
- *
+ * <p>
  * WORKS FINE
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
-@Disabled
 public class Test15 {
 
     /**
-     * @param args top_directory regex_pattern
+     * @param args 0: mp3, 1...: tags
      */
     public static void main(String[] args) throws Exception {
         exec15_1(args);
     }
 
     /**
-     * @param args file
+     * @param args 0: mp3, 1...: tags
      */
     private static void exec15_1(String[] args) throws Exception {
 System.err.println("file: " + args[0]);

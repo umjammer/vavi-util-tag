@@ -5,6 +5,8 @@
  */
 
 import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Scanner;
@@ -25,7 +27,6 @@ import vavi.util.tag.id3.v2.impl.ID3v2FrameV230;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
-@Disabled
 public class Test2 {
 
     /**
@@ -37,7 +38,7 @@ public class Test2 {
 
     /** */
     private static void exec2(String[] args) throws Exception {
-        Scanner scanner = new Scanner(new FileInputStream(args[0]));
+        Scanner scanner = new Scanner(Files.newInputStream(Paths.get(args[0])));
         while (scanner.hasNextLine()) {
             try {
                 String line = scanner.nextLine();

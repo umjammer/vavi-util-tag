@@ -28,7 +28,6 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2012/06/15 umjammer initial version <br>
  */
-@Disabled
 public class Test10 {
 
     /** */
@@ -52,7 +51,7 @@ System.err.println("artist: " + args[1]);
             String urlString = String.format("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/coverArtMatch?ann=%s&pn=%s", artist, title);
             URL url = new URL(urlString);
 
-            HttpURLConnection uc = HttpURLConnection.class.cast(url.openConnection());
+            HttpURLConnection uc = (HttpURLConnection) url.openConnection();
             uc.setRequestProperty("User-Agent", "iTunes/10.6.3 (Macintosh; Intel Mac OS X 10.7.4) AppleWebKit/534.56.5");
             uc.setRequestProperty("X-Apple-Store-Front", "143441-1"); // 143462-9,12
             uc.connect();
@@ -70,7 +69,7 @@ System.err.println("result: " + uc.getResponseCode());
                 os.write(buf, 0, r);
             }
 
-            cache = new String(os.toByteArray());
+            cache = os.toString();
 System.err.println(cache);
 //try {
 // InputSource in = new InputSource(new AsciizBinder(cache));
@@ -137,7 +136,7 @@ System.err.println(cache);
 
     /**
      *
-     * @param args
+     * @param args 0: title, 1: artist
      */
     public static void main(String[] args) throws Exception {
         String title = "Kansas"; //args[0];

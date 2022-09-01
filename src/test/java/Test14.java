@@ -41,7 +41,6 @@ import vavix.util.grep.RegexFileDigger;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 120608 nsano initial version <br>
  */
-@Disabled
 public class Test14 {
 
     static class MyFileDigger implements FileDigger {
@@ -89,15 +88,15 @@ System.err.println(fileName);
     }
 
     /**
-     * @param mod
+     * @param mod mp4
      */
     private static void exec14_2(String mod) throws Exception {
         MP4File mp4File = new MP4File(mod);
-        MP4Tag mp4Tag = MP4Tag.class.cast(mp4File.getTag());
-        List<MP4Tag> results = List.class.cast(mp4Tag.getTag("name"));
+        MP4Tag mp4Tag = (MP4Tag) mp4File.getTag();
+        List<MP4Tag> results = (List) mp4Tag.getTag("name");
         for (Object o : results) {
-            if (Box.class.isInstance(o)) {
-                Box box = Box.class.cast(o);
+            if (o instanceof Box) {
+                Box box = (Box) o;
                 byte[] d = box.getData();
                 if (d[0] != 0 && d[1] != 0 && d[2] != 0 && d[3] != 0) {
                     String s = new String(d);

@@ -26,11 +26,10 @@ import vavix.util.FileUtil;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
-@Disabled
 public class Test4 {
 
     /**
-     * @param args top_directory regex_pattern 
+     * @param args 0: top_directory, 1: regex_pattern
      */
     public static void main(String[] args) throws Exception {
         File orig = new File(args[0]);
@@ -66,7 +65,7 @@ System.out.println("remove " + key);
     }
 
     /**
-     * @param file 
+     * @param file mp3
      */
     private void exec4_2(String file) throws Exception {
 
