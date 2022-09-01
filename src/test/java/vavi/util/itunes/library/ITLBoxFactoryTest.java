@@ -9,6 +9,8 @@ package vavi.util.itunes.library;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Disabled;
 
@@ -34,7 +36,7 @@ public class ITLBoxFactoryTest {
 
     public ITLBoxFactoryTest(String file) throws IOException {
         BoxFactory factory = BoxFactoryFactory.getFactory(ITLBoxFactory.class.getName());
-        InputStream is = new FileInputStream(file);
+        InputStream is = Files.newInputStream(Paths.get(file));
         while (is.available() > 0) {
             Box box = factory.getInstance(is);
 Debug.println(box);
