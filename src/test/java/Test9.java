@@ -11,6 +11,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -53,7 +55,6 @@ import vavix.util.grep.RegexFileDigger;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 120613 nsano initial version <br>
  */
-@Disabled
 public class Test9 {
 
     static class ApidDao {
@@ -73,10 +74,10 @@ public class Test9 {
                 for (Track t : lib.getTracks()) {
                     preparedStatement.setString(1, t.getName());
                     preparedStatement.setString(2, t.getArtist());
-                    String apid = new String(t.getAlbumPersistentId(), Charset.forName("ascii"));
-                    if (apid == "") {
-                        apid = new String(t.getPersistentId(), Charset.forName("ascii"));
-                        if (apid == "") {
+                    String apid = new String(t.getAlbumPersistentId(), StandardCharsets.US_ASCII);
+                    if (apid.isEmpty()) {
+                        apid = new String(t.getPersistentId(), StandardCharsets.US_ASCII);
+                        if (apid.isEmpty()) {
                             System.err.println("apid not found: " + t.getName() + ", " + t.getArtist());
                         }
                     }
@@ -158,8 +159,7 @@ public class Test9 {
     }
 
     /**
-     * m4a
-     * @param file
+     * @param file m4a
      */
     private static boolean exec9_4(File file) throws Exception {
 
@@ -182,8 +182,8 @@ public class Test9 {
 
         if (!found) {
 //            System.err.println(List.class.cast(tag.getTag((char) 0xa9 + "nam")).get(0).getClass().getName() + ", " + List.class.cast(tag.getTag((char) 0xa9 + "ART")).get(0).getClass().getName());
-            String name = new String(Box.class.cast(List.class.cast(tag.getTag((char) 0xa9 + "nam")).get(0)).getData()).substring(8);
-            String artist = new String(Box.class.cast(List.class.cast(tag.getTag((char) 0xa9 + "ART")).get(0)).getData()).substring(8);
+            String name = new String(((Box) ((List) tag.getTag((char) 0xa9 + "nam")).get(0)).getData()).substring(8);
+            String artist = new String(((Box) ((List) tag.getTag((char) 0xa9 + "ART")).get(0)).getData()).substring(8);
             found = itcImage(file, name, artist);
         }
 
@@ -193,8 +193,7 @@ public class Test9 {
     static BoxFactory itcFactory = BoxFactoryFactory.getFactory(ITCBoxFactory.class.getName());
 
     /**
-     * mp3
-     * @param file
+     * @param file mp3
      */
     private static boolean exec9_3(File file) throws Exception {
 
@@ -209,7 +208,7 @@ public class Test9 {
                 ID3v2Frame frame = (ID3v2Frame) i.next();
                 String key = frame.getID();
                 if (key.equals("APIC")) {
-                    FrameContent frameContent = ID3v2FrameV230.class.cast(frame).getContent();
+                    FrameContent frameContent = ((ID3v2FrameV230) frame).getContent();
                     BufferedImage image = (BufferedImage) frameContent.getContent();
                     queue.add(image.getWidth() + "x" + image.getHeight() + " ");
                     found = true;
@@ -217,8 +216,8 @@ public class Test9 {
             }
 
             if (!found) {
-                String name = String.class.cast(tag.getTag("Title"));
-                String artist = String.class.cast(tag.getTag("Artist"));
+                String name = (String) tag.getTag("Title");
+                String artist = (String) tag.getTag("Artist");
                 found = itcImage(file, name, artist);
             }
         } else {
@@ -245,7 +244,7 @@ public class Test9 {
             if (itc.exists()) {
 
 System.err.println("ITC: " + name + ", " + artist + ", " + itc);
-                InputStream is = new FileInputStream(itc);
+                InputStream is = Files.newInputStream(itc.toPath());
                 while (is.available() > 0) {
                     Box box = itcFactory.getInstance(is);
                     if (box instanceof item) {
@@ -278,7 +277,7 @@ System.err.println("ITC: " + name + ", " + artist + ", " + itc);
         sb.append('/');
         sb.append(String.format("%02d", Integer.parseInt(apid.substring(13, 14), 16) & 0x0F));
 
-        sb.append('/' + pid + "-" + apid);
+        sb.append('/').append(pid).append("-").append(apid);
 
         sb.append(".itc");
 

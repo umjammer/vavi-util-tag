@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
@@ -64,7 +65,7 @@ int c = 0;
             public void dredge(File file) throws IOException {
                 BoxFactory factory = BoxFactoryFactory.getFactory(ITCBoxFactory.class.getName());
 
-                InputStream is = new FileInputStream(file);
+                InputStream is = Files.newInputStream(file.toPath());
 Debug.println(c + ": " + file);
                 while (is.available() > 0) {
                     Box box = factory.getInstance(is);

@@ -22,11 +22,10 @@ import vavi.util.tag.id3.v2.ID3v2Frame;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
-@Disabled
 public class Test6 {
 
     /**
-     * @param args top_directory regex_pattern
+     * @param args 0: top_directory, 1: regex_pattern
      */
     public static void main(String[] args) throws Exception {
         exec6_1(args[0]);
@@ -34,7 +33,7 @@ public class Test6 {
     }
 
     /**
-     * @param file
+     * @param mod mp3
      */
     private static void exec6_1(String mod) throws Exception {
         MP3File mp3File = new MP3File(mod);
@@ -64,7 +63,7 @@ System.err.println("remove " + key + ":\n" + StringUtil.getDump(frame.getBytes()
     }
 
     /**
-     * @param file
+     * @param file mp3
      */
     private static void exec6_2(String file) throws Exception {
 

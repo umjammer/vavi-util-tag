@@ -66,10 +66,10 @@ public class ID3v2FrameV240 implements ID3v2Frame, Serializable {
      *   <code>ID3v2Frame.IS_COMPRESSED</code>: <code>content</code> is already compressed
      *   <code>ID3v2Frame.DO_COMPRESS</code>: <code>content</code> is not compressed, but should be
      *   Compression can also be switched on/off with <code>setCompression</code>
-     * @param encryption Encryption method or 0 if not encrypted (not completely supported,
+     * @param encryption_id Encryption method or 0 if not encrypted (not completely supported,
      *        encryption must be done externally)
      * @param group Group of frames this frame belongs to or 0 if frame does not belong to any group
-     * @throws ID3v2DecompressionException If content is compressed and decompresson fails
+     * @throws ID3v2Exception If content is compressed and decompression fails
      */
     public ID3v2FrameV240(String key, byte[] content, boolean tag_alter_preservation, boolean file_alter_preservation, boolean read_only, byte compression_type, byte encryption_id, byte group) throws ID3v2Exception {
         this.id = ids.getProperty(key);
@@ -111,7 +111,7 @@ public class ID3v2FrameV240 implements ID3v2Frame, Serializable {
      * Note^2: Compression/decompression supports only GZIP.
      *
      * @param in Stream to read from
-     * @throws ID3v2DecompressionException If input is compressed and decompression fails
+     * @throws ID3v2Exception If input is compressed and decompression fails
      * @throws IOException If I/O error occurs
      */
     public ID3v2FrameV240(InputStream in) throws IOException, ID3v2Exception {
@@ -169,7 +169,7 @@ logger.warning("maybe crush: " + StringUtil.getDump(head, 4) + ", " + length);
 //logger.info("grouping: " + grouping);
 
         // additional bytes if present
-        if (compression == true) {
+        if (compression) {
             // read decompressed size
             byte[] decomp_byte = new byte[4];
             dis.readFully(decomp_byte);
@@ -179,13 +179,13 @@ logger.warning("maybe crush: " + StringUtil.getDump(head, 4) + ", " + length);
             length -= 4;
         }
 
-        if (encryption == true) {
+        if (encryption) {
             // read encryption type
             encryption_id = dis.readByte();
             length--;
         }
 
-        if (grouping == true) {
+        if (grouping) {
             // read group id
             group = dis.readByte();
 
@@ -205,7 +205,7 @@ logger.warning("id: " + id + ": " + StringUtil.getDump(head, 4) + ", length is l
         dis.readFully(content);
 
         // decompress if necessary
-        if (compression == true) {
+        if (compression) {
             compressed_content = new byte[content.length];
             System.arraycopy(content, 0, compressed_content, 0, content.length);
 
@@ -270,7 +270,7 @@ logger.warning("id: " + id + ": " + StringUtil.getDump(head, 4) + ", length is l
     }
 
     /**
-     * @returns Encrytion ID or 0 if not encrypted
+     * @return Encryption ID or 0 if not encrypted
      */
     public byte getEncryptionID() {
         return encryption_id;
@@ -300,7 +300,7 @@ logger.warning("id: " + id + ": " + StringUtil.getDump(head, 4) + ", length is l
         int length = 10;
 
         // if compression is set, add 4 bytes for decompressed size
-        if (compression == true) {
+        if (compression) {
             length += 4;
         }
 
@@ -315,7 +315,7 @@ logger.warning("id: " + id + ": " + StringUtil.getDump(head, 4) + ", length is l
         }
 
         // content
-        if (compression == true) {
+        if (compression) {
             length += compressed_content.length;
         } else {
             // bugfix axel.wernicke@gmx.de begin
@@ -362,19 +362,19 @@ logger.warning("id: " + id + ": " + StringUtil.getDump(head, 4) + ", length is l
 
         // write flags
         byte flag1 = 0;
-        if (tag_alter_preservation == true) {
+        if (tag_alter_preservation) {
             flag1 = (byte) (flag1 | FLAG_TAG_ALTER_PRESERVATION);
         }
-        if (file_alter_preservation == true) {
+        if (file_alter_preservation) {
             flag1 += (byte) (flag1 | FLAG_FILE_ALTER_PRESERVATION);
         }
-        if (read_only == true) {
+        if (read_only) {
             flag1 += (byte) (flag1 | FLAG_READ_ONLY);
         }
         ret[8] = flag1;
 
         byte flag2 = 0;
-        if (compression == true) {
+        if (compression) {
             flag2 += (byte) (flag2 | FLAG_COMPRESSION);
         }
         if (encryption_id != 0) {
@@ -388,7 +388,7 @@ logger.warning("id: " + id + ": " + StringUtil.getDump(head, 4) + ", length is l
         short content_offset = 10; // first byte used for content
 
         // decompressed size, if compressed
-        if (compression == true) {
+        if (compression) {
             byte[] decomp_byte = (new Bytes(length, 4)).getBytes();
             System.arraycopy(decomp_byte, 0, ret, content_offset, 4);
 
@@ -408,7 +408,7 @@ logger.warning("id: " + id + ": " + StringUtil.getDump(head, 4) + ", length is l
         }
 
         // content
-        if (compression == true) {
+        if (compression) {
             compressContent();
             System.arraycopy(compressed_content, 0, ret, content_offset, compressed_content.length);
         } else {
@@ -519,7 +519,7 @@ e.printStackTrace(System.err);
     /** */
     private static final Properties ids = new Properties();
 
-    /** */
+    /* */
     static {
         try {
             ids.load(ID3v2FrameV240.class.getResourceAsStream("/vavi/util/tag/id3/v2/impl/v230.properties"));

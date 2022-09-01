@@ -23,23 +23,24 @@ import vavi.util.tag.id3.v2.ID3v2;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 100803 nsano initial version <br>
  */
-@Disabled
 public class Test11 {
 
     /**
-     * @param args file
+     * @param args 0: file
      */
     public static void main(String[] args) throws Exception {
         exec1(args);
     }
 
-    /** */
+    /**
+     * @param args 0: file
+     */
     private static void exec1(String[] args) throws Exception {
         exec1_1(new File(args[0]).getAbsolutePath());
     }
 
     /**
-     * @param file
+     * @param file mp3
      */
     private static void exec1_1(String file) throws Exception {
         Properties props = new Properties();
@@ -79,7 +80,7 @@ public class Test11 {
                     while (e.hasMoreElements()) {
                         String key = (String) e.nextElement();
                         try {
-                            String value = String.valueOf(tag.getTag(key));
+                            String value = tag.getTag(key).toString();
                             if (("Artist".equals(key) ||
                                  "Title".equals(key) ||
                                  "Album".equals(key)) && value.length() == 0) {

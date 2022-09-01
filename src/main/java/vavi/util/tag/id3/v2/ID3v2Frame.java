@@ -16,12 +16,12 @@ package vavi.util.tag.id3.v2;
 public interface ID3v2Frame {
 
     /** */
-    static final String ID_INVALID = null;
+    String ID_INVALID = null;
 
-    /** */
+    /** 4cc */
     String getID();
 
-    /** */
+    /** @param id 4cc */
     void setID(String id);
 
     /** */
@@ -38,6 +38,7 @@ public interface ID3v2Frame {
 
     /**
      * Returns content
+     * @param key 4cc
      */
     FrameContent getContent(String key);
 

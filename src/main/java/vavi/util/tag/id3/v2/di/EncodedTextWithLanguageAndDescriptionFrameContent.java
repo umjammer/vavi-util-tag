@@ -7,7 +7,9 @@
 package vavi.util.tag.id3.v2.di;
 
 import java.io.UnsupportedEncodingException;
+import java.util.logging.Logger;
 
+import vavi.util.StringUtil;
 import vavi.util.tag.id3.v2.ID3v2Exception;
 
 
@@ -20,7 +22,7 @@ import vavi.util.tag.id3.v2.ID3v2Exception;
 public class EncodedTextWithLanguageAndDescriptionFrameContent extends EncodedTextWithLanguageFrameContent {
 
     /** */
-//  private static Logger logger = Logger.getLogger(EncodedTextWithLanguageAndDescriptionFrameContent.class.getName());
+    private static Logger logger = Logger.getLogger(EncodedTextWithLanguageAndDescriptionFrameContent.class.getName());
 
     /** */
     private String description;
@@ -55,7 +57,7 @@ public class EncodedTextWithLanguageAndDescriptionFrameContent extends EncodedTe
             FrameText frameText = FrameText.Factory.getFrameText(description, "default.unicode");
             this.content = frameText.getText(content, i + 2, encoding);
         }
-//logger.info("encoding: " + encoding + ", language: " + language + ", description: " + description + ", text: " + this.content + "\n" + StringUtil.getDump(content));
+logger.fine("encoding: " + encoding + ", language: " + language + ", description: " + description + ", text: " + this.content + "\n" + StringUtil.getDump(content));
     }
 
     /** TODO */

@@ -57,10 +57,10 @@ public class EncodedTextWithLanguageFrameContent extends TextFrameContent {
 
         try {
             ByteBuilder build = new ByteBuilder(ByteBuilder.UNICODE, 4 + (((String) content).getBytes(encoding).length));
-    
+
             build.put(language);
             build.put(((String) content).getBytes(encoding));
-    
+
             return build.getBytes();
         } catch (UnsupportedEncodingException e) {
             assert false;

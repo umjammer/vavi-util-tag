@@ -55,8 +55,6 @@ public class ID3v2HeaderV240 extends ID3v2HeaderV230 implements Serializable {
     /**
      * Build a ID3v2 header
      *
-     * @param version ID3v2 version
-     * @param revision ID3v2 revision
      * @param unsynch Use unsynchronization scheme?
      * @param extended_header Use extended header?
      * @param experimental Is experimental?
@@ -70,10 +68,10 @@ public class ID3v2HeaderV240 extends ID3v2HeaderV230 implements Serializable {
     /**
      * Creates an ID3v2 header from an input stream.
      *
-     * @param in Stream to read from
-     * @throws ID3v2IllegalVersionException If tag has a revision higher than
+     * @param head data
+     * @throws ID3v2Exception If tag has a revision higher than
      *            <code>ID3v2.VERSION</code>.<code>ID3v2.REVISION</code>
-     * @throws ID3v2MissingHeaderException If file does not contain an ID3v2 header
+     * @throws ID3v2Exception If file does not contain an ID3v2 header
      * @throws IOException If an I/O error occurs
      */
     public ID3v2HeaderV240(byte[] head) throws ID3v2Exception, IOException {
@@ -101,16 +99,16 @@ public class ID3v2HeaderV240 extends ID3v2HeaderV230 implements Serializable {
         work[4] = REVISION;
 
         byte flag = 0;
-        if (unsynch == true) {
+        if (unsynch) {
             flag |= FLAG_UNSYNCHRONIZATION;
         }
-        if (extended_header == true) {
+        if (extended_header) {
             flag |= FLAG_EXTENDED_HEADER;
         }
-        if (experimental == true) {
+        if (experimental) {
             flag |= FLAG_EXPERIMENTAL;
         }
-        if (footer == true) {
+        if (footer) {
             flag |= FLAG_FOOTER;
         }
         work[5] = flag;

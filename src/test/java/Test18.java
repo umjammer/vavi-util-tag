@@ -28,7 +28,6 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2012/06/15 umjammer initial version <br>
  */
-@Disabled
 public class Test18 {
 
     /**
@@ -131,15 +130,18 @@ public class Test18 {
 
     /**
      *
-     * @param args
+     * @param args 0: country, 1: term
      */
     public static void main(String[] args) throws Exception {
         Test18 app = new Test18();
         app.exec(args);
     }
 
-    BufferedImage image;
+    private BufferedImage image;
 
+    /**
+     * @param args 0: country, 1: term
+     */
     void exec(String[] args) throws IOException {
         String country = "jp"; //args[0];
         String term = "Aimer"; //args[1];
