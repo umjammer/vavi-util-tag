@@ -18,7 +18,7 @@ manipulate mp3, m4a tag for java
 
 ## Install
 
- * https://github.com/umjammer/vavi-util-tag/packages/
+ * https://github.com/umjammer/vavi-util-tag/packages/1623134
  * this project uses github packages. add a personal access token to `~/.m2/settings.xml`
  * see https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry
 
