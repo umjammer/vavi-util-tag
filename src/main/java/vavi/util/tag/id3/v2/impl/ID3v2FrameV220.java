@@ -285,7 +285,7 @@ logger.warning("maybe crush: " + StringUtil.getDump(head, 4) + ", " + length);
      */
     private void decompressContent() throws ID3v2Exception {
         ByteArrayInputStream bin = new ByteArrayInputStream(compressed_content);
-logger.info("\n" + StringUtil.getDump(bin, 256));
+logger.info("\n" + StringUtil.getDump(bin, 0, 256));
         try {
             GZIPInputStream gin = new GZIPInputStream(bin);
 

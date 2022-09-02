@@ -512,7 +512,7 @@ logger.warning("no key for: " + getID());
      */
     private void decompressContent() throws ID3v2Exception {
         ByteArrayInputStream bin = new ByteArrayInputStream(compressed_content);
-logger.info("\n" + StringUtil.getDump(bin, 256));
+logger.info("\n" + StringUtil.getDump(bin, 0, 256));
         try {
             GZIPInputStream gin = new GZIPInputStream(bin);
 
