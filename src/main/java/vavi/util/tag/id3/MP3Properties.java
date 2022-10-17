@@ -289,7 +289,7 @@ class MP3Properties implements Serializable {
                 int frames = readBigEndianInt(in);
 
                 // recalculate length in seconds, constant is 384 for Layer I, 1152 for Layer II and III
-                length = (frames * ((layer == 1) ? 384 : 1152)) / samplerate;
+                length = (frames * ((layer == 1) ? 384L : 1152)) / samplerate;
 
                 // set bitrate to average VBR bitrate
                 // TODO: subtract ID3v1 tagsize, if ID3v1 tag exists
