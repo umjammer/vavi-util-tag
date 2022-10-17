@@ -26,10 +26,10 @@ import vavi.util.box.Box;
 public class BoxTest {
 
     static class TestBox extends Box {
-        public static final long qtTimeToLong2(int qtTime) {
+        public static long qtTimeToLong2(int qtTime) {
             return qtTimeToLong(qtTime);
         }
-        public static final int longToQtTime2(long time) {
+        public static int longToQtTime2(long time) {
             return longToQtTime(time);
         }
     }
@@ -72,7 +72,7 @@ System.err.println(days + " days");
     }
 
     void test2(String[] args) throws Exception {
-        final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = sdf.parse(args[0]);
         // times: 4, days: 2, date: 1, off: 0
         int type = 1;

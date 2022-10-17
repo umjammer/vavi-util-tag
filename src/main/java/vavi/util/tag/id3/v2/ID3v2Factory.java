@@ -33,7 +33,7 @@ import vavi.util.tag.id3.v2.impl.ID3v2HeaderV240;
 @SuppressWarnings("unchecked")
 public class ID3v2Factory {
 
-    private static Logger logger = Logger.getLogger(ID3v2Factory.class.getName());
+    private static final Logger logger = Logger.getLogger(ID3v2Factory.class.getName());
 
     /** */
     private ID3v2Factory() {
@@ -99,7 +99,7 @@ public class ID3v2Factory {
         try {
 //logger.info("key: " + key);
             Constructor<FrameContent> constructor = constructorsWithArgs.get(key);
-            FrameContent frameContent = constructor.newInstance(content);
+            FrameContent frameContent = constructor.newInstance((Object) content);
             return frameContent;
         } catch (Exception e) {
 //e.printStackTrace(System.err);

@@ -6,6 +6,7 @@
 
 package vavi.util.tag.id3.v2.di;
 
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
 public class LinkTextFrameContent extends TextFrameContent {
 
     /** */
-    private static Logger logger = Logger.getLogger(LinkTextFrameContent.class.getName());
+    private static final Logger logger = Logger.getLogger(LinkTextFrameContent.class.getName());
 
     /** */
     protected String id;
@@ -47,7 +48,7 @@ public class LinkTextFrameContent extends TextFrameContent {
         }
         this.description = new String(content, 3, i);
         this.content = new String(content, i, content.length - i);
-logger.info("id: " + id + ", description: " + description + ", text: " + content);
+logger.info("id: " + id + ", description: " + description + ", text: " + Arrays.toString(content));
     }
 
     /**

@@ -58,7 +58,7 @@ import vavi.util.tag.id3.ID3Tag;
  */
 public class ID3v1 implements ID3Tag, Serializable {
     /** jdk1.4 logger */
-    private static Logger logger = Logger.getLogger(ID3v1.class.getName());
+    private static final Logger logger = Logger.getLogger(ID3v1.class.getName());
 
     /**
      * encoding to use when converting from Unicode (String) to bytes
@@ -219,7 +219,7 @@ public class ID3v1 implements ID3Tag, Serializable {
 
         // file is now prepared
         // check for ID3 tag
-        if (checkForTag() == false) {
+        if (!checkForTag()) {
             // axel.wernicke@gmx.de fix begin
             // we should close the file when leaving the method that opened it ...
             in.close();
@@ -342,7 +342,7 @@ public class ID3v1 implements ID3Tag, Serializable {
 
         // file is now prepared
         // check for ID3 tag
-        if (checkForTag() == false) {
+        if (!checkForTag()) {
             // No ID3 tag found, create new
             // seek to end of file
             in.seek(in.length());
@@ -365,7 +365,7 @@ public class ID3v1 implements ID3Tag, Serializable {
     }
 
     /** file to access */
-    private File file;
+    private final File file;
     /** id3 title */
     private String title;
     /** id3 artist */

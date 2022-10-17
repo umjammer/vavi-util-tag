@@ -7,10 +7,8 @@
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.sql.Connection;
@@ -26,7 +24,6 @@ import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
-import org.junit.jupiter.api.Disabled;
 import org.kafsemo.titl.Library;
 import org.kafsemo.titl.ParseLibrary;
 import org.kafsemo.titl.Track;

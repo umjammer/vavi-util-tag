@@ -6,7 +6,6 @@
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,7 +16,6 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.junit.jupiter.api.Disabled;
 import org.kafsemo.titl.Library;
 import org.kafsemo.titl.ParseLibrary;
 import org.kafsemo.titl.Track;

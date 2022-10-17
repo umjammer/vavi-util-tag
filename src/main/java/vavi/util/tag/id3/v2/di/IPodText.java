@@ -20,7 +20,7 @@ import vavi.util.tag.id3.CharConverter;
 public class IPodText implements FrameText {
 
     /** jdk1.4 logger */
-    private static Logger logger = Logger.getLogger(IPodText.class.getName());
+    private static final Logger logger = Logger.getLogger(IPodText.class.getName());
 
     /** iTunNORM */
     public String getText(byte[] content, int start, String encoding) {

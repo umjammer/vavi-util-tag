@@ -22,7 +22,7 @@ import vavi.util.tag.id3.v2.ID3v2Exception;
 public class EncodedTextWithLanguageAndDescriptionFrameContent extends EncodedTextWithLanguageFrameContent {
 
     /** */
-    private static Logger logger = Logger.getLogger(EncodedTextWithLanguageAndDescriptionFrameContent.class.getName());
+    private static final Logger logger = Logger.getLogger(EncodedTextWithLanguageAndDescriptionFrameContent.class.getName());
 
     /** */
     private String description;

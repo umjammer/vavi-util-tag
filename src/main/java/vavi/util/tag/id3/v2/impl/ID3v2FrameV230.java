@@ -49,7 +49,7 @@ import vavi.util.tag.id3.v2.ID3v2Frame;
  */
 public class ID3v2FrameV230 implements ID3v2Frame, Serializable {
     /** jdk1.4 logger */
-    private static Logger logger = Logger.getLogger(ID3v2FrameV230.class.getName());
+    private static final Logger logger = Logger.getLogger(ID3v2FrameV230.class.getName());
 
     /**
      * Creates a new ID3v2 frame.
@@ -462,7 +462,7 @@ logger.warning("no key for: " + getID());
     /** */
     private byte group = 0;
     /** */
-    private boolean uses_unsynch = false;
+    private final boolean uses_unsynch = false;
     /** decompressed */
     private byte[] content;
     /** compressed */

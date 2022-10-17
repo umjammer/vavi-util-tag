@@ -7,6 +7,7 @@
 package vavi.util.tag.id3;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -25,7 +26,7 @@ import org.mozilla.universalchardet.UniversalDetector;
 public final class CharConverter {
 
     /** */
-    private static Logger logger = Logger.getLogger(CharConverter.class.getName());
+    private static final Logger logger = Logger.getLogger(CharConverter.class.getName());
 
     /** */
     private CharConverter() {
@@ -71,7 +72,7 @@ logger.severe("VAVI: ENCODING: unknown, use " + System.getProperty("file.encodin
 //logger.info("VAVI: ENCODING: " + encoding);
         } catch (Exception e) {
             try {
-                value = new String(buffer, start, length, "UTF-16");
+                value = new String(buffer, start, length, StandardCharsets.UTF_16);
 //logger.info("VAVI: ENCODING: unicode");
             } catch (Exception f) {
                 value = new String(buffer, start, length);

@@ -65,7 +65,7 @@ public interface Meta {
             StringBuilder sb = new StringBuilder();
             int i = 0;
             for (Box subBox : subBoxes) {
-                sb.append(id + " entry[" + i++ + "]: ");
+                sb.append(id).append(" entry[").append(i++).append("]: ");
                 sb.append('\n');
                 sb.append(subBox);
             }

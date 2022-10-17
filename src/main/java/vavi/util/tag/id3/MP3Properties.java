@@ -48,7 +48,7 @@ class MP3Properties implements Serializable {
      *
      * @param file File to connect to
      * @throws IOException If an I/O error occurs
-     * @throws NoSuchFrameException If file does not contain at least one mp3 frame
+     * @throws ID3TagException If file does not contain at least one mp3 frame
      */
     public MP3Properties(File file) throws IOException, ID3TagException {
         readProperties(file);
@@ -205,7 +205,7 @@ class MP3Properties implements Serializable {
      *
      * @param file File to read from
      * @throws IOException If an I/O error occurs
-     * @throws NoSuchFrameException If file does not contain at least one mp3 frame
+     * @throws ID3TagException If file does not contain at least one mp3 frame
      */
     protected void readProperties(File file) throws IOException, ID3TagException {
         this.file = file;
@@ -293,7 +293,7 @@ class MP3Properties implements Serializable {
 
                 // set bitrate to average VBR bitrate
                 // TODO: subtract ID3v1 tagsize, if ID3v1 tag exists
-                bitrate = (int) Math.floor(((file.length() - id3v2_tagsize) * 8) / length / 1000);
+                bitrate = (int) Math.floor(((file.length() - id3v2_tagsize) * 8f) / length / 1000);
             }
             /* not needed by myPod ...
               if (getBit(flags, 1) == 1)  // BYTES_FLAG set
@@ -351,7 +351,7 @@ class MP3Properties implements Serializable {
      * @param in Stream to read from
      * @return Second byte of MP3 frame header
      * @throws IOException If an I/O error occurs
-     * @throws NoSuchFrameException If file does not contain at least one mp3 frame
+     * @throws ID3TagException If file does not contain at least one mp3 frame
      */
     protected int synchronize(FileInputStream in) throws IOException, ID3TagException {
         // skip until start of header (at least 11 bits in a row set to 1)
@@ -550,9 +550,8 @@ class MP3Properties implements Serializable {
         // sometimes you get a division by zero exception here ... caused by bitrate == 0
         long length = 0;
         try {
-            length = (long) Math.floor((file.length() - id3v2_tagsize) / bitrate * 0.008);
+            length = (long) Math.floor((float) (file.length() - id3v2_tagsize) / bitrate * 0.008);
         } catch (Exception e) {
-            ;
         }
 
         return length;

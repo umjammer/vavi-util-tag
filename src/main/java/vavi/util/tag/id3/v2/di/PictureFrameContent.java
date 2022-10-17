@@ -24,7 +24,7 @@ import vavi.util.tag.id3.v2.ID3v2Exception;
  */
 public class PictureFrameContent extends BinaryFrameContent {
     /** jdk1.4 logger */
-    private static Logger logger = Logger.getLogger(PictureFrameContent.class.getName());
+    private static final Logger logger = Logger.getLogger(PictureFrameContent.class.getName());
 
     enum Type {
         /** 32x32 pixels 'file icon' (PNG only) */

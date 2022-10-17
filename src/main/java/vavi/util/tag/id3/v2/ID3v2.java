@@ -27,7 +27,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.EOFException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -71,7 +70,7 @@ import vavix.util.FileUtil;
 public class ID3v2 implements ID3Tag, Serializable {
 
     /** jdk1.4 logger */
-    private static Logger logger = Logger.getLogger(ID3v2.class.getName());
+    private static final Logger logger = Logger.getLogger(ID3v2.class.getName());
 
     /**
      * Provides access to ID3v2 tag. When used with an InputStream, no writes are possible
@@ -447,7 +446,7 @@ logger.fine("not changed");
         // check if we can update the file inplace therefore we need
         // if more space is needed than provided or no padding should be used and
         // lengths do not mach exactly, create a temporary file
-        boolean updateInplace = !((header == null) || ((header != null) && (new_length > length_file)) || ((use_padding == false) && (new_length != length_file)));
+        boolean updateInplace = !((header == null) || ((header != null) && (new_length > length_file)) || ((!use_padding) && (new_length != length_file)));
 
         // prepare crc checksum if crc is used...
         int crc = 0;
@@ -466,7 +465,7 @@ logger.fine("not changed");
             // if we're writing to new file, use enough padding to make resulting file size a multiple of 2048 bytes
             // calculate resulting file size
             long res_file_size = file.length() - length_file + new_length;
-            padding = ((long) (Math.ceil(res_file_size / 2048) * 2048) + 2048) - res_file_size;
+            padding = ((long) (Math.ceil(res_file_size / 2048.0) * 2048) + 2048) - res_file_size;
         }
 
         //

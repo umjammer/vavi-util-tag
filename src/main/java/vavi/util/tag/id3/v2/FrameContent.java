@@ -43,7 +43,7 @@ import java.util.logging.Logger;
 public abstract class FrameContent {
 
     /** jdk1.4 logger */
-    private static Logger logger = Logger.getLogger(FrameContent.class.getName());
+    private static final Logger logger = Logger.getLogger(FrameContent.class.getName());
 
     /** */
     protected Object content;

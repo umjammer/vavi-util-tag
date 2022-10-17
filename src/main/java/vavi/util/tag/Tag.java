@@ -18,16 +18,16 @@ import java.util.Iterator;
  */
 public interface Tag {
     /** */
-    public Object getTag(String key) throws TagException;
+    Object getTag(String key) throws TagException;
 
     /** */
-    public void setTag(String key, Object value) throws TagException;
+    void setTag(String key, Object value) throws TagException;
 
     /** */
-    public void update() throws IOException;
+    void update() throws IOException;
 
     /** */
-    public Iterator<?> tags() throws TagException;
+    Iterator<?> tags() throws TagException;
 }
 
 /* */

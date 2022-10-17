@@ -16,8 +16,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.junit.jupiter.api.Disabled;
-
 import vavi.util.tag.id3.ID3Tag.Type;
 import vavi.util.tag.id3.MP3File;
 import vavi.util.tag.id3.v2.FrameContent;

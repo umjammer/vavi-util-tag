@@ -3,6 +3,7 @@ package vavi.util.tag.mp4;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 import vavi.util.Debug;
 import vavi.util.box.Box;
@@ -47,7 +48,7 @@ Debug.println("64 bit length: " + offset);
         }
 
         Box box = null;
-        String idString = new String(id, "ISO-8859-1");
+        String idString = new String(id, StandardCharsets.ISO_8859_1);
         if ("ftyp".equals(idString)) {          // L1
             box = new ftyp();
         } else if ("moov".equals(idString)) {   // L1

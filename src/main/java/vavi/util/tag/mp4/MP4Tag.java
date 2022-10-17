@@ -39,8 +39,8 @@ public class MP4Tag implements Tag {
             if (box.isIdOf(key)) {
                 results.add(box);
             } else {
-                if (Meta.class.isInstance(box)) {
-                    search(Meta.class.cast(box).getSubBoxes(), key, results, depth + 1);
+                if (box instanceof Meta) {
+                    search(((Meta) box).getSubBoxes(), key, results, depth + 1);
                 }
             }
         }
@@ -70,8 +70,8 @@ public class MP4Tag implements Tag {
     List<Object> search(List<Box> boxes, List<Object> results) {
         for (Box box : boxes) {
             results.add(box);
-            if (Meta.class.isInstance(box)) {
-                search(Meta.class.cast(box).getSubBoxes(), results);
+            if (box instanceof Meta) {
+                search(((Meta) box).getSubBoxes(), results);
             }
         }
         return results;
