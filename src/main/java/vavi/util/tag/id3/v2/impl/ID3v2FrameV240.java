@@ -385,7 +385,7 @@ logger.warning("id: " + id + ": " + StringUtil.getDump(head, 4) + ", length is l
         }
         ret[9] = flag2;
 
-        short content_offset = 10; // first byte used for content
+        int content_offset = 10; // first byte used for content
 
         // decompressed size, if compressed
         if (compression) {
