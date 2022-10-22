@@ -10,8 +10,6 @@ import java.util.Iterator;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-import org.junit.jupiter.api.Disabled;
-
 import vavi.util.tag.id3.ID3Tag.Type;
 import vavi.util.tag.id3.MP3File;
 import vavi.util.tag.id3.v2.ID3v2;

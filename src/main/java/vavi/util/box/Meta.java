@@ -55,7 +55,7 @@ public interface Meta {
                 Box subBox = factory.getInstance(dis);
 //System.err.println(subBox);
                 subBoxes.add(subBox);
-                l += subBox.offset;
+                l += (int) subBox.offset;
 //Debug.println(l + "/" + (offset - 8));
             }
         }
@@ -65,7 +65,7 @@ public interface Meta {
             StringBuilder sb = new StringBuilder();
             int i = 0;
             for (Box subBox : subBoxes) {
-                sb.append(id + " entry[" + i++ + "]: ");
+                sb.append(id).append(" entry[").append(i++).append("]: ");
                 sb.append('\n');
                 sb.append(subBox);
             }

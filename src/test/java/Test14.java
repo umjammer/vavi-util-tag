@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import org.junit.jupiter.api.Disabled;
-
 import vavi.util.box.Box;
 import vavi.util.tag.mp4.MP4File;
 import vavi.util.tag.mp4.MP4Tag;

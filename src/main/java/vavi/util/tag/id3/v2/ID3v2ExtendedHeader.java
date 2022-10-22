@@ -51,7 +51,7 @@ public class ID3v2ExtendedHeader {
      */
     public ID3v2ExtendedHeader(boolean use_crc, int crc, int padding_size) {
         crc_present = use_crc;
-        if (crc_present == true) {
+        if (crc_present) {
             this.crc = crc;
         } else {
             this.crc = 0;
@@ -85,7 +85,7 @@ public class ID3v2ExtendedHeader {
         padding_size = (int) (new Bytes(head, 6, 4).getValue());
 
         // read crc if present
-        if (crc_present == true) {
+        if (crc_present) {
             byte[] crc_array = new byte[4];
             in.read(crc_array);
             crc = (int) new Bytes(crc_array).getValue();
@@ -96,7 +96,7 @@ public class ID3v2ExtendedHeader {
      * @return Size of extended header
      */
     public int getSize() {
-        return ((crc_present == true) ? 10 : 6);
+        return ((crc_present) ? 10 : 6);
     }
 
     /**
@@ -128,7 +128,7 @@ public class ID3v2ExtendedHeader {
      * @param crc True: CRC is used
      */
     public void setHasCRC(boolean act) {
-        if (act == false) {
+        if (!act) {
             crc = 0;
         }
         crc_present = act;
@@ -162,7 +162,7 @@ public class ID3v2ExtendedHeader {
     public byte[] getBytes() {
         byte[] ret;
 
-        if (crc_present == true) {
+        if (crc_present) {
             // extended header needs 10 + 4 bytes
             ret = new byte[14];
 
@@ -198,7 +198,7 @@ public class ID3v2ExtendedHeader {
         System.arraycopy(pad_byte, 0, ret, 6, 4);
 
         // write crc if present
-        if (crc_present == true) {
+        if (crc_present) {
             byte[] crc_byte = (new Bytes(crc, 4)).getBytes();
             System.arraycopy(crc_byte, 0, ret, 10, 4);
         }

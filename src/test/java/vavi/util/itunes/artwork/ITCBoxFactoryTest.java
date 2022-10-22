@@ -10,7 +10,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -49,10 +48,10 @@ public class ITCBoxFactoryTest {
     BufferedImage image;
 
     ITCBoxFactoryTest(String dir) throws IOException {
-        final JFrame frame = new JFrame();
+        JFrame frame = new JFrame();
         frame.setSize(600, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        final JPanel panel = new JPanel() {
+        JPanel panel = new JPanel() {
             public void paint(Graphics g) {
                 g.drawImage(image, 0, 0, this);
             }

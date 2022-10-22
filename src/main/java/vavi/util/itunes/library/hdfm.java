@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.zip.Inflater;
@@ -64,7 +65,7 @@ public class hdfm extends Box {
         this.lengthOfVersionString = dis.readUnsignedByte();
         byte[] versionBytes = new byte[this.lengthOfVersionString];
         dis.readFully(versionBytes);
-        this.versionString = new String(versionBytes, "us-ascii");
+        this.versionString = new String(versionBytes, StandardCharsets.US_ASCII);
         dis.skipBytes((int) this.offset - 17 - this.lengthOfVersionString);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -97,7 +98,7 @@ Debug.println(box);
         byte[] dst = new byte[src.length];
 
         try {
-            byte[] rawKey = "BHUILuilfghuila3".getBytes("us-ascii");
+            byte[] rawKey = "BHUILuilfghuila3".getBytes(StandardCharsets.US_ASCII);
 
             SecretKeySpec skeySpec = new SecretKeySpec(rawKey, "AES");
             Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");

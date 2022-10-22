@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class IntFrameContent extends EncodedTextFrameContent {
 
     /** */
-    private static Logger logger = Logger.getLogger(IntFrameContent.class.getName());
+    private static final Logger logger = Logger.getLogger(IntFrameContent.class.getName());
 
     /** @see #setContent(Object) */
     public IntFrameContent() {

@@ -14,8 +14,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.junit.jupiter.api.Disabled;
-
 import vavix.util.screenscrape.annotation.JsonPathParser;
 import vavix.util.screenscrape.annotation.PlainInputHandler;
 import vavix.util.screenscrape.annotation.Target;
@@ -52,7 +50,7 @@ public class Test18 {
                 parser = JsonPathParser.class)
     public static class Music {
         @Target String artistId;
-        @Target String collectionId;;
+        @Target String collectionId;
         @Target String trackId;
         @Target String artistName;
         @Target String collectionName;
@@ -147,10 +145,10 @@ public class Test18 {
         String term = "Aimer"; //args[1];
         List<Music> musics = WebScraper.Util.scrape(Music.class, country, term);
 
-        final JFrame frame = new JFrame();
+        JFrame frame = new JFrame();
         frame.setSize(600, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        final JPanel panel = new JPanel() {
+        JPanel panel = new JPanel() {
             public void paint(Graphics g) {
                 g.drawImage(image, 0, 0, this);
             }

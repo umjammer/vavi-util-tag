@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 public final class GenreUtil {
 
     /** */
-    private static Logger logger = Logger.getLogger(GenreUtil.class.getName());
+    private static final Logger logger = Logger.getLogger(GenreUtil.class.getName());
 
     /** */
     private GenreUtil() {

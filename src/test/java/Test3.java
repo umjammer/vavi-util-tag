@@ -10,8 +10,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.junit.jupiter.api.Disabled;
-
 import vavi.util.box.Box;
 
 
@@ -24,10 +22,10 @@ import vavi.util.box.Box;
 public class Test3 {
 
     static class BoxTest extends Box {
-        public static final long qtTimeToLong2(int qtTime) {
+        public static long qtTimeToLong2(int qtTime) {
             return qtTimeToLong(qtTime);
         }
-        public static final int longToQtTime2(long time) {
+        public static int longToQtTime2(long time) {
             return longToQtTime(time);
         }
     }
@@ -70,7 +68,7 @@ System.err.println(days + " days");
     }
 
     void test2(String[] args) throws Exception {
-        final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = sdf.parse(args[0]);
         // times: 4, days: 2, date: 1, off: 0
         int type = 1;

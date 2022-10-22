@@ -6,8 +6,6 @@
 
 import java.util.List;
 
-import org.junit.jupiter.api.Disabled;
-
 import vavix.util.screenscrape.annotation.SaxonXPathParser;
 import vavix.util.screenscrape.annotation.Target;
 import vavix.util.screenscrape.annotation.WebScraper;
@@ -88,7 +86,7 @@ public class Test12 {
      */
     public static void main(String[] args) throws Exception {
         List<Meta> metas = WebScraper.Util.scrape(Meta.class);
-        final String libraryPersistentID = metas.get(0).libraryPersistentID;
+        String libraryPersistentID = metas.get(0).libraryPersistentID;
 System.err.println("Library Persistent ID: " + libraryPersistentID);
 //        final String libraryPersistentID = "0C01A45070E6DBEE";
         WebScraper.Util.foreach(Song.class, each -> {

@@ -80,7 +80,7 @@ public class Bytes {
 
         for (int i = start; i < (start + length); i++) {
             // move each byte (length-pos-1)*8 bits to the left and add them
-            value += ((in[i] & 0xff) << (((length - i + start) - 1) * 8));
+            value += ((in[i] & 0xffL) << (((length - i + start) - 1) * 8));
         }
 
         return value;

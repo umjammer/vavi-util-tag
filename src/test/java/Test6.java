@@ -6,8 +6,6 @@
 
 import java.util.Iterator;
 
-import org.junit.jupiter.api.Disabled;
-
 import vavi.util.StringUtil;
 import vavi.util.tag.id3.ID3Tag;
 import vavi.util.tag.id3.ID3Tag.Type;

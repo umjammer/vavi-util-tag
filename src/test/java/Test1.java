@@ -11,8 +11,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.regex.Pattern;
 
-import org.junit.jupiter.api.Disabled;
-
 import vavi.util.StringUtil;
 import vavi.util.tag.Tag;
 import vavi.util.tag.id3.ID3Tag;

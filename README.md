@@ -24,6 +24,8 @@ manipulate mp3, m4a tag for java
 
 ## Usage
 
+practicality is sufficient because it was actually applied to my itunes library (20,000 mp3s).
+
  * [List unnecessary mp3 v2 tags](https://github.com/umjammer/vavi-util-tag/blob/master/src/test/java/Test7_2.java)
  * [Delete unnecessary mp3 v2 tags](https://github.com/umjammer/vavi-util-tag/blob/master/src/test/java/Test7.java)
  * [List iTunes artwork](https://github.com/umjammer/vavi-util-tag/blob/master/src/test/java/vavi/util/itunes/artwork/ITCBoxFactoryTest.java)

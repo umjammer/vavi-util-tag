@@ -8,8 +8,6 @@ import java.io.File;
 import java.util.Enumeration;
 import java.util.Properties;
 
-import org.junit.jupiter.api.Disabled;
-
 import vavi.util.tag.Tag;
 import vavi.util.tag.id3.ID3Tag;
 import vavi.util.tag.id3.ID3TagException;

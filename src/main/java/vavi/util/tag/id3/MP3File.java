@@ -59,10 +59,10 @@ import vavi.util.tag.id3.v2.ID3v2Exception;
 public class MP3File extends File {
 
     /** */
-    private static Logger logger = Logger.getLogger(MP3File.class.getName());
+    private static final Logger logger = Logger.getLogger(MP3File.class.getName());
 
     /** */
-    private Map<ID3Tag.Type, Tag> tags = new HashMap<>();
+    private final Map<ID3Tag.Type, Tag> tags = new HashMap<>();
 
     /**
      * Creates a new instance.
@@ -130,7 +130,7 @@ logger.info("no ID3v2: " + this);
 
     /** */
     public Tag[] getTags() {
-        return tags.values().toArray(new Tag[tags.size()]);
+        return tags.values().toArray(new Tag[0]);
     }
 
     /** */

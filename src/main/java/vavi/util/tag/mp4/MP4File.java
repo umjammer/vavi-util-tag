@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +47,7 @@ public class MP4File extends File {
     /** */
     private void readTags() throws IOException {
         BoxFactory factory = BoxFactoryFactory.getFactory(MP4BoxFactory.class.getName());
-        InputStream is = new FileInputStream(getPath());
+        InputStream is = Files.newInputStream(Paths.get(getPath()));
         List<Box> boxes = new ArrayList<>();
         while (is.available() > 0) {
             Box box = factory.getInstance(is);

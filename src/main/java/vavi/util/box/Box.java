@@ -9,6 +9,7 @@ package vavi.util.box;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -50,13 +51,8 @@ public class Box {
     /** */
     public boolean isIdOf(String idString) {
         byte[] idBytes;
-        try {
-            idBytes = idString.getBytes("ISO-8859-1");
-        } catch (UnsupportedEncodingException e) {
-System.err.println(e);
-            idBytes = idString.getBytes();
-        }
-//System.err.println("cmp: " + StringUtil.getDump(id) + ", " + StringUtil.getDump(idBytes));
+        idBytes = idString.getBytes(StandardCharsets.ISO_8859_1);
+        //System.err.println("cmp: " + StringUtil.getDump(id) + ", " + StringUtil.getDump(idBytes));
         for (int i = 0; i < 4; i++) {
             if (id[i] != idBytes[i]) {
                 return false;
@@ -94,24 +90,24 @@ System.err.println(e);
     /**
      * DATE (int) から java long (msec since 1970/1/1) を取得します．
      */
-    protected static final long qtTimeToLong(int qtTime) {
+    protected static long qtTimeToLong(int qtTime) {
 //Debug.println("date: " + qtTime);
         long time = qtTime;
         if (qtTime < 0) {
-            time = qtTime + 0x100000000l;
+            time = qtTime + 0x1_0000_0000L;
         }
-        final Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
-        calendar.set(1904, Calendar.JANUARY, 1, 00, 00, 00);
+        calendar.set(1904, Calendar.JANUARY, 1, 0, 0, 0);
         return calendar.getTime().getTime() + time * 1000;
     }
 
     /** */
-    protected static final int longToQtTime(long time) {
-        final Calendar calendar = Calendar.getInstance();
+    protected static int longToQtTime(long time) {
+        Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
-        calendar.set(1904, Calendar.JANUARY, 1, 00, 00, 00);
-        return (int) (((time - calendar.getTime().getTime() + 999) / 1000) & 0xffffffff);
+        calendar.set(1904, Calendar.JANUARY, 1, 0, 0, 0);
+        return (int) (((time - calendar.getTime().getTime() + 999) / 1000));
     }
 
     /** TODO */

@@ -114,28 +114,28 @@ first = printFrame(mod, key, first, frame);
                 } else if (key.equals("TBPM")) {
                     Object o = frame.getContent("TBPM").getContent();
                     if (o instanceof String) {
-                        if (!p_tpbm.matcher(String.class.cast(o)).matches()) {
+                        if (!p_tpbm.matcher((String) o).matches()) {
 first = printFrame(mod, key, first, frame);
                         }
                     }
                 } else if (key.equals("TSRC")) {
                     Object o = frame.getContent("TSRC").getContent();
                     if (o instanceof String) {
-                        if (!p_tsrc.matcher(String.class.cast(o)).matches()) {
+                        if (!p_tsrc.matcher((String) o).matches()) {
 first = printFrame(mod, key, first, frame);
                         }
                     }
                 } else if (key.equals("TKEY")) {
                     Object o = frame.getContent("TKEY").getContent();
                     if (o instanceof String) {
-                        if (!p_tkey.matcher(String.class.cast(o)).matches()) {
+                        if (!p_tkey.matcher((String) o).matches()) {
 first = printFrame(mod, key, first, frame);
                         }
                     }
                 } else if (key.equals("WOAR")) {
                     Object o = frame.getContent("WOAR").getContent();
                     if (o instanceof String) {
-                        if (Collections.binarySearch(s_woar, String.class.cast(o)) < 0) {
+                        if (Collections.binarySearch(s_woar, (String) o) < 0) {
 first = printFrame(mod, key, first, frame);
                         }
                     }

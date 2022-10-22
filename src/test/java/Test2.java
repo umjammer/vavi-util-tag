@@ -4,14 +4,11 @@
  * Programmed by Naohide Sano
  */
 
-import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Scanner;
-
-import org.junit.jupiter.api.Disabled;
 
 import vavi.util.tag.Tag;
 import vavi.util.tag.id3.ID3Tag;
