@@ -4,31 +4,28 @@
  * Programmed by Naohide Sano
  */
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 import vavi.util.StringUtil;
 import vavi.util.tag.id3.ID3Tag.Type;
 import vavi.util.tag.id3.MP3File;
 import vavi.util.tag.id3.v2.ID3v2;
 import vavi.util.tag.id3.v2.ID3v2Frame;
-import vavix.util.grep.FileDigger;
-import vavix.util.grep.RegexFileDigger;
 
 
 /**
- * Test16. (mp3 find unnecessary text in image by directory)
+ * MP3FindTextInImageUnnecessaryByWalk. (mp3 find unnecessary text in image by directory)
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
-public class Test16 {
+public class MP3FindTextInImageUnnecessaryByWalk {
 
-    static Logger logger = Logger.getLogger(Test16.class.getName());
+    static Logger logger = Logger.getLogger(MP3FindTextInImageUnnecessaryByWalk.class.getName());
 
     /**
      * @param args 0: top_directory, 1: regex_pattern
@@ -41,21 +38,22 @@ public class Test16 {
      * @param args 0: top_directory, 1: regex_pattern
      */
     private static void exec16(String[] args) throws Exception {
-        new RegexFileDigger(new FileDigger.FileDredger() {
-            public void dredge(File file) throws IOException {
-                try {
-                    exec16(file.getAbsolutePath());
-} catch (FileNotFoundException e) { // for mac jvm6 bug?
- System.err.println(file + " ------------");
- System.err.println("exists?: " + file.exists());
- File newFile = new File(file.getParentFile(), file.getName());
- System.err.println("exists?: " + newFile.exists());
-                } catch (Exception e) {
-                    System.err.println(file + " ------------");
-                    e.printStackTrace();
+        Files.walk(Path.of(args[0])).forEach(file -> {
+            try {
+                if (file.getFileName().toString().matches(args[1])) {
+                    try {
+                        exec16(file.toAbsolutePath().toString());
+                    } catch (FileNotFoundException e) { // for mac jvm6 bug?
+                        System.err.println(file + " ------------");
+                        System.err.println("exists?: " + Files.exists(file));
+                        Path newFile = Files.createFile(file);
+                        System.err.println("exists?: " + Files.exists(newFile));
+                    }
                 }
+            } catch (Exception e) {
+                e.printStackTrace(System.err);
             }
-        }, Pattern.compile(args[1])).dig(new File(args[0]));
+        });
     }
 
     /**

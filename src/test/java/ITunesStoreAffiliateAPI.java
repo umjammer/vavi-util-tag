@@ -26,7 +26,7 @@ import vavix.util.screenscrape.annotation.WebScraper;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2012/06/15 umjammer initial version <br>
  */
-public class Test18 {
+public class ITunesStoreAffiliateAPI {
 
     /**
      * request parameters
@@ -74,55 +74,54 @@ public class Test18 {
         @Target String primaryGenreName;
         @Override
         public String toString() {
-            StringBuilder builder = new StringBuilder();
-            builder.append("Artwork [artistId=")
-                    .append(artistId)
-                    .append(", collectionId=")
-                    .append(collectionId)
-                    .append(", trackId=")
-                    .append(trackId)
-                    .append(", artistName=")
-                    .append(artistName)
-                    .append(", collectionName=")
-                    .append(collectionName)
-                    .append(", trackName=")
-                    .append(trackName)
-                    .append(", collectionCensoredName=")
-                    .append(collectionCensoredName)
-                    .append(", trackCensoredName=")
-                    .append(trackCensoredName)
-                    .append(", collectionViewUrl=")
-                    .append(collectionViewUrl)
-                    .append(", trackViewUrl=")
-                    .append(trackViewUrl)
-                    .append(", previewUrl=")
-                    .append(previewUrl)
-                    .append(", artworkUrl30=")
-                    .append(artworkUrl30)
-                    .append(", artworkUrl60=")
-                    .append(artworkUrl60)
-                    .append(", artworkUrl100=")
-                    .append(artworkUrl100)
-                    .append(", collectionPrice=")
-                    .append(collectionPrice)
-                    .append(", trackPrice=")
-                    .append(trackPrice)
-                    .append(", trackHdPrice=")
-                    .append(trackHdPrice)
-                    .append(", trackCount=")
-                    .append(trackCount)
-                    .append(", trackNumber=")
-                    .append(trackNumber)
-                    .append(", trackTimeMillis=")
-                    .append(trackTimeMillis)
-                    .append(", country=")
-                    .append(country)
-                    .append(", currency=")
-                    .append(currency)
-                    .append(", primaryGenreName=")
-                    .append(primaryGenreName)
-                    .append("]");
-            return builder.toString();
+            String builder = "Artwork [artistId=" +
+                    artistId +
+                    ", collectionId=" +
+                    collectionId +
+                    ", trackId=" +
+                    trackId +
+                    ", artistName=" +
+                    artistName +
+                    ", collectionName=" +
+                    collectionName +
+                    ", trackName=" +
+                    trackName +
+                    ", collectionCensoredName=" +
+                    collectionCensoredName +
+                    ", trackCensoredName=" +
+                    trackCensoredName +
+                    ", collectionViewUrl=" +
+                    collectionViewUrl +
+                    ", trackViewUrl=" +
+                    trackViewUrl +
+                    ", previewUrl=" +
+                    previewUrl +
+                    ", artworkUrl30=" +
+                    artworkUrl30 +
+                    ", artworkUrl60=" +
+                    artworkUrl60 +
+                    ", artworkUrl100=" +
+                    artworkUrl100 +
+                    ", collectionPrice=" +
+                    collectionPrice +
+                    ", trackPrice=" +
+                    trackPrice +
+                    ", trackHdPrice=" +
+                    trackHdPrice +
+                    ", trackCount=" +
+                    trackCount +
+                    ", trackNumber=" +
+                    trackNumber +
+                    ", trackTimeMillis=" +
+                    trackTimeMillis +
+                    ", country=" +
+                    country +
+                    ", currency=" +
+                    currency +
+                    ", primaryGenreName=" +
+                    primaryGenreName +
+                    "]";
+            return builder;
         }
     }
 
@@ -131,7 +130,7 @@ public class Test18 {
      * @param args 0: country, 1: term
      */
     public static void main(String[] args) throws Exception {
-        Test18 app = new Test18();
+        ITunesStoreAffiliateAPI app = new ITunesStoreAffiliateAPI();
         app.exec(args);
     }
 

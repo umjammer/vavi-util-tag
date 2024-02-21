@@ -14,12 +14,12 @@ import vavi.util.box.Box;
 
 
 /**
- * Test3.
+ * BoxTest3.
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 080313 nsano initial version <br>
  */
-public class Test3 {
+public class BoxTest3 {
 
     static class BoxTest extends Box {
         public static long qtTimeToLong2(int qtTime) {
@@ -34,7 +34,7 @@ public class Test3 {
      * @param args 0: date, 1: days
      */
     public static void main(String[] args) throws Exception {
-        Test3 test = new Test3();
+        BoxTest3 test = new BoxTest3();
 System.err.println("---- t1 ----");
         test.test1(args);
 System.err.println("---- t2 ----");

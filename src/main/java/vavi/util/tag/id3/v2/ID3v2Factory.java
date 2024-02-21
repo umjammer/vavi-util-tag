@@ -49,40 +49,28 @@ public class ID3v2Factory {
 
         int version = head[3];
         int revision = head[4];
-        switch (version) {
-        case 2:
-            return new ID3v2HeaderV220(head);
-        case 3:
-            switch (revision) {
-            case 1: 
-                return new ID3v2HeaderV240(head);
-            default:
-                return new ID3v2HeaderV230(head);
-            }
-        case 4:
-            return new ID3v2HeaderV240(head);
-        default:
-            throw new ID3v2Exception("illegal version: " + version + "." + revision);
-        }
+        return switch (version) {
+            case 2 -> new ID3v2HeaderV220(head);
+            case 3 -> switch (revision) {
+                case 1 -> new ID3v2HeaderV240(head);
+                default -> new ID3v2HeaderV230(head);
+            };
+            case 4 -> new ID3v2HeaderV240(head);
+            default -> throw new ID3v2Exception("illegal version: " + version + "." + revision);
+        };
     }
 
     /** */
     public static ID3v2Frame readFrameFrom(InputStream in, ID3v2Header header) throws ID3v2Exception, IOException {
-        switch (header.getVersion()) {
-        case 2:
-            return new ID3v2FrameV220(in, header);
-        case 3:
-            switch (header.getRevision()) {
-            case 1: 
-                return new ID3v2FrameV240(in);
-            default:
-                return new ID3v2FrameV230(in);
-            }
-        case 4:
-            return new ID3v2FrameV240(in);
-        default:
-            throw new ID3v2Exception("illegal version: " + header.getVersion() + "." + header.getRevision());
-        }
+        return switch (header.getVersion()) {
+            case 2 -> new ID3v2FrameV220(in, header);
+            case 3 -> switch (header.getRevision()) {
+                case 1 -> new ID3v2FrameV240(in);
+                default -> new ID3v2FrameV230(in);
+            };
+            case 4 -> new ID3v2FrameV240(in);
+            default -> throw new ID3v2Exception("illegal version: " + header.getVersion() + "." + header.getRevision());
+        };
     }
 
     /** */
@@ -99,7 +87,7 @@ public class ID3v2Factory {
         try {
 //logger.info("key: " + key);
             Constructor<FrameContent> constructor = constructorsWithArgs.get(key);
-            FrameContent frameContent = constructor.newInstance((Object) content);
+            FrameContent frameContent = constructor.newInstance(content);
             return frameContent;
         } catch (Exception e) {
 //e.printStackTrace(System.err);

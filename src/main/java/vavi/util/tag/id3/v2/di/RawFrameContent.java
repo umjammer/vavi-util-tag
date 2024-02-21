@@ -70,7 +70,7 @@ public class RawFrameContent extends FrameContent {
         return toString(); // TODO implement!
     }
 
-    // EncapsulatedObject
+//    /** EncapsulatedObject */
 //    void encapsel() {
 //        if ((obj.getType() == null) || (obj.getTextSubtype() == null) || (obj.getDescription() == null) || (obj.getContent() == null)) {
 //            throw new TagFormatException();

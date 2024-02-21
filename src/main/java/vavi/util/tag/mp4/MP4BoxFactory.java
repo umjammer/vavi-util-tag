@@ -49,59 +49,54 @@ Debug.println("64 bit length: " + offset);
 
         Box box = null;
         String idString = new String(id, StandardCharsets.ISO_8859_1);
-        if ("ftyp".equals(idString)) {          // L1
-            box = new ftyp();
-        } else if ("moov".equals(idString)) {   // L1
-            box = new MetaBox();
-        } else if ("mvhd".equals(idString)) {   // L2
-            box = new mvhd();
-        } else if ("trak".equals(idString)) {   // L2
-            box = new MetaBox();
-        } else if ("mdia".equals(idString)) {   // L3
-            box = new MetaBox();
-        } else if ("tkhd".equals(idString)) {   // L3
-            box = new tkhd();
-        } else if ("mdhd".equals(idString)) {   // L4
-            box = new mdhd();
-        } else if ("minf".equals(idString)) {   // L4
-            box = new MetaBox();
-        } else if ("stbl".equals(idString)) {   // L5
-            box = new MetaBox();
-        } else if ("udta".equals(idString)) {   // L2
-            box = new MetaBox();
-        } else if ("dinf".equals(idString)) {   // L5
-            box = new MetaBox();
-        } else if ("hdlr".equals(idString)) {   // L4
-            box = new hdlr();
-        } else if ("stsd".equals(idString)) {   // L6
-            box = new stsd();
-        } else if ("mp4a".equals(idString)) {
-            box = new mp4a();
-        } else if ("esds".equals(idString)) {
-            box = new esds();
-        } else if ("wave".equals(idString)) {
-            box = new MetaBox();
-        } else if ("meta".equals(idString)) {
-            box = new MetaFullBox();
-        } else if ("ilst".equals(idString)) {
-            box = new MetaBox();
-        } else if ("uuid".equals(idString)) {   // au 3gpp2
-            box = new uuid();
-        } else if ("----".equals(idString)) {   // iTunes
-            box = new ____();
-        } else if ("covr".equals(idString)) {   // iTunes
-            box = new covr();
-        } else if ("pinf".equals(idString)) {   // iTunes
-            box = new MetaBox();
-        } else if ("schi".equals(idString)) {   // iTunes
-            box = new MetaBox();
-        } else if (((char) 0xa9 + "nam").equals(idString)) { // iTunes
-            box = new _nam();
-        } else if (((char) 0xa9 + "ART").equals(idString)) { // iTunes
-            box = new _ART();
-        } else {
-            box = new Box();
-        }
+        box = switch (idString) {
+            case "ftyp" ->           // L1
+                    new ftyp();
+            case "moov" ->    // L1
+                    new MetaBox();
+            case "mvhd" ->    // L2
+                    new mvhd();
+            case "trak" ->    // L2
+                    new MetaBox();
+            case "mdia" ->    // L3
+                    new MetaBox();
+            case "tkhd" ->    // L3
+                    new tkhd();
+            case "mdhd" ->    // L4
+                    new mdhd();
+            case "minf" ->    // L4
+                    new MetaBox();
+            case "stbl" ->    // L5
+                    new MetaBox();
+            case "udta" ->    // L2
+                    new MetaBox();
+            case "dinf" ->    // L5
+                    new MetaBox();
+            case "hdlr" ->    // L4
+                    new hdlr();
+            case "stsd" ->    // L6
+                    new stsd();
+            case "mp4a" -> new mp4a();
+            case "esds" -> new esds();
+            case "wave" -> new MetaBox();
+            case "meta" -> new MetaFullBox();
+            case "ilst" -> new MetaBox();
+            case "uuid" ->    // au 3gpp2
+                    new uuid();
+            case "----" ->    // iTunes
+                    new ____();
+            case "covr" ->    // iTunes
+                    new covr();
+            case "pinf" ->    // iTunes
+                    new MetaBox();
+            case "schi" ->    // iTunes
+                    new MetaBox();
+            case ((char) 0xa9 + "nam") ->  // iTunes
+                    new _nam();
+            case ((char) 0xa9 + "ART") ->  // iTunes
+                    new _ART();
+            default -> new Box();
+        };
         box.setFactory(this); // TODO bad!
         box.setOffset(offset);
         box.setId(id);

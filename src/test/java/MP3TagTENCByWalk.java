@@ -4,29 +4,26 @@
  * Programmed by Naohide Sano
  */
 
-import java.io.File;
-import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 import vavi.util.tag.id3.ID3Tag.Type;
 import vavi.util.tag.id3.MP3File;
 import vavi.util.tag.id3.v2.ID3v2;
 import vavi.util.tag.id3.v2.ID3v2Frame;
-import vavix.util.grep.FileDigger;
-import vavix.util.grep.RegexFileDigger;
 
 
 /**
- * Test7_1. (mp3 find encoder tags by directory)
+ * MP3TagTENCByWalk. (mp3 find encoder tags by directory)
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
-public class Test7_1 {
+public class MP3TagTENCByWalk {
 
-    static Logger logger = Logger.getLogger(Test7_1.class.getName());
+    static Logger logger = Logger.getLogger(MP3TagTENCByWalk.class.getName());
 
     /**
      * @param args 0: top_directory, 1: regex_pattern
@@ -39,16 +36,15 @@ public class Test7_1 {
      * @param args 0: top_directory, 1: regex_pattern
      */
     private static void exec7_1(String[] args) throws Exception {
-        new RegexFileDigger(new FileDigger.FileDredger() {
-            public void dredge(File file) throws IOException {
-                try {
-                    exec7_2(file.getAbsolutePath());
-                } catch (Exception e) {
-                    System.err.println(file + " ------------");
-                    e.printStackTrace();
+        Files.walk(Path.of(args[0])).forEach(file -> {
+            try {
+                if (file.getFileName().toString().matches(args[1])) {
+                    exec7_2(file.toAbsolutePath().toString());
                 }
+            } catch (Exception e) {
+                e.printStackTrace(System.err);
             }
-        }, Pattern.compile(args[1])).dig(new File(args[0]));
+        });
     }
 
     /**

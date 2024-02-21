@@ -4,9 +4,9 @@
  * Programmed by Naohide Sano
  */
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -15,26 +15,23 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Disabled;
-
 import vavi.util.StringUtil;
 import vavi.util.tag.id3.ID3Tag.Type;
 import vavi.util.tag.id3.MP3File;
 import vavi.util.tag.id3.v2.ID3v2;
 import vavi.util.tag.id3.v2.ID3v2Frame;
-import vavix.util.grep.FileDigger;
-import vavix.util.grep.RegexFileDigger;
 
 
 /**
- * Test7_2. (mp3 find unnecessary tags by directory)
+ * MP3ShowTagUnnecessaryByWalk. (mp3 find unnecessary tags by directory)
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
 @Disabled
-public class Test7_2 {
+public class MP3ShowTagUnnecessaryByWalk {
 
-    static Logger logger = Logger.getLogger(Test7_2.class.getName());
+    static Logger logger = Logger.getLogger(MP3ShowTagUnnecessaryByWalk.class.getName());
 
     /**
      * @param args 0: top_directory, 1: regex_pattern
@@ -47,21 +44,22 @@ public class Test7_2 {
      * @param args 0: top_directory, 1: regex_pattern
      */
     private static void exec7_2(String[] args) throws Exception {
-        new RegexFileDigger(new FileDigger.FileDredger() {
-            public void dredge(File file) throws IOException {
-                try {
-                    exec7_2(file.getAbsolutePath());
-} catch (FileNotFoundException e) { // for mac jvm6 bug?
- System.err.println(file + " ------------");
- System.err.println("exists?: " + file.exists());
- File newFile = new File(file.getParentFile(), file.getName());
- System.err.println("exists?: " + newFile.exists());
-                } catch (Exception e) {
-                    System.err.println(file + " ------------");
-                    e.printStackTrace();
+        Files.walk(Path.of(args[0])).forEach(file -> {
+            try {
+                if (file.getFileName().toString().matches(args[1])) {
+                    try {
+                        exec7_2(file.toAbsolutePath().toString());
+                    } catch (FileNotFoundException e) { // for mac jvm6 bug?
+                        System.err.println(file + " ------------");
+                        System.err.println("exists?: " + Files.exists(file));
+                        Path newFile = Files.createFile(file);
+                        System.err.println("exists?: " + Files.exists(newFile));
+                    }
                 }
+            } catch (Exception e) {
+                e.printStackTrace(System.err);
             }
-        }, Pattern.compile(args[1])).dig(new File(args[0]));
+        });
     }
 
     /**
@@ -77,68 +75,41 @@ boolean first = true;
             while (i.hasNext()) {
                 ID3v2Frame frame = (ID3v2Frame) i.next();
                 String key = frame.getID();
-                if (
-                        key.equals("IEC ") ||
-
-                        key.equals("UFID") ||
-                        key.equals("NCON") ||
-                        key.equals("GEOB") ||
-                        key.equals("TSIZ") ||
-                        key.equals("TLEN") ||
-                        key.equals("TFLT") ||
-                        key.equals("TMED") ||
-                        key.equals("MCDI") ||
-                        key.equals("TXXX") ||
-                        key.equals("WXXX") ||
-                        key.equals("PRIV")
-
-                                           ||
-                        key.equals("TPE3") ||
-                        key.equals("TOWN") ||
-                        key.equals("TGID") ||
-                        key.equals("TDES") ||
-                        key.equals("TCAT") ||
-                        key.equals("TEXT") ||
-                        key.equals("TPE4") ||
-                        key.equals("TRSN") ||
-                        key.equals("TOAL") ||
-                        key.equals("TOPE") ||
-                        key.equals("TOLY") ||
-                        key.equals("TIT3") ||
-                        key.equals("WOAS") ||
-                        key.equals("WOAF") ||
-                        key.equals("WFED") ||
-                        key.equals("WORS")
-                        ) {
-first = printFrame(mod, key, first, frame);
-                } else if (key.equals("TBPM")) {
+                switch (key) {
+                case "IEC ", "UFID", "NCON", "GEOB", "TSIZ", "TLEN", "TFLT", "TMED", "MCDI", "TXXX", "WXXX", "PRIV", "TPE3", "TOWN", "TGID", "TDES", "TCAT", "TEXT", "TPE4", "TRSN", "TOAL", "TOPE", "TOLY", "TIT3", "WOAS", "WOAF", "WFED", "WORS" ->
+                        first = printFrame(mod, key, first, frame);
+                case "TBPM" -> {
                     Object o = frame.getContent("TBPM").getContent();
                     if (o instanceof String) {
                         if (!p_tpbm.matcher((String) o).matches()) {
-first = printFrame(mod, key, first, frame);
+                            first = printFrame(mod, key, first, frame);
                         }
                     }
-                } else if (key.equals("TSRC")) {
+                }
+                case "TSRC" -> {
                     Object o = frame.getContent("TSRC").getContent();
                     if (o instanceof String) {
                         if (!p_tsrc.matcher((String) o).matches()) {
-first = printFrame(mod, key, first, frame);
+                            first = printFrame(mod, key, first, frame);
                         }
                     }
-                } else if (key.equals("TKEY")) {
+                }
+                case "TKEY" -> {
                     Object o = frame.getContent("TKEY").getContent();
                     if (o instanceof String) {
                         if (!p_tkey.matcher((String) o).matches()) {
-first = printFrame(mod, key, first, frame);
+                            first = printFrame(mod, key, first, frame);
                         }
                     }
-                } else if (key.equals("WOAR")) {
+                }
+                case "WOAR" -> {
                     Object o = frame.getContent("WOAR").getContent();
                     if (o instanceof String) {
                         if (Collections.binarySearch(s_woar, (String) o) < 0) {
-first = printFrame(mod, key, first, frame);
+                            first = printFrame(mod, key, first, frame);
                         }
                     }
+                }
                 }
             }
         }
@@ -150,7 +121,7 @@ System.err.println(mod + " has ID3v1");
     static final Pattern p_tpbm = Pattern.compile("\\d+");
     static final Pattern p_tsrc = Pattern.compile("[\\w-]+[\\d-]+");
     static final Pattern p_tkey = Pattern.compile("[ABCDEFGo][b# ]?m?");
-    static final List<String> s_woar = new ArrayList<String>() {{
+    static final List<String> s_woar = new ArrayList<>() {{
         add("www.nin.com");
     }};
 

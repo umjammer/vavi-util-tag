@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Disabled;
-
+import org.junit.jupiter.api.Test;
 import vavi.util.Debug;
 import vavi.util.box.Box;
 import vavi.util.box.BoxFactory;
@@ -28,12 +28,21 @@ import vavi.util.box.BoxFactory.BoxFactoryFactory;
 @Disabled
 public class ITLBoxFactoryTest {
 
-    /** */
-    public static void main(String[] args) throws Exception {
-        new ITLBoxFactoryTest(args[0]);
+    String mp4 = "src/test/resources/test.m4a";
+
+    @Test
+    void test1() throws Exception {
+        exec(mp4);
     }
 
-    public ITLBoxFactoryTest(String file) throws IOException {
+    /** */
+    public static void main(String[] args) throws Exception {
+        ITLBoxFactoryTest app = new ITLBoxFactoryTest();
+        app.exec(args[0]);
+    }
+
+    /** */
+    void exec(String file) throws IOException {
         BoxFactory factory = BoxFactoryFactory.getFactory(ITLBoxFactory.class.getName());
         InputStream is = Files.newInputStream(Paths.get(file));
         while (is.available() > 0) {

@@ -1,7 +1,7 @@
-[![Maven Package](https://github.com/umjammer/vavi-util-tag/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/umjammer/vavi-util-tag/actions/workflows/maven-publish.yml)
+[![Release](https://jitpack.io/v/umjammer/vavi-util-tag.svg)](https://jitpack.io/#umjammer/vavi-util-tag)
 [![Java CI](https://github.com/umjammer/vavi-util-tag/actions/workflows/maven.yml/badge.svg)](https://github.com/umjammer/vavi-util-tag/actions/workflows/maven.yml)
 [![CodeQL](https://github.com/umjammer/vavi-util-tag/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/umjammer/vavi-util-tag/actions/workflows/codeql-analysis.yml)
-![Java](https://img.shields.io/badge/Java-8-b07219)
+![Java](https://img.shields.io/badge/Java-17-b07219)
 
 # vavi-util-tag
 
@@ -18,16 +18,14 @@ manipulate mp3, m4a tag for java
 
 ## Install
 
- * https://github.com/umjammer/vavi-util-tag/packages/1623134
- * this project uses github packages. add a personal access token to `~/.m2/settings.xml`
- * see https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry
+ * [maven](https://jitpack.io/#umjammer/vavi-util-tag)
 
 ## Usage
 
 practicality is sufficient because it was actually applied to my itunes library (20,000 mp3s).
 
- * [List unnecessary mp3 v2 tags](https://github.com/umjammer/vavi-util-tag/blob/master/src/test/java/Test7_2.java)
- * [Delete unnecessary mp3 v2 tags](https://github.com/umjammer/vavi-util-tag/blob/master/src/test/java/Test7.java)
+ * [List unnecessary mp3 v2 tags](https://github.com/umjammer/vavi-util-tag/blob/master/src/test/java/MP3ShowTagUnnecessaryByWalk.java)
+ * [Delete unnecessary mp3 v2 tags](https://github.com/umjammer/vavi-util-tag/blob/master/src/test/java/MP3RemoveTagUnnecessaryByWalk2.java)
  * [List iTunes artwork](https://github.com/umjammer/vavi-util-tag/blob/master/src/test/java/vavi/util/itunes/artwork/ITCBoxFactoryTest.java)
 
 ## TODO

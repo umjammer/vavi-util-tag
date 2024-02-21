@@ -233,7 +233,7 @@ public class ID3v1 implements ID3Tag, Serializable {
             byte[] buffer = new byte[125];
             if (in.read(buffer, 0, 125) != 125) {
                 logger.warning("tag too short");
-                // this cannot happen cause we found "TAG" at correct position
+                // this cannot happen because we found "TAG" at correct position
             }
 //          String tag = new String(buffer, 0, 125, encoding);
 
@@ -433,7 +433,7 @@ logger.warning("mp3 length < 129: " + raf.length());
      *
      * @param str String to work with
      * @param len Length of <tt>str</tt> after filling
-     * @returns Filled string
+     * @return Filled string
      */
     private String fillWithNills(String str, int len) throws IOException {
         if (str == null) {
@@ -441,9 +441,7 @@ logger.warning("mp3 length < 129: " + raf.length());
             str = "";
         }
         StringBuilder tmp = new StringBuilder(str);
-        for (int i = str.getBytes(encoding).length + 1; i <= len; i++) {
-            tmp.append('\0');
-        }
+        tmp.append("\0".repeat(Math.max(0, len - (str.getBytes(encoding).length + 1) + 1)));
         return tmp.toString();
     }
 

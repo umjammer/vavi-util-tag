@@ -9,24 +9,19 @@ package vavi.util.itunes.artwork;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.util.regex.Pattern;
-
+import java.nio.file.Path;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import org.junit.jupiter.api.Disabled;
 
 import vavi.util.Debug;
 import vavi.util.box.Box;
 import vavi.util.box.BoxFactory;
 import vavi.util.box.BoxFactory.BoxFactoryFactory;
-import vavix.util.grep.FileDigger;
-import vavix.util.grep.RegexFileDigger;
 
 
 /**
@@ -35,7 +30,6 @@ import vavix.util.grep.RegexFileDigger;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 2010/09/08 nsano initial version <br>
  */
-@Disabled
 public class ITCBoxFactoryTest {
 
     /**
@@ -59,35 +53,39 @@ public class ITCBoxFactoryTest {
         frame.getContentPane().add(panel);
         frame.setVisible(true);
 
-        new RegexFileDigger(new FileDigger.FileDredger() {
-int c = 0;
-            public void dredge(File file) throws IOException {
-                BoxFactory factory = BoxFactoryFactory.getFactory(ITCBoxFactory.class.getName());
+        AtomicInteger c = new AtomicInteger();
+        Files.walk(Path.of(dir)).forEach(file -> {
+            try {
+                if (file.getFileName().toString().matches(".+\\.((itc)|(itc2))")) {
+                    BoxFactory factory = BoxFactoryFactory.getFactory(ITCBoxFactory.class.getName());
 
-                InputStream is = Files.newInputStream(file.toPath());
-Debug.println(c + ": " + file);
-                while (is.available() > 0) {
-                    Box box = factory.getInstance(is);
-Debug.println(box);
-                    if (box instanceof item) {
-                        try {
-                            image = ImageIO.read(new ByteArrayInputStream(box.getData()));
-                        } catch (Exception e) {
-                            e.printStackTrace(System.err);
-                        }
-//if (c < 100) {
+                    InputStream is = Files.newInputStream(file);
+                    Debug.println(c + ": " + file);
+                    while (is.available() > 0) {
+                        Box box = factory.getInstance(is);
+                        Debug.println(box);
+                        if (box instanceof item) {
+                            try {
+                                image = ImageIO.read(new ByteArrayInputStream(box.getData()));
+                            } catch (Exception e) {
+                                e.printStackTrace(System.err);
+                            }
+//if (c.get() < 100) {
 // if (((item) box).imageHeight == 128) {
-//  System.err.println(String.format("tmp/it/it_%02d.jpg", c));
-//  ImageIO.write(image, "JPG", new File(String.format("tmp/it/it_%02d.jpg", c)));
-  c++;
+//  System.err.println(String.format("tmp/it/it_%02d.jpg", c.get()));
+//  ImageIO.write(image, "JPG", new File(String.format("tmp/it/it_%02d.jpg", c.get())));
+                            c.incrementAndGet();
 // }
 //}
-                        frame.setTitle(file.getPath());
-                        panel.repaint();
+                            frame.setTitle(file.toString());
+                            panel.repaint();
+                        }
                     }
                 }
+            } catch (Exception e) {
+                e.printStackTrace(System.err);
             }
-        }, Pattern.compile(".+\\.((itc)|(itc2))")).dig(new File(dir));
+        });
     }
 }
 

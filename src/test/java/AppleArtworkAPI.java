@@ -12,6 +12,7 @@ import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import vavix.util.screenscrape.annotation.InputHandler;
 import vavix.util.screenscrape.annotation.Target;
@@ -19,14 +20,14 @@ import vavix.util.screenscrape.annotation.WebScraper;
 
 
 /**
- * Test10. Apple Artwork API
+ * AppleArtworkAPI. Apple Artwork API
  *
  * TODO deprecated ???
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2012/06/15 umjammer initial version <br>
  */
-public class Test10 {
+public class AppleArtworkAPI {
 
     /** */
     public static class MyInput implements InputHandler<Reader> {
@@ -39,8 +40,8 @@ public class Test10 {
                 return new StringReader(cache);
             }
 
-            String title = URLEncoder.encode(args[0], "UTF-8");
-            String artist = URLEncoder.encode(args[1], "UTF-8");
+            String title = URLEncoder.encode(args[0], StandardCharsets.UTF_8);
+            String artist = URLEncoder.encode(args[1], StandardCharsets.UTF_8);
 //            String albumArtist = args[2];
 System.err.println("title: " + args[0]);
 System.err.println("artist: " + args[1]);
@@ -103,32 +104,31 @@ System.err.println(cache);
         @Target("/plist/dict/key[text()='matchType']/following-sibling::string[1]/text()")
         String matchType;
         public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append("status: ");
-            sb.append(status);
-            sb.append("\n");
-            sb.append("coverArtUrl: ");
-            sb.append(coverArtUrl);
-            sb.append("\n");
-            sb.append("requestDelaySeconds: ");
-            sb.append(requestDelaySeconds);
-            sb.append("\n");
-            sb.append("artistName: ");
-            sb.append(artistName);
-            sb.append("\n");
-            sb.append("playlistName: ");
-            sb.append(playlistName);
-            sb.append("\n");
-            sb.append("artistId: ");
-            sb.append(artistId);
-            sb.append("\n");
-            sb.append("playlistId: ");
-            sb.append(playlistId);
-            sb.append("\n");
-            sb.append("matchType: ");
-            sb.append(matchType);
-            sb.append("\n");
-            return sb.toString();
+            String sb = "status: " +
+                    status +
+                    "\n" +
+                    "coverArtUrl: " +
+                    coverArtUrl +
+                    "\n" +
+                    "requestDelaySeconds: " +
+                    requestDelaySeconds +
+                    "\n" +
+                    "artistName: " +
+                    artistName +
+                    "\n" +
+                    "playlistName: " +
+                    playlistName +
+                    "\n" +
+                    "artistId: " +
+                    artistId +
+                    "\n" +
+                    "playlistId: " +
+                    playlistId +
+                    "\n" +
+                    "matchType: " +
+                    matchType +
+                    "\n";
+            return sb;
         }
     }
 

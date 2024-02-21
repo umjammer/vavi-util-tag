@@ -41,21 +41,20 @@ public class hdfm extends Box {
     String versionString;
 
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append('\n');
-        sb.append("fileLength: ");
-        sb.append(fileLength);
-        sb.append('\n');
-        sb.append("data1: ");
-        sb.append(data1);
-        sb.append('\n');
-        sb.append("lengthOfVersionString: ");
-        sb.append(lengthOfVersionString);
-        sb.append('\n');
-        sb.append("versionString: ");
-        sb.append(versionString);
-        sb.append('\n');
-        return sb.toString();
+        String sb = '\n' +
+                "fileLength: " +
+                fileLength +
+                '\n' +
+                "data1: " +
+                data1 +
+                '\n' +
+                "lengthOfVersionString: " +
+                lengthOfVersionString +
+                '\n' +
+                "versionString: " +
+                versionString +
+                '\n';
+        return sb;
     }
 
     /** */

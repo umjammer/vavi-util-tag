@@ -26,7 +26,7 @@ public interface BoxFactory {
         /** */
         public static BoxFactory getFactory(String className) {
             try {
-                return (BoxFactory) Class.forName(className).newInstance();
+                return (BoxFactory) Class.forName(className).getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 throw new IllegalStateException(e);
             }
