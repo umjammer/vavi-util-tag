@@ -14,14 +14,14 @@ import vavi.util.tag.id3.v2.ID3v2Frame;
 
 
 /**
- * Test15. (mp3 remove specified tags by one)
+ * MP3RemoveTagSpecifiedForOne. (mp3 remove specified tags by one)
  * <p>
  * WORKS FINE
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 051225 nsano initial version <br>
  */
-public class Test15 {
+public class MP3RemoveTagSpecifiedForOne {
 
     /**
      * @param args 0: mp3, 1...: tags

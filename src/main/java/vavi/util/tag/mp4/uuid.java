@@ -54,7 +54,7 @@ public class uuid extends Box {
         void inject(DataInputStream dis) throws IOException;
     }
 
-    class cpgd implements SubBox {
+    static class cpgd implements SubBox {
         /** */
         byte[] uuid = new byte[12];
 

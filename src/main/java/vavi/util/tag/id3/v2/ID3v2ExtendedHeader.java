@@ -65,7 +65,6 @@ public class ID3v2ExtendedHeader {
      * the first byte of the extended header.
      *
      * @param in Stream to read from
-     * @param use_unsynch If true, unsynchronization is used
      * @throws IOException If an I/O error occurs
      */
     public ID3v2ExtendedHeader(InputStream in) throws IOException {

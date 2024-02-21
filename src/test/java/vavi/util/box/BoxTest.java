@@ -17,7 +17,7 @@ import vavi.util.box.Box;
 
 
 /**
- * Test3. (box)
+ * BoxTest3. (box)
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 080313 nsano initial version <br>

@@ -472,27 +472,19 @@ class MP3Properties implements Serializable {
      * Convert 2 bits to samplerate
      */
     protected int convertSamplerate(int in1, int in2) {
-        int sample = 0;
-
-        switch ((in1 << 1) | in2) {
-        case 0:
-            sample = 44100;
-            break;
-        case 1:
-            sample = 48000;
-            break;
-        case 2:
-            sample = 32000;
-            break;
-        case 3:
-            // begin fix by axel.wernicke@gmx.de 02/12/26
-            // its legal - isn't it ??
-            // Illegal
-            // sample = 0;
-            sample = 16000;
+        int sample = switch ((in1 << 1) | in2) {
+            case 0 -> 44100;
+            case 1 -> 48000;
+            case 2 -> 32000;
+            case 3 ->
+                // begin fix by axel.wernicke@gmx.de 02/12/26
+                // its legal - isn't it ??
+                // Illegal
+                // sample = 0;
+                    16000;
+            default -> 0;
             // end fix
-            break;
-        }
+        };
 
         if (level == 1) {
             return sample;
@@ -512,7 +504,7 @@ class MP3Properties implements Serializable {
     }
 
     /**
-     * Convert 2 bits to emphasis
+     * Convert 2 bits to emphasize
      */
     protected int convertEmphasis(int in1, int in2) {
         int[] convert = {
@@ -527,21 +519,20 @@ class MP3Properties implements Serializable {
      * (like Nightmare's ID3 Tagger ;-))
      */
     protected long calculateLength(int id3v2_tagsize) {
-        /*      long framesize = (long)Math.ceil( 144 * bitrate / samplerate );
-
-        // header size is 4 bytes
-        // 1 byte is added if padding is set,
-        // 4 bytes checksum is added if protection is NOT set
-        int headersize = 4 + (padding ? 1 : 0) + (protection ? 0 : 4);
-
-        long filesize = file.length() - id3v2_tagsize;
-
-        // #frames = ceil(filesize / (framesize + headersize))
-        // sizeofallframes = #frames * framesize
-        // length = sizeofallframes / bitrate * 8 / 1000
-
-        return (long)(bitrate / (Math.ceil(filesize / (framesize + headersize)) * framesize) * 0.008);
-         */
+//        long framesize = (long)Math.ceil( 144 * bitrate / samplerate );
+//
+//        // header size is 4 bytes
+//        // 1 byte is added if padding is set,
+//        // 4 bytes checksum is added if protection is NOT set
+//        int headersize = 4 + (padding ? 1 : 0) + (protection ? 0 : 4);
+//
+//        long filesize = file.length() - id3v2_tagsize;
+//
+//        // #frames = ceil(filesize / (framesize + headersize))
+//        // sizeofallframes = #frames * framesize
+//        // length = sizeofallframes / bitrate * 8 / 1000
+//
+//        return (long)(bitrate / (Math.ceil(filesize / (framesize + headersize)) * framesize) * 0.008);
 
         // This does not work, at least not for small bitrates
         // I have to think about it TODO

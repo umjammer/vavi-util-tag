@@ -25,6 +25,10 @@ package vavi.util.tag.id3.v2.di;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
+import vavi.util.Debug;
 
 
 /**
@@ -102,30 +106,16 @@ public class ByteBuilder {
      */
     public void put(String put) {
         // encode string
-        byte[] encoded = null;
-
-        switch (encoding) {
-        case NONE:
-        case ISO:
-            try {
-                encoded = put.getBytes(System.getProperty("file.encoding"));
-            } catch (UnsupportedEncodingException e) {
-                assert false : "cannot happen :)";
-            }
-            break;
-        case UNICODE:
-            try {
-                encoded = put.getBytes("Unicode");
-            } catch (UnsupportedEncodingException e) {
-                assert false : "cannot happen :)";
-            }
-        }
+        byte[] encoded = switch (encoding) {
+            case NONE, ISO -> put.getBytes(Charset.forName(Charset.defaultCharset().displayName()));
+            default -> put.getBytes(StandardCharsets.UTF_16);
+        };
 
         try {
             arr.write(encoded);
         } catch (IOException e) {
             // How can this possibly happen?
-            e.printStackTrace();
+            Debug.printStackTrace(e);
         }
     }
 

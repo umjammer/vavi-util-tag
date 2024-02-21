@@ -11,8 +11,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.junit.jupiter.api.Disabled;
-
 import vavi.util.Debug;
 import vavi.util.box.Box;
 import vavi.util.box.BoxFactory;
@@ -25,7 +23,6 @@ import vavi.util.box.BoxFactory.BoxFactoryFactory;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2012/06/18 umjammer initial version <br>
  */
-@Disabled
 public class ITLBoxFactoryTest {
 
     /** */

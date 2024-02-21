@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+import vavi.util.Debug;
 import vavi.util.StringUtil;
 import vavi.util.tag.id3.Bytes;
 import vavi.util.tag.id3.v2.FrameContent;
@@ -61,7 +62,7 @@ public class ID3v2FrameV230 implements ID3v2Frame, Serializable {
      * @param file_alter_preservation Same as <code>tag_alter_preservation</code>, but applies if
      *        file (excluding tag) is altered
      * @param read_only True if frame should not be changed
-     * @param compression_type Use contant from this class:
+     * @param compression_type Use content from this class:
      *   <code>ID3v2Frame.NO_COMPRESSION</code>: <code>content</code> is not compressed and should not
      *   be compressed.
      *   <code>ID3v2Frame.IS_COMPRESSED</code>: <code>content</code> is already compressed
@@ -104,7 +105,7 @@ public class ID3v2FrameV230 implements ID3v2Frame, Serializable {
     /**
      * Creates a new ID3v2 frame from a stream.
      * Stream position must be set to first byte of frame.
-     * Note: Encryption/Deencryption is not supported, so content of
+     * Note: Encryption/Decryption is not supported, so content of
      *       encrypted frames will be returned encrypted. It is up to
      *       the higher level routines to decompress it.
      * Note^2: Compression/decompression supports only GZIP.
@@ -502,7 +503,7 @@ logger.warning("no key for: " + getID());
                 compression = false;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Debug.printStackTrace(e);
             // how should this happen? We are writing to memory...
         }
     }

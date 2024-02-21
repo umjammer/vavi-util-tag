@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import vavi.util.Debug;
-import vavi.util.StringUtil;
 import vavi.util.box.Box;
 import vavi.util.box.BoxFactory;
 
@@ -25,7 +24,9 @@ import vavi.util.box.BoxFactory;
  * @see ""
  */
 public class ITLBoxFactory implements BoxFactory {
+
     boolean first = true;
+
     /** */
     public Box getInstance(InputStream is) throws IOException {
         DataInputStream dis = new DataInputStream(is);
@@ -40,7 +41,7 @@ Debug.println("64 bit length: " + offset);
 
         Box box = null;
         String idString = new String(id);
-Debug.println("id: " + new String(id) + ", length: " + offset + " (" + StringUtil.toHex16(offset) + ")");
+Debug.println("id: " + new String(id) + ", length: " + offset + " (" + Long.toHexString(offset) + ")");
         if ("hdfm".equals(idString) && first) {
             box = new hdfm();
             first = false;
@@ -50,7 +51,7 @@ Debug.println("id: " + new String(id) + ", length: " + offset + " (" + StringUti
         box.setFactory(this); // TODO bad!
         box.setOffset(offset);
         box.setId(id);
-//Debug.println("id: " + new String(id) + ", length: " + offset + " (" + StringUtil.toHex16(offset) + ")");
+//Debug.println("id: " + new String(id) + ", length: " + offset + " (" + Long.toHexString(offset) + ")");
         box.inject(dis);
         return box;
     }

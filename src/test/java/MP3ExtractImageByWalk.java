@@ -8,9 +8,10 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -22,25 +23,22 @@ import vavi.util.tag.id3.v2.FrameContent;
 import vavi.util.tag.id3.v2.ID3v2;
 import vavi.util.tag.id3.v2.ID3v2Frame;
 
-import vavix.util.grep.FileDigger;
-import vavix.util.grep.RegexFileDigger;
-
 
 /**
- * Test17. (mp3 extract image by directory)
+ * MP3ExtractImageByWalk. (mp3 extract image by directory)
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 200217 nsano initial version <br>
  */
-public class Test17 {
+public class MP3ExtractImageByWalk {
 
-    static Logger logger = Logger.getLogger(Test17.class.getName());
+    static Logger logger = Logger.getLogger(MP3ExtractImageByWalk.class.getName());
 
     /**
      * @param args 0: top_directory, 1: regex_pattern
      */
     public static void main(String[] args) throws Exception {
-        Test17 app = new Test17();
+        MP3ExtractImageByWalk app = new MP3ExtractImageByWalk();
         app.exec(args);
     }
 
@@ -61,16 +59,15 @@ public class Test17 {
         frame.getContentPane().add(panel);
         frame.setVisible(true);
 
-        new RegexFileDigger(new FileDigger.FileDredger() {
-            public void dredge(File file) throws IOException {
-                try {
-                    exec(file.getAbsolutePath());
-                } catch (Exception e) {
-                    System.err.println(file + " ------------");
-                    e.printStackTrace();
+        Files.walk(Path.of(args[0])).forEach(file -> {
+            try {
+                if (file.getFileName().toString().matches(args[1])) {
+                    exec(file.toAbsolutePath().toString());
                 }
+            } catch (Exception e) {
+                e.printStackTrace(System.err);
             }
-        }, Pattern.compile(args[1])).dig(new File(args[0]));
+        });
     }
 
     /**

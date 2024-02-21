@@ -88,17 +88,12 @@ public abstract class FrameContent {
      */
     protected static String toJavaEncoding(int code) {
 //logger.info("code: " + code);
-        switch (code) {
-        case 0:
-        default:
-            return "ISO-8859-1";
-        case 1:
-            return "UTF-16";
-        case 2:
-            return "UTF-16BE";
-        case 3:
-            return "UTF-8";
-        }
+        return switch (code) {
+            default -> "ISO-8859-1";
+            case 1 -> "UTF-16";
+            case 2 -> "UTF-16BE";
+            case 3 -> "UTF-8";
+        };
     }
 }
 

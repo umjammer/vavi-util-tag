@@ -303,7 +303,7 @@ public class ID3v2 implements ID3Tag, Serializable {
             }
         }
 
-        if (results.size() == 0) {
+        if (results.isEmpty()) {
             // no frame found
 //if (key.equals("Track")) {
 // System.err.println("---- " + key + ", " + header.getVersion() + "." + header.getRevision());
@@ -471,9 +471,9 @@ logger.fine("not changed");
         //
         // ----------------- create new extended ID3V2 HEADER ---------------------
         //
-        ID3v2ExtendedHeader new_ext_header = (use_extended_header) ? new ID3v2ExtendedHeader(use_crc, crc, new Long(padding).intValue()) : null;
+        ID3v2ExtendedHeader new_ext_header = use_extended_header ? new ID3v2ExtendedHeader(use_crc, crc, (int) padding) : null;
 
-        byte[] bext_header = (use_extended_header) ? new_ext_header.getBytes() : new byte[0];
+        byte[] bext_header = use_extended_header ? new_ext_header.getBytes() : new byte[0];
 
         // unsynchronize extended header if necessary
         if (use_unsynchronization) {
@@ -514,7 +514,7 @@ logger.fine("not changed");
 
             // go to first byte after ID3v2 tag
             if (header != null) {
-                copy_out.skip(length_file - 1);
+                copy_out.skipNBytes(length_file - 1);
             }
 
             int localBufferSize = 32768;
@@ -682,7 +682,7 @@ logger.fine("invalid id found");
             }
         }
 logger.fine("skip: " + bis.available());
-        bis.skip(bis.available());
+        bis.skipNBytes(bis.available());
     }
 
     /**
