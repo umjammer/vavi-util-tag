@@ -60,5 +60,3 @@ Debug.println("update");
         assertEquals(Checksum.getChecksum(Path.of(expected)), Checksum.getChecksum(actual));
     }
 }
-
-/* */

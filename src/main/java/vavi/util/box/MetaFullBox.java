@@ -39,5 +39,3 @@ public class MetaFullBox extends FullBox implements Meta {
         return metaSupport.toString(new String(id));
     }
 }
-
-/* */

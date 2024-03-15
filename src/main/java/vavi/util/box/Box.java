@@ -117,5 +117,3 @@ public class Box {
         this.factory = factory;
     }
 }
-
-/* */

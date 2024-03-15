@@ -134,5 +134,3 @@ System.err.println(mod + " has ID3v1");
         return first;
     }
 }
-
-/* */

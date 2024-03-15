@@ -56,5 +56,3 @@ Debug.println("64 bit length: " + offset);
         return box;
     }
 }
-
-/* */

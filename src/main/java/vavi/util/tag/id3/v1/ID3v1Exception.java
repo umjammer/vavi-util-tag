@@ -39,5 +39,3 @@ public class ID3v1Exception extends ID3TagException {
         super(message);
     }
 }
-
-/* */

@@ -40,5 +40,3 @@ public class _ART extends MetaBox {
         return "id = ©ART, data:\n" + StringUtil.getDump(getData());
     }
 }
-
-/* */

@@ -65,5 +65,3 @@ public class item extends Box {
                              dataHeaderLength);
     }
 }
-
-/* */

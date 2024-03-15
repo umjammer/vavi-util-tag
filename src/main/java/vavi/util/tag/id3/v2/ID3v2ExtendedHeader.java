@@ -214,5 +214,3 @@ public class ID3v2ExtendedHeader {
     /** */
     private final static byte FLAG_CRC_PRESENT = (byte) (1 << 7);
 }
-
-/* */

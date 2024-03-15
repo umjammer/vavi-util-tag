@@ -60,5 +60,3 @@ logger.info("id: " + id + ", description: " + description + ", text: " + Arrays.
         }
     }
 }
-
-/* */

@@ -77,5 +77,3 @@ public class MP4Tag implements Tag {
         return results;
     }
 }
-
-/* */

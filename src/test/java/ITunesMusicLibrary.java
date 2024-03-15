@@ -94,5 +94,3 @@ System.err.println("Library Persistent ID: " + libraryPersistentID);
         });
     }
 }
-
-/* */

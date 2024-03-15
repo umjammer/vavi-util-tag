@@ -43,5 +43,3 @@ System.err.println(StringUtil.getDump(data, 64));
         return "id = covr, data:\n" + StringUtil.getDump(getData(), 128);
     }
 }
-
-/* */

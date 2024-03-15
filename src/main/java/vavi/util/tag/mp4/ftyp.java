@@ -49,5 +49,3 @@ public class ftyp extends Box {
         return "ftyp: majourBrand: " + new String(majourBrand) + ", minorVersion: " + minorVersion + ", compatibleBrands: " + new String(compatibleBrands) + "\n" + StringUtil.getDump(data);
     }
 }
-
-/* */

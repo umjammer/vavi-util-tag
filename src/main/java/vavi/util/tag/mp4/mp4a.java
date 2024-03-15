@@ -87,5 +87,3 @@ public class mp4a extends MetaFullBox {
         metaSupport.inject(dis, rest, factory); // TODO factory
     }
 }
-
-/* */

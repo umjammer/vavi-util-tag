@@ -169,5 +169,3 @@ public class ID3v2HeaderV230 extends ID3v2Header implements Serializable {
     /** */
     protected static final byte FLAG_EXPERIMENTAL = (byte) (1 << 5);
 }
-
-/* */

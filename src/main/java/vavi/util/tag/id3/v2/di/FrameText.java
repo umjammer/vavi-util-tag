@@ -89,5 +89,3 @@ public interface FrameText {
         }
     }
 }
-
-/* */

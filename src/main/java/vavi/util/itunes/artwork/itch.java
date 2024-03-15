@@ -39,5 +39,3 @@ public class itch extends Box {
         dis.skipBytes((int) offset - 8 - 20); // TODO 64 bit
     }
 }
-
-/* */

@@ -29,5 +29,3 @@ public interface Tag {
     /** */
     Iterator<?> tags() throws TagException;
 }
-
-/* */

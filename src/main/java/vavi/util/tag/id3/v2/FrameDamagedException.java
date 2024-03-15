@@ -35,5 +35,3 @@ public class FrameDamagedException extends Exception {
         initCause(e);
     }
 }
-
-/* */

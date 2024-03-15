@@ -80,5 +80,3 @@ public class MP4File extends File {
         return mp4Tag;
     }
 }
-
-/* */

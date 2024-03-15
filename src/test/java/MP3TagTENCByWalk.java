@@ -69,5 +69,3 @@ System.err.println(frame.getContent(key));
         }
     }
 }
-
-/* */

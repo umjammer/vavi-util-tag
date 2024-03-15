@@ -58,5 +58,3 @@ public class mdhd extends Box {
                              quality);
     }
 }
-
-/* */

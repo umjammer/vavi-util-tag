@@ -56,5 +56,3 @@ Debug.println("id: " + new String(id) + ", length: " + offset + " (" + Long.toHe
         return box;
     }
 }
-
-/* */

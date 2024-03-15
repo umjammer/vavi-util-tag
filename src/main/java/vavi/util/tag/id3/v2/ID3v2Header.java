@@ -149,5 +149,3 @@ public abstract class ID3v2Header {
         return true;
     }
 }
-
-/* */

@@ -200,5 +200,3 @@ logger.info("no ID3v2: " + this);
      */
     protected MP3Properties prop;
 }
-
-/* */
