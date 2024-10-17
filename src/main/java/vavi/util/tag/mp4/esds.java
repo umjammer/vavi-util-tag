@@ -27,14 +27,14 @@ public class esds extends FullBox {
     @Override
     public void inject(DataInputStream dis) throws IOException {
         super.injectBase(dis);
-//Debug.println("version: " + version);
+//logger.log(Level.TRACE, "version: " + version);
         long rest = offset - 8 - 4;
-//Debug.println("rest: " + rest);
+//logger.log(Level.TRACE, "rest: " + rest);
         while (rest > 0) {
             Description desc = Description.readFrom(dis);
-//Debug.println("desc: " + desc);
+//logger.log(Level.TRACE, "desc: " + desc);
             rest -= desc.totalLength;
-//Debug.println("rest: " + rest);
+//logger.log(Level.TRACE, "rest: " + rest);
         }
     }
 
@@ -81,40 +81,40 @@ public class esds extends FullBox {
             int[] result = readTagLength(dis);
             desc.totalLength += result[1];
             int length = result[0];
-//Debug.println("tag: " + desc.tag + ", length: " + length);
+//logger.log(Level.TRACE, "tag: " + desc.tag + ", length: " + length);
 
             switch (desc.tag) {
             case ESDescrTag: {
                 int dummy = dis.readUnsignedShort();    // elementary stream id
-//Debug.println("elementary stream id: " + dummy);
+//logger.log(Level.TRACE, "elementary stream id: " + dummy);
                 desc.totalLength += 2;
                 dummy = dis.readUnsignedByte();         // stream priority
-//Debug.println("stream priority: " + dummy);
+//logger.log(Level.TRACE, "stream priority: " + dummy);
                 desc.totalLength += 1;
                 Description subDesc = Description.readFrom(dis);
-//Debug.println("subDesc: " + subDesc);
+//logger.log(Level.TRACE, "subDesc: " + subDesc);
                 desc.totalLength += subDesc.totalLength;
             }
                 break;
             case DecConfigDescrTag: {
                 int dummy = dis.readUnsignedByte();     // object type id, 64: aac, 225: qcelp?
-//Debug.println("object type id: " + dummy);
+//logger.log(Level.TRACE, "object type id: " + dummy);
                 desc.totalLength += 1;
                 dummy = dis.readUnsignedByte();         // stream type
-//Debug.println("stream type: " + dummy);
+//logger.log(Level.TRACE, "stream type: " + dummy);
                 desc.totalLength += 1;
                 dummy = dis.readUnsignedShort();        // buffer size 16/24
                 int dummy2 = dis.readUnsignedByte();    // 8/24
-//Debug.println("buffer size: " + ((dummy << 8) | dummy2));
+//logger.log(Level.TRACE, "buffer size: " + ((dummy << 8) | dummy2));
                 desc.totalLength += 3;
                 dummy = dis.readInt();                  // max bitrate
-//Debug.println("max bitrate: " + dummy);
+//logger.log(Level.TRACE, "max bitrate: " + dummy);
                 desc.totalLength += 4;
                 dummy = dis.readInt();                  // average bitrate
-//Debug.println("average bitrate: " + dummy);
+//logger.log(Level.TRACE, "average bitrate: " + dummy);
                 desc.totalLength += 4;
                 Description subDesc = Description.readFrom(dis);
-//Debug.println("subDesc: " + subDesc);
+//logger.log(Level.TRACE, "subDesc: " + subDesc);
                 desc.totalLength += subDesc.totalLength;
             }
                 break;

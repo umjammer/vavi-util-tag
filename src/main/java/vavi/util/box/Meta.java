@@ -56,7 +56,7 @@ public interface Meta {
 //System.err.println(subBox);
                 subBoxes.add(subBox);
                 l += (int) subBox.offset;
-//Debug.println(l + "/" + (offset - 8));
+//logger.log(Level.TRACE, l + "/" + (offset - 8));
             }
         }
 

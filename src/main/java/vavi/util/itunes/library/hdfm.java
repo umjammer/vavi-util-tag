@@ -11,20 +11,22 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 import java.util.zip.ZipException;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
-import vavi.util.Debug;
 import vavi.util.box.Box;
 import vavi.util.box.BoxFactory;
 import vavi.util.box.BoxFactory.BoxFactoryFactory;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -34,6 +36,8 @@ import vavi.util.box.BoxFactory.BoxFactoryFactory;
  * @version 0.00 070904 nsano initial version <br>
  */
 public class hdfm extends Box {
+
+    private static final Logger logger = getLogger(hdfm.class.getName());
 
     int fileLength;
     int data1;
@@ -80,7 +84,7 @@ public class hdfm extends Box {
         byte[] inflated = inflate(decrypted);
 
         this.data = !Arrays.equals(decrypted, inflated) ? inflated : decrypted;
-//Debug.println(this + "\n" + StringUtil.getDump(this.data, 128));
+//logger.log(Level.TRACE, this + "\n" + StringUtil.getDump(this.data, 128));
 
         //
         BoxFactory factory = BoxFactoryFactory.getFactory(ITLBoxFactory.class.getName());
@@ -88,7 +92,7 @@ public class hdfm extends Box {
         InputStream is = new ByteArrayInputStream(this.data);
         while (is.available() > 0) {
             Box box = factory.getInstance(is);
-Debug.println(box);
+logger.log(Level.TRACE, box);
         }
     }
 

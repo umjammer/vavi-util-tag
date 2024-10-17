@@ -90,7 +90,7 @@ public class Box {
      * DATE (int) から java long (msec since 1970/1/1) を取得します．
      */
     protected static long qtTimeToLong(int qtTime) {
-//Debug.println("date: " + qtTime);
+//logger.log(Level.TRACE, "date: " + qtTime);
         long time = qtTime;
         if (qtTime < 0) {
             time = qtTime + 0x1_0000_0000L;

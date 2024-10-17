@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Disabled;
@@ -30,8 +29,6 @@ import vavi.util.tag.id3.v2.ID3v2Frame;
  */
 @Disabled
 public class MP3ShowTagUnnecessaryByWalk {
-
-    static Logger logger = Logger.getLogger(MP3ShowTagUnnecessaryByWalk.class.getName());
 
     /**
      * @param args 0: top_directory, 1: regex_pattern

@@ -7,7 +7,6 @@
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Iterator;
-import java.util.logging.Logger;
 
 import vavi.util.tag.id3.ID3Tag.Type;
 import vavi.util.tag.id3.MP3File;
@@ -22,8 +21,6 @@ import vavi.util.tag.id3.v2.ID3v2Frame;
  * @version 0.00 051225 nsano initial version <br>
  */
 public class MP3TagTENCByWalk {
-
-    static Logger logger = Logger.getLogger(MP3TagTENCByWalk.class.getName());
 
     /**
      * @param args 0: top_directory, 1: regex_pattern

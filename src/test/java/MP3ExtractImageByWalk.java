@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Iterator;
-import java.util.logging.Logger;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -31,8 +29,6 @@ import vavi.util.tag.id3.v2.ID3v2Frame;
  * @version 0.00 200217 nsano initial version <br>
  */
 public class MP3ExtractImageByWalk {
-
-    static Logger logger = Logger.getLogger(MP3ExtractImageByWalk.class.getName());
 
     /**
      * @param args 0: top_directory, 1: regex_pattern
