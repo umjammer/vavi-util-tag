@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Iterator;
-import java.util.logging.Logger;
 
 import vavi.util.StringUtil;
 import vavi.util.tag.id3.ID3Tag.Type;
@@ -24,8 +23,6 @@ import vavi.util.tag.id3.v2.ID3v2Frame;
  * @version 0.00 051225 nsano initial version <br>
  */
 public class MP3FindTextInImageUnnecessaryByWalk {
-
-    static Logger logger = Logger.getLogger(MP3FindTextInImageUnnecessaryByWalk.class.getName());
 
     /**
      * @param args 0: top_directory, 1: regex_pattern
@@ -97,5 +94,3 @@ first = printFrame(mod, key, first, frame);
         return first;
     }
 }
-
-/* */

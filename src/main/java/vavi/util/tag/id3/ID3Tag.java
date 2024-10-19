@@ -24,5 +24,3 @@ public interface ID3Tag extends Tag {
         RIFF
     }
 }
-
-/* */

@@ -575,5 +575,3 @@ class MP3Properties implements Serializable {
     }
     // extension fix
 }
-
-/* */

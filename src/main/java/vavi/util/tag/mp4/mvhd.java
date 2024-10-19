@@ -77,5 +77,3 @@ public class mvhd extends Box {
                              preferredRate);
     }
 }
-
-/* */

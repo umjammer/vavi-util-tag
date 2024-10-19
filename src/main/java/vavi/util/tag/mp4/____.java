@@ -63,5 +63,3 @@ public class ____ extends MetaBox {
         return "id = ----, mean: " + getMean() + ", name: " + getName() + ", data:\n" + StringUtil.getDump(getData());
     }
 }
-
-/* */

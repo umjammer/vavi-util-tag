@@ -3,13 +3,16 @@ package vavi.util.tag.mp4;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.nio.charset.StandardCharsets;
 
-import vavi.util.Debug;
 import vavi.util.box.Box;
 import vavi.util.box.BoxFactory;
 import vavi.util.box.MetaBox;
 import vavi.util.box.MetaFullBox;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -35,6 +38,9 @@ import vavi.util.box.MetaFullBox;
  * </pre>
  */
 public class MP4BoxFactory implements BoxFactory {
+
+    private static final Logger logger = getLogger(MP4BoxFactory.class.getName());
+
     /** */
     public Box getInstance(InputStream is) throws IOException {
         DataInputStream dis = new DataInputStream(is);
@@ -44,7 +50,7 @@ public class MP4BoxFactory implements BoxFactory {
         dis.readFully(id);
         if (offset == 1) {
             offset = dis.readLong();
-Debug.println("64 bit length: " + offset);
+logger.log(Level.TRACE, "64 bit length: " + offset);
         }
 
         Box box = null;
@@ -100,10 +106,8 @@ Debug.println("64 bit length: " + offset);
         box.setFactory(this); // TODO bad!
         box.setOffset(offset);
         box.setId(id);
-//Debug.println("id: " + new String(id) + ", length: " + StringUtil.toHex16(offset));
+//logger.log(Level.TRACE, "id: " + new String(id) + ", length: " + StringUtil.toHex16(offset));
         box.inject(dis);
         return box;
     }
 }
-
-/* */

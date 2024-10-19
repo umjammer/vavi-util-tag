@@ -37,5 +37,3 @@ public class MetaBox extends Box implements Meta {
         return metaSupport.toString(new String(id));
     }
 }
-
-/* */

@@ -104,5 +104,3 @@ logger.severe(e.getMessage());
         }
     }
 }
-
-/* */

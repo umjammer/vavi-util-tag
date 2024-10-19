@@ -55,5 +55,3 @@ public class GenreFrameContent extends EncodedTextFrameContent {
         }
     }
 }
-
-/* */

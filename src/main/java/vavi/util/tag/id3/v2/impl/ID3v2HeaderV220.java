@@ -135,5 +135,3 @@ public class ID3v2HeaderV220 extends ID3v2Header implements Serializable {
     /** */
     public static final int FLAG_COMPRESS = 0x40;
 }
-
-/* */

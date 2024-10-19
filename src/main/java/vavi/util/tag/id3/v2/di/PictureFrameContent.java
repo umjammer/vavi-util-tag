@@ -147,5 +147,3 @@ logger.info(e.toString());
         }
     }
 }
-
-/* */

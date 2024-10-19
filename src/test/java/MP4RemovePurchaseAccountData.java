@@ -4,17 +4,13 @@
  * Programmed by Naohide Sano
  */
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Scanner;
 
 import vavi.util.box.Box;
 import vavi.util.tag.mp4.MP4File;
 import vavi.util.tag.mp4.MP4Tag;
-import vavix.util.grep.FileDigger;
 
 
 /**
@@ -40,28 +36,6 @@ import vavix.util.grep.FileDigger;
  * @version 0.00 120608 nsano initial version <br>
  */
 public class MP4RemovePurchaseAccountData {
-
-    static class MyFileDigger implements FileDigger {
-        private FileDredger dredger;
-
-        public MyFileDigger(FileDredger dredger) {
-            this.dredger = dredger;
-        }
-
-        public void dig(File file) throws IOException {
-            Scanner scanner = new Scanner(file);
-
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String fileName = line.split("\t")[0];
-
-System.err.println(fileName);
-                dredger.dredge(new File(fileName));
-//break;
-            }
-            scanner.close();
-        }
-    }
 
     /**
      * @param args top_directory regex_pattern

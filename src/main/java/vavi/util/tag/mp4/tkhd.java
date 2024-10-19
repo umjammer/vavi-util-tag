@@ -72,5 +72,3 @@ public class tkhd extends Box {
                              trackHeight);
     }
 }
-
-/* */

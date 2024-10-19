@@ -41,5 +41,3 @@ public class FullBox extends Box {
         return "id: " + new String(id) + ", offset: " + offset + ", version: " + version + (data != null ? "\n" + StringUtil.getDump(data, 128) : "\n");
     }
 }
-
-/* */

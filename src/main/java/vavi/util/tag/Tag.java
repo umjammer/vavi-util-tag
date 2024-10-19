@@ -17,6 +17,7 @@ import java.util.Iterator;
  * @version 0.00 051208 nsano initial version <br>
  */
 public interface Tag {
+
     /** */
     Object getTag(String key) throws TagException;
 
@@ -29,5 +30,3 @@ public interface Tag {
     /** */
     Iterator<?> tags() throws TagException;
 }
-
-/* */

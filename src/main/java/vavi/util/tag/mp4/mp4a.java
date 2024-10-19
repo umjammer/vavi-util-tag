@@ -58,7 +58,7 @@ public class mp4a extends MetaFullBox {
      */
     @Override
     public void inject(DataInputStream dis) throws IOException {
-//Debug.println("\n" + StringUtil.getDump(dis, 128));
+//logger.log(Level.TRACE, "\n" + StringUtil.getDump(dis, 128));
 
         super.injectBase(dis);
         if (offset - 8 - 4 == 0) { // TODO is a sepc?
@@ -68,14 +68,14 @@ public class mp4a extends MetaFullBox {
         int dataReferenceIndex = dis.readUnsignedShort();
 
         int version = dis.readInt(); // version, revision ??? 0: amc, 3gp, 1: mov
-//Debug.println("dataReferenceIndex: " + dataReferenceIndex + ", version: " + version);
+//logger.log(Level.TRACE, "dataReferenceIndex: " + dataReferenceIndex + ", version: " + version);
         dis.readInt();
         this.channelCount = dis.readUnsignedShort();
         this.sampleSize = dis.readUnsignedShort();
         dis.readShort(); // pre_defined 0: amc, 3gp, -2: mov
         dis.readShort(); // reserved 0
         this.sampleRate = dis.readInt() >> 16; // {timescale of media} << 16;
-//Debug.println("channelCount: " + channelCount + ", sampleSize: " + sampleSize + ", sampleRate: " + sampleRate);
+//logger.log(Level.TRACE, "channelCount: " + channelCount + ", sampleSize: " + sampleSize + ", sampleRate: " + sampleRate);
 
         long rest = offset - 8 - 8 - 20; 
         if (version == 0x10000) {
@@ -83,9 +83,7 @@ public class mp4a extends MetaFullBox {
             rest -= 16;
         }
 
-//Debug.println("rest: " + rest);
+//logger.log(Level.TRACE, "rest: " + rest);
         metaSupport.inject(dis, rest, factory); // TODO factory
     }
 }
-
-/* */

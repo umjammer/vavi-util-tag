@@ -740,5 +740,3 @@ if ("Comments".equals(key) && frames.size() > 1) {
         return results.iterator();
     }
 }
-
-/* */

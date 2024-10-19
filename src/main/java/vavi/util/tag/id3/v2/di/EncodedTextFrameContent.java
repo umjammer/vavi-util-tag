@@ -93,5 +93,3 @@ public class EncodedTextFrameContent extends TextFrameContent {
         }
     }
 }
-
-/* */

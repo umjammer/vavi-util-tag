@@ -23,5 +23,3 @@ public class IsoText implements FrameText {
         return CharConverter.createString(content, start, length);
     }
 }
-
-/* */

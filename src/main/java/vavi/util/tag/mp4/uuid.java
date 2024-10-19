@@ -87,5 +87,3 @@ public class uuid extends Box {
         }
     }
 }
-
-/* */

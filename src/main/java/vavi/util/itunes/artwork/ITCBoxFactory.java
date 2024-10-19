@@ -9,10 +9,14 @@ package vavi.util.itunes.artwork;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 
 import vavi.util.Debug;
 import vavi.util.box.Box;
 import vavi.util.box.BoxFactory;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -26,6 +30,9 @@ import vavi.util.box.BoxFactory;
  * @see "http://www.waldoland.com/dev/Articles/ITCFileFormat.aspx"
  */
 public class ITCBoxFactory implements BoxFactory {
+
+    private static final Logger logger = getLogger(ITCBoxFactory.class.getName());
+
     /** */
     public Box getInstance(InputStream is) throws IOException {
         DataInputStream dis = new DataInputStream(is);
@@ -35,12 +42,12 @@ public class ITCBoxFactory implements BoxFactory {
         dis.readFully(id);
         if (offset == 1) {
             offset = dis.readLong();
-Debug.println("64 bit length: " + offset);
+logger.log(Level.TRACE, "64 bit length: " + offset);
         }
 
         Box box = null;
         String idString = new String(id);
-//Debug.println("id: " + new String(id) + ", length: " + offset + " (" + StringUtil.toHex16(offset) + ")");
+//logger.log(Level.TRACE, "id: " + new String(id) + ", length: " + offset + " (" + StringUtil.toHex16(offset) + ")");
         if ("itch".equals(idString)) {
             box = new itch();
         } else if ("item".equals(idString)) {
@@ -51,10 +58,8 @@ Debug.println("64 bit length: " + offset);
         box.setFactory(this); // TODO bad!
         box.setOffset(offset);
         box.setId(id);
-//Debug.println("id: " + new String(id) + ", length: " + offset + " (" + StringUtil.toHex16(offset) + ")");
+//logger.log(Level.TRACE, "id: " + new String(id) + ", length: " + offset + " (" + StringUtil.toHex16(offset) + ")");
         box.inject(dis);
         return box;
     }
 }
-
-/* */

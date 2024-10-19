@@ -52,5 +52,3 @@ public class hdlr extends FullBox {
                              componentFlagsMask);
     }
 }
-
-/* */

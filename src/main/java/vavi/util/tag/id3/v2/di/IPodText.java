@@ -29,5 +29,3 @@ logger.info("iTunNORM:");
         return CharConverter.createString(content, start, length);
     }
 }
-
-/* */

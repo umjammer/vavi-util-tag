@@ -51,5 +51,3 @@ public class ID3v2Exception extends ID3TagException {
         initCause(t);
     }
 }
-
-/* */

@@ -127,5 +127,3 @@ public class ID3v2HeaderV240 extends ID3v2HeaderV230 implements Serializable {
     /** */
     private final static byte FLAG_FOOTER = (byte) (1 << 4);
 }
-
-/* */

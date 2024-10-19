@@ -77,5 +77,3 @@ public class EncodedTextWithLanguageFrameContent extends TextFrameContent {
         }
     }
 }
-
-/* */

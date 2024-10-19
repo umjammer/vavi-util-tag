@@ -101,5 +101,3 @@ logger.severe("VAVI: ENCODING: unknown, use " + System.getProperty("file.encodin
         }
     }
 }
-
-/* */

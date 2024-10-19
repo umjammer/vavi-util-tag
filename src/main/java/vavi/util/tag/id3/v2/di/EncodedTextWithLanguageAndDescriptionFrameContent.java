@@ -85,5 +85,3 @@ logger.fine("encoding: " + encoding + ", language: " + language + ", description
         }
     }
 }
-
-/* */

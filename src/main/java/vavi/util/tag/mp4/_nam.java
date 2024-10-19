@@ -40,5 +40,3 @@ public class _nam extends MetaBox {
         return "id = ©nam, data:\n" + StringUtil.getDump(getData());
     }
 }
-
-/* */
