@@ -52,15 +52,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-        settings-path: ${{ github.workspace }} # location for the settings.xml file
 
       # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
       # If this step fails, then you should remove it and run the build manually (see below)
     - name: Build with Maven
-      run: mvn -B package --file pom.xml -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip=true
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+      run: mvn -B package --file pom.xml -Dmaven.test.skip=true
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
